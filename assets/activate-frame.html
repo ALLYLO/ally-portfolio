@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creator Activation</title>
+  <link rel="stylesheet" href="activate-page.css">
+  <style>
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#081416; }
+    #activate-root { position:relative; width:100%; height:100%; overflow:hidden; }
+    #activate-root > .activate-page { position:absolute; width:1536px; height:700px; transform-origin:top left; }
+  </style>
+</head>
+<body>
+  <div id="activate-root"></div>
+  <script src="activate-page.js"></script>
+  <script>
+    const root = document.getElementById('activate-root');
+    const designWidth = 1536;
+    const designHeight = 700;
+    function fit() {
+      const page = root.querySelector('.activate-page');
+      if (!page) return;
+      const scale = Math.min(root.clientWidth / designWidth, root.clientHeight / designHeight);
+      page.style.left = `${Math.max(0, (root.clientWidth - designWidth * scale) / 2)}px`;
+      page.style.top = `${Math.max(0, (root.clientHeight - designHeight * scale) / 2)}px`;
+      page.style.transform = `scale(${scale})`;
+    }
+    function draw() {
+      root.innerHTML = window.renderActivatePage();
+      root.firstElementChild.classList.add('fixed-canvas');
+      fit();
+    }
+    draw();
+    window.addEventListener('resize', fit);
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(root);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
+    document.addEventListener('click', event => {
+      const button = event.target.closest('[data-activate-event]');
+      if (!button) return;
+      window.activateEventIndex = Number(button.dataset.activateEvent);
+      draw();
+    });
+  </script>
+</body>
+</html>

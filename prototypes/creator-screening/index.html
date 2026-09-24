@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Creator Screening Motion Prototype</title>
+  <link rel="stylesheet" href="prototype-v2.css">
+  <script>if(new URLSearchParams(location.search).get('embed')==='portfolio')document.documentElement.classList.add('portfolio-embed')</script>
+</head>
+<body>
+  <main class="prototype-shell">
+    <header>
+      <div><span>01 / CREATOR POOL</span><h1>CREATOR UNIVERSE</h1><p id="stage-subtitle">00 — START WITH THE POOL</p></div>
+      <p class="disclosure">ANONYMIZED SAMPLE<br>ILLUSTRATIVE SCREENING FLOW</p>
+    </header>
+    <section class="viewport" aria-label="Interactive creator screening visualization">
+      <canvas id="universe"></canvas>
+      <div class="data-grid" aria-hidden="true"></div>
+      <aside class="screening-readout" aria-live="polite">
+        <span id="readout-kicker">SCREENING STATUS</span>
+        <h2 id="readout-title">UNIVERSE INTAKE</h2>
+        <p id="readout-copy">No criteria applied. All sample creators begin embedded within the wider visual universe.</p>
+        <div class="readout-counts"><div id="metric-pass"><b id="count-pass">—</b><small>CONFIRMED</small></div><div id="metric-unknown"><b id="count-unknown">28</b><small id="count-unknown-label">IN SAMPLE</small></div><div id="metric-fail"><b id="count-fail">0</b><small>FILTERED</small></div></div>
+        <em>28-RECORD ANONYMIZED SAMPLE</em>
+      </aside>
+      <aside class="creator-profile" aria-live="polite">
+        <div class="profile-top"><span>CREATOR PROFILE</span><b id="profile-index">01 / 28</b></div>
+        <div class="profile-identity">
+          <div class="profile-orb"><i></i></div>
+          <div><strong id="profile-id">CREATOR C01</strong><small id="profile-meta">YOUTUBE · JAPAN<br>50.3K FOLLOWERS · 70K AVG. VIEWS</small></div>
+          <div class="profile-arrows"><button id="profile-prev" aria-label="Previous creator">‹</button><button id="profile-next" aria-label="Next creator">›</button></div>
+        </div>
+        <div class="profile-heading"><span>SCREENING CRITERIA</span><b id="profile-stage-count">01 / 05</b><h2 id="profile-stage">CONTENT RELEVANCE</h2></div>
+        <div class="profile-criteria" id="profile-criteria"></div>
+        <div class="profile-note" id="profile-note" hidden></div>
+        <div class="profile-verdict" id="profile-verdict"><i>✓</i><div><b>PASSED</b><span>Creator meets this stage’s criteria.</span></div></div>
+      </aside>
+      <div class="selection-line" aria-hidden="true"></div>
+      <div class="selection-target" aria-hidden="true"><i></i><b></b></div>
+      <div class="tooltip" role="status" aria-live="polite"></div>
+      <div class="legend" aria-hidden="true"><span><i class="pass"></i>CONFIRMED PASS</span><span id="legend-unknown"><i class="unknown"></i>PENDING REVIEW</span><span><i class="fail"></i>FILTERED</span></div>
+    </section>
+    <footer>
+      <nav class="stages" aria-label="Screening stages"></nav>
+      <div class="actions"><button id="play">PLAY SEQUENCE</button><button id="reset">RESET</button></div>
+    </footer>
+  </main>
+  <script src="prototype-v16.bundle.js"></script>
+</body>
+</html>
