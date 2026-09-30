@@ -73,6 +73,7 @@ function setStage(next,{keepSequence=false}={}){
   [...nav.children].forEach((b,i)=>{b.classList.toggle('active',i===stage);b.setAttribute('aria-current',i===stage?'step':'false')});
   const summary=stageSummary(stage);
   viewport.dataset.summary=`${summary.passed} confirmed · ${summary.unknown} not assessed · ${summary.failed} filtered`;
+  document.querySelector('#readout-sample').textContent=`${creators.length-summary.hidden}-RECORD ANONYMIZED SAMPLE`;
   document.querySelector('#readout-title').textContent=READOUTS[stage][0];
   document.querySelector('#readout-copy').textContent=READOUTS[stage][1];
   document.querySelector('#count-pass').textContent=stage===0?'—':summary.passed;
