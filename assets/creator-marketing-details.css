@@ -32,7 +32,8 @@
 .cm-platform-count svg{grid-row:1/3;width:16px;height:16px;overflow:visible}
 .cm-platform-count b{color:#171a17;font-size:14px;line-height:1}
 .cm-platform-count small{grid-column:2;margin:0!important;color:#766d7f;font:500 7px/1.15 'DM Sans',sans-serif}
-.cm-program-metrics--reverse>div:last-child strong{font-size:clamp(14px,1.1vw,19px);letter-spacing:-.035em;padding-top:5px}
+.cm-program-metrics--reverse>div:last-child{align-self:center;margin-left:5px;padding:8px 10px;border-left:0;border-radius:8px;background:#e4d8f8}
+.cm-program-metrics--reverse>div:last-child strong{font-size:18px;letter-spacing:-.035em}
 /* Restore the original two-to-one split: the screening canvas owns the stage. */
 @media (min-width:1101px){
   #case-dialog:has(.case-layout--creator){height:98vh;max-height:98vh}
@@ -51,9 +52,9 @@
   .cm-program-games{gap:3px}
   .cm-program-games img{width:24px;height:24px;border-radius:6px}
   .cm-program h4{margin-bottom:2px;font-size:10px;line-height:1.15}
-  .cm-fact{grid-template-columns:15px 51px minmax(0,1fr);gap:4px;align-items:start;padding:4px 0}
+  .cm-fact{grid-template-columns:15px 59px minmax(0,1fr);gap:4px;align-items:start;padding:4px 0}
   .cm-fact-icon{width:15px;height:15px;font-size:9px}
-  .cm-fact b{padding-top:1px;font-size:9px}
+  .cm-fact b{padding-top:1px;font-size:11px;line-height:1.2}
   .cm-fact p{font-size:11px!important;line-height:1.2!important}
   .cm-program-metrics{margin-top:6px;padding:7px 3px;border-radius:7px}
   .cm-program-metrics>div{padding:0 4px}
@@ -66,7 +67,8 @@
   .cm-platform-count svg{width:16px;height:16px}
   .cm-platform-count b{font-size:11px}
   .cm-platform-count small{font-size:6px}
-  .cm-program-metrics--reverse>div:last-child strong{font-size:11px}
+  .cm-program-metrics--reverse>div:last-child{margin-left:3px;padding:5px 4px;border-radius:6px}
+  .cm-program-metrics--reverse>div:last-child strong{font-size:15px}
 }
 @media (min-width:1101px) and (max-height:700px){
   .case-layout--creator .cm-case-details{padding-block:9px}
@@ -88,6 +90,8 @@
   .cm-program-metrics{margin-top:8px;padding-block:8px}
   .cm-program-metrics strong{font-size:24px}
   .cm-program-metrics span{font-size:10px}
+  .cm-fact b{font-size:11px}
+  .cm-program-metrics--reverse>div:last-child strong{font-size:16px}
   .cm-platform-count svg{width:17px;height:17px}
   .cm-platform-counts .cm-platform-count{grid-template-columns:17px minmax(0,1fr)}
   .cm-platform-count b{font-size:12px}
@@ -103,6 +107,7 @@
   .cm-detail-head{grid-column:1/-1}
   .cm-program{min-width:0;border-bottom:0}
   .cm-program--reverse{padding-left:24px;border-left:1px solid #29352e30}
+  .cm-program-metrics--reverse>div:last-child strong{font-size:14px}
 }
 @media (min-width:1101px) and (max-height:540px){
   #case-content:has(.case-layout--creator){height:auto;overflow:visible}
@@ -114,5 +119,6 @@
   .case-layout--creator{min-height:460px}
   .case-layout--creator .cm-case-details{height:auto;overflow:visible}
 }
-@media (max-width:760px){.case-layout--creator{grid-template-columns:1fr}.case-layout--creator .cm-case-details{height:auto;overflow:visible;padding:34px 6vw 42px}.cm-case-details .cm-detail-head h2{font-size:clamp(32px,9vw,48px)!important}.cm-program-head{gap:10px}.cm-program-number{flex-basis:40px;height:40px;border-radius:12px;font-size:18px}.cm-program-head h3{font-size:clamp(20px,5vw,27px)}.cm-program-games img{width:31px;height:31px;border-radius:8px}.cm-fact{grid-template-columns:27px 65px minmax(0,1fr);gap:8px}.cm-fact p{font-size:12px!important}.cm-program-metrics{padding:14px 5px}.cm-program-metrics>div{padding:0 8px}.cm-program-metrics strong{font-size:clamp(20px,6vw,28px)}.cm-program-metrics span{font-size:10px}.cm-program-metrics small{font-size:8px}.cm-program-metrics--reverse{grid-template-columns:.9fr 1.5fr .9fr}.cm-platform-counts .cm-platform-count{grid-template-columns:14px minmax(0,1fr)}.cm-platform-count svg{width:14px;height:14px}.cm-platform-count b{font-size:11px}.cm-platform-count small{font-size:7px}}
+@media (max-width:760px){.case-layout--creator{grid-template-columns:1fr}.case-layout--creator .cm-case-details{height:auto;overflow:visible;padding:34px 6vw 42px}.cm-case-details .cm-detail-head h2{font-size:clamp(32px,9vw,48px)!important}.cm-program-head{gap:10px}.cm-program-number{flex-basis:40px;height:40px;border-radius:12px;font-size:18px}.cm-program-head h3{font-size:clamp(20px,5vw,27px)}.cm-program-games img{width:31px;height:31px;border-radius:8px}.cm-fact{grid-template-columns:27px 65px minmax(0,1fr);gap:8px}.cm-fact b{font-size:12px}.cm-fact p{font-size:12px!important}.cm-program-metrics{padding:14px 5px}.cm-program-metrics>div{padding:0 8px}.cm-program-metrics strong{font-size:clamp(20px,6vw,28px)}.cm-program-metrics span{font-size:10px}.cm-program-metrics small{font-size:8px}.cm-program-metrics--reverse{grid-template-columns:.9fr 1.5fr .9fr}.cm-platform-counts .cm-platform-count{grid-template-columns:14px minmax(0,1fr)}.cm-platform-count svg{width:14px;height:14px}.cm-platform-count b{font-size:11px}.cm-platform-count small{font-size:7px}}
 @media (max-width:390px){.cm-program-head h3{font-size:19px}.cm-program-games img{width:27px;height:27px}.cm-program-metrics--reverse{grid-template-columns:1fr 1fr}.cm-program-metrics--reverse .cm-platform-counts{justify-content:flex-start}.cm-program-metrics--reverse>div:last-child{grid-column:1/-1;border-left:0;border-top:1px solid #9484b344;margin-top:10px;padding-top:9px}}
+@media (min-width:391px) and (max-width:430px){.cm-program-metrics--reverse>div:last-child strong{font-size:16px}}
