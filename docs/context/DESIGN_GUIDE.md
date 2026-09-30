@@ -11,3 +11,7 @@ In the desktop case-study modal, the interactive screening canvas should retain 
 The Japan Creator Marketing card on the Works page presents both programs' headline outcomes in one compact bottom bar without enlarging it. Show HoYoverse's three figures and Reverse: 1999's 715 submissions and weekly content review; leave the platform breakdown in the detail view. Keep the visual archive above the bar and match the detail view's metric definitions.
 
 When Works cards appear side by side, their visual frames should have equal heights so the project titles align. Fit the Japan Creator Marketing image area around its outcome bar within that shared frame height.
+
+## NIKKE detail view
+
+Use the existing case modal, roughly two-thirds content and one-third project introduction on desktop, with the shared top and Previous/Next navigation. The two internal pages are Creator Operating System and Creator & Community Activation; switching pages changes only the left content. Keep typography readable, parallel scale figures separate from any conversion funnel, and evidence-led editorial sections with thin dividers. Stack content on smaller screens using the existing case layout strategy. Show official campaign visuals and clearly identified sanitized material; never imitate a real screenshot when source evidence is unavailable.
