@@ -6,4 +6,4 @@ For the current visual and interaction implementation, inspect index.html and th
 
 ## Japan Creator Marketing detail view
 
-The project-detail area should show the HoYoverse and Reverse: 1999 summaries together without its own scrollbar. On narrow screens, preserve complete text in the normal page flow rather than clipping content to force a fixed-height panel.
+In the desktop case-study modal, the interactive screening canvas should retain roughly two thirds of the width, with the project-detail area limited to roughly one third. The detail area should show the HoYoverse and Reverse: 1999 summaries together without its own scrollbar. On narrow screens, preserve complete text in the normal page flow rather than clipping content to force a fixed-height panel.

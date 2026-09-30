@@ -31,50 +31,57 @@
 .cm-platform-counts span{margin:0;color:#5a5369;white-space:nowrap;font:600 11px/1.3 'Space Grotesk',sans-serif}
 .cm-platform-counts b{color:#171a17}
 .cm-program-metrics--reverse>div:last-child strong{font-size:clamp(14px,1.1vw,19px);letter-spacing:-.035em;padding-top:5px}
-/* Keep both programs visible together in the desktop case-study viewport. */
+/* Restore the original two-to-one split: the screening canvas owns the stage. */
 @media (min-width:1101px){
-  .case-layout--creator{grid-template-columns:minmax(0,2fr) minmax(0,3fr)}
-  .case-layout--creator .cm-case-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr);column-gap:18px;height:100%;padding:18px 24px 16px;overflow:hidden}
-  .cm-detail-head{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;column-gap:18px;align-items:end;padding-bottom:12px}
-  .cm-detail-head>.label{grid-column:1;grid-row:1}
-  .cm-case-details .cm-detail-head h2{grid-column:1;grid-row:2/4;margin:5px 0 0!important;font-size:clamp(27px,2vw,37px)!important;line-height:.95!important}
-  .cm-detail-head .case-tag{grid-column:2;grid-row:2;align-self:end;font-size:9px}
-  .cm-detail-head>p{grid-column:2;grid-row:3;align-self:start;margin:4px 0 0;font-size:12px;line-height:1.3}
-  .cm-program{display:flex;flex-direction:column;min-width:0;padding:17px 0 0;border-bottom:0}
-  .cm-program--reverse{padding-left:18px;border-left:1px solid #29352e30}
-  .cm-program-head{gap:8px;margin-bottom:12px}
-  .cm-program-number{flex-basis:36px;height:36px;border-radius:10px;font-size:18px}
-  .cm-case-details .cm-program-head h3{font-size:clamp(20px,1.55vw,26px);line-height:1.05}
+  #case-dialog:has(.case-layout--creator){height:98vh;max-height:98vh}
+  #case-content:has(.case-layout--creator){height:calc(98vh - 68px)}
+  .case-layout--creator{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+  .case-layout--creator .cm-case-details{display:flex;flex-direction:column;height:100%;padding:13px 18px 12px;overflow:visible}
+  .cm-detail-head{padding-bottom:9px}
+  .cm-detail-head>.label{font-size:9px}
+  .cm-case-details .cm-detail-head h2{margin:4px 0 5px!important;font-size:clamp(24px,2vw,34px)!important;line-height:.92!important}
+  .cm-detail-head .case-tag{font-size:8px}
+  #case-content .cm-detail-head>p{margin:6px 0 0;font-size:12px;line-height:1.25}
+  .cm-program{min-width:0;padding:10px 0 9px}
+  .cm-program-head{gap:7px;margin-bottom:4px}
+  .cm-program-number{flex-basis:27px;height:27px;border-radius:7px;font-size:14px}
+  .cm-case-details .cm-program-head h3{font-size:clamp(17px,1.34vw,22px);line-height:1}
   .cm-program-games{gap:3px}
-  .cm-program-games img{width:30px;height:30px;border-radius:8px}
-  .cm-program h4{min-height:30px;margin-bottom:5px;font-size:clamp(12px,.92vw,15px);line-height:1.2}
-  .cm-fact{grid-template-columns:21px 53px minmax(0,1fr);gap:6px;align-items:start;padding:10px 0}
-  .cm-fact-icon{width:21px;height:21px;font-size:12px}
-  .cm-fact b{padding-top:3px;font-size:10px}
-  .cm-fact p{font-size:clamp(12px,.96vw,14px)!important;line-height:1.35!important}
-  .cm-program-metrics{margin-top:16px;padding:14px 5px;border-radius:9px}
-  .cm-program-metrics>div{padding:0 6px}
-  .cm-program-metrics strong{font-size:clamp(22px,1.8vw,32px)}
-  .cm-program-metrics span{font-size:11px;line-height:1.2}
-  .cm-program-metrics small{font-size:8px;line-height:1.2}
+  .cm-program-games img{width:24px;height:24px;border-radius:6px}
+  .cm-program h4{margin-bottom:2px;font-size:10px;line-height:1.15}
+  .cm-fact{grid-template-columns:15px 51px minmax(0,1fr);gap:4px;align-items:start;padding:4px 0}
+  .cm-fact-icon{width:15px;height:15px;font-size:9px}
+  .cm-fact b{padding-top:1px;font-size:9px}
+  .cm-fact p{font-size:11px!important;line-height:1.2!important}
+  .cm-program-metrics{margin-top:6px;padding:7px 3px;border-radius:7px}
+  .cm-program-metrics>div{padding:0 4px}
+  .cm-program-metrics strong{font-size:clamp(19px,1.55vw,27px)}
+  .cm-program-metrics span{margin-top:3px;font-size:9px;line-height:1.15}
+  .cm-program-metrics small{margin-top:2px;font-size:7px;line-height:1.15}
   .cm-program-metrics--reverse{grid-template-columns:.85fr 1.2fr .9fr}
-  .cm-platform-counts span{font-size:10px}
-  .cm-program-metrics--reverse>div:last-child strong{font-size:clamp(12px,.95vw,16px)}
-  .case-canvas--interactive .cm-pagination button{grid-template-columns:1fr;grid-template-rows:auto auto;gap:3px;align-content:center;justify-items:start;padding:8px 10px}
-  .case-canvas--interactive .cm-thumb{display:none}
-  .case-canvas--interactive .cm-pagination small{grid-column:1;grid-row:1;font-size:22px}
-  .case-canvas--interactive .cm-pagination b{grid-column:1;grid-row:2;font-size:11px;line-height:1.1}
+  .cm-platform-counts span{font-size:8px}
+  .cm-program-metrics--reverse>div:last-child strong{font-size:11px}
 }
 @media (min-width:1101px) and (max-height:700px){
-  .case-layout--creator .cm-case-details{padding-block:12px 10px}
-  .cm-detail-head{padding-bottom:7px}
-  .cm-case-details .cm-detail-head h2{font-size:27px!important}
-  .cm-detail-head>p{font-size:11px;line-height:1.25}
-  .cm-program{padding-top:10px}
-  .cm-program-head{margin-bottom:5px}
-  .cm-program h4{min-height:24px;margin-bottom:2px}
-  .cm-fact{padding:6px 0}
-  .cm-program-metrics{margin-top:9px;padding-block:9px}
+  .case-layout--creator .cm-case-details{padding-block:9px}
+  .cm-program{padding-block:7px}
+  .cm-fact{padding-block:3px}
+}
+@media (min-width:1350px) and (min-height:760px){
+  .cm-detail-head>.label{font-size:10px}
+  .cm-case-details .cm-detail-head h2{font-size:30px!important}
+  #case-content .cm-detail-head>p{font-size:13px}
+  .cm-program{padding-block:10px 9px}
+  .cm-program-head{margin-bottom:7px}
+  .cm-program-number{flex-basis:32px;height:32px;font-size:16px}
+  .cm-case-details .cm-program-head h3{font-size:21px}
+  .cm-program-games img{width:28px;height:28px}
+  .cm-program h4{font-size:11px;margin-bottom:4px}
+  .cm-fact{padding-block:5px}
+  .cm-fact p{font-size:12px!important;line-height:1.3!important}
+  .cm-program-metrics{margin-top:8px;padding-block:8px}
+  .cm-program-metrics strong{font-size:24px}
+  .cm-program-metrics span{font-size:10px}
 }
 @media (min-width:761px) and (max-width:1100px){
   .case-layout--creator{grid-template-columns:1fr}
