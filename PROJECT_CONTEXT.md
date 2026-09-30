@@ -4,7 +4,8 @@ This repository is the sole canonical working repository for the Portfolio websi
 
 ## How to read the project
 
-- AGENTS.md gives Codex its durable working rules.
+- AGENTS.md is the task entry point for mandatory reading and preflight.
+- docs/context/OPERATING_RULES.md is the sole canonical source for durable operating rules and regression guards.
 - README.md explains how to run, preview, and publish the site.
 - docs/context/CONTENT_GUIDE.md owns standards for content claims and public evidence.
 - docs/context/DESIGN_GUIDE.md holds only approved, durable design constraints.

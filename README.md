@@ -10,10 +10,11 @@ Run `./dev.sh`, then open <http://127.0.0.1:4173/>. Refresh the browser after ed
 
 This repository is connected to the Vercel project `ally-portfolio` with **Framework Preset: Other**, **Root Directory: `./`**, and no build command. The production URL is <https://ally-portfolio-nine.vercel.app/>. A push to `main` updates that URL automatically; pushes to other branches create Preview deployments. No build framework or manual upload is needed.
 
-After editing `index.html` or `assets/`:
+After editing `index.html` or `assets/`, stage only the exact changed paths for one logical change. Replace the example path as needed and inspect the staged diff; see `docs/context/OPERATING_RULES.md` for the change policy.
 
 ```sh
-git add -A
+git add -- index.html
+git diff --cached
 git commit -m "Update portfolio"
 git push origin main
 ```
@@ -24,7 +25,8 @@ For review on iPad or phone before publishing, use the existing `preview` branch
 git switch preview
 git merge main
 # edit and check the site with ./dev.sh
-git add -A
+git add -- index.html
+git diff --cached
 git commit -m "Update portfolio"
 git push origin preview
 ```
