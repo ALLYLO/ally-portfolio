@@ -7,11 +7,19 @@
     kyomaf: 'KYOMAF 2023 · kimono visual'
   };
   const visual = (key) => `<img src="${visuals[key]}" alt="${assetLabels[key]}" loading="lazy">`;
+  const lifecycleIcons = {
+    search: '<circle cx="13" cy="13" r="8"/><path d="m19 19 8 8"/>',
+    send: '<path d="M28 4 4 14l10 4 4 10L28 4Z"/><path d="m14 18 8-8"/>',
+    document: '<path d="M8 3h11l6 6v20H8z"/><path d="M19 3v7h6M12 15h9M12 20h9M12 25h7"/>',
+    support: '<path d="M7 23a6 6 0 0 1-1-11 8 8 0 0 1 15-3 6 6 0 0 1 4 10 5 5 0 0 1-3 8H11a5 5 0 0 1-4-4Z"/><path d="M13 19c2 2 4 2 6 0"/>',
+    retain: '<path d="M5 28h23M9 26V16M16 26V10M23 26V5"/>'
+  };
+  const lifecycleIcon = (key) => `<svg class="nk-lifecycle-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lifecycleIcons[key]}</svg>`;
   const metric = (value, label, note = '') => `<div class="nk-metric"><strong>${value}</strong><b>${label}</b>${note ? `<small>${note}</small>` : ''}</div>`;
   const pageHead = (number, title) => `<div class="nk-page-head"><span class="nk-kicker">NIKKE / NORTH AMERICA</span><span class="nk-kicker">${number} / 04</span></div><h2 class="nk-page-title" id="nk-page-title" tabindex="-1">${title}</h2>`;
 
   function operatingSystem() {
-    const stages = [['SOURCE','Discovery · Fit'],['OUTREACH','Email · Discord'],['ONBOARD','NDA · Documentation'],['SUPPORT','Q&amp;A · Issues'],['ACTIVATE','Brief · Submission'],['RETAIN','Performance · Reward']];
+    const stages = [['SOURCE','Discovery · Fit','search'],['OUTREACH','Email · Discord','send'],['ONBOARD','NDA · Documentation','document'],['SUPPORT','Q&amp;A · Issues','support'],['ACTIVATE','Brief · Submission','document'],['RETAIN','Performance · Reward','retain']];
     return `${pageHead('01', 'CREATOR<br>OPERATING SYSTEM')}
       <section class="nk-scale" aria-label="Project scale — independent measures">
         ${metric('154', 'CREATORS RECOMMENDED', 'Qualified for client review')}
@@ -19,7 +27,7 @@
         ${metric('47', 'KOCs DIRECTLY MANAGED', 'Supported across ongoing operations')}
       </section>
       <section class="nk-section nk-lifecycle"><div class="nk-section-heading"><h3>CREATOR LIFECYCLE</h3><span class="nk-kicker">END-TO-END OPERATING FLOW</span></div>
-        <ol>${stages.map(([name, text], i) => `<li><span>0${i + 1}</span><strong>${name}</strong><p>${text}</p></li>`).join('')}</ol>
+        <ol>${stages.map(([name, text, icon], i) => `<li>${lifecycleIcon(icon)}<span>0${i + 1}</span><strong>${name}</strong><p>${text}</p></li>`).join('')}</ol>
       </section>`;
   }
 

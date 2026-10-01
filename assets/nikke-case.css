@@ -18,11 +18,13 @@
 #case-content .nk-section-heading{display:flex;flex-direction:column;align-items:flex-start;gap:7px;margin-bottom:18px}
 #case-content .nk-section-heading h3{margin:0;font:650 clamp(19px,1.45vw,27px)/1.12 'Space Grotesk',sans-serif;letter-spacing:-.025em;color:#f4f0e7}
 #case-content .nk-lifecycle .nk-section-heading{flex-direction:row;justify-content:space-between;align-items:center;gap:16px}
-#case-content .nk-lifecycle ol{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:15px;list-style:none;margin:25px 0 5px;padding:0}
-#case-content .nk-lifecycle li{position:relative;min-width:0;padding-top:15px;border-top:1px solid #e8e7de50}
-#case-content .nk-lifecycle li:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:-13px;font-size:19px;color:#b2b7ac;background:#151713}
-#case-content .nk-lifecycle li>span{display:block;margin-bottom:12px;font:500 15px/1 'Space Grotesk',sans-serif;color:#b2b7ac}
-#case-content .nk-lifecycle strong{display:block;font:650 clamp(15px,1.2vw,23px)/1.1 'Space Grotesk',sans-serif}
+#case-content .nk-lifecycle{padding-bottom:16px;border-bottom:1px solid #e8e7de35}
+#case-content .nk-lifecycle ol{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:19px;list-style:none;margin:25px 0 5px;padding:0}
+#case-content .nk-lifecycle li{position:relative;min-width:0}
+#case-content .nk-lifecycle li:not(:last-child)::after{content:'⟶';position:absolute;right:-20px;top:8px;font:400 25px/1 'DM Sans',sans-serif;color:#b2b7ac}
+#case-content .nk-lifecycle-icon{display:block;width:34px;height:34px;margin-bottom:10px;color:#f4f0e7}
+#case-content .nk-lifecycle li>span{display:block;margin-bottom:3px;font:500 20px/1 'Space Grotesk',sans-serif;color:#f4f0e7}
+#case-content .nk-lifecycle strong{display:block;font:650 clamp(16px,1.35vw,21px)/1.1 'Space Grotesk',sans-serif}
 #case-content .nk-lifecycle p{margin:8px 0 0;font:400 14px/1.5 'DM Sans',sans-serif;color:#b2b7ac}
 #case-content .nk-evidence-grid, #case-content .nk-activation-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:26px;margin-top:20px;border-top:1px solid #e8e7de35}
 #case-content .nk-document-excerpt{padding:24px;background:#e9e6dd;color:#30372b}
@@ -124,8 +126,8 @@
   #case-content .nk-section-heading{margin-bottom:11px}
   #case-content .nk-section-heading h3{font-size:clamp(18px,1.45vw,22px)}
   #case-content .nk-lifecycle ol{margin:20px 0 0}
-  #case-content .nk-lifecycle li>span{margin-bottom:8px}
-  #case-content .nk-lifecycle strong{font-size:clamp(13px,1.1vw,17px)}
+  #case-content .nk-lifecycle li>span{margin-bottom:3px}
+  #case-content .nk-lifecycle strong{font-size:clamp(16px,1.35vw,19px)}
   #case-content .nk-lifecycle p{font-size:12px;line-height:1.35}
   #case-content .nk-evidence-grid{gap:18px;margin-top:8px}
   #case-content .nk-document-excerpt{padding:18px}
@@ -205,8 +207,8 @@
   #case-content .nk-stage:has(.nk-scale) .nk-metric strong{font-size:clamp(62px,5vw,72px)}
   #case-content .nk-stage:has(.nk-scale) .nk-lifecycle{padding-top:30px}
   #case-content .nk-stage:has(.nk-scale) .nk-lifecycle ol{margin-top:35px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li{padding-top:20px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li>span{margin-bottom:14px}
+  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li{padding-top:0}
+  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li>span{margin-bottom:3px}
   #case-content .nk-stage:has(.nk-scale) .nk-lifecycle strong{font-size:18px}
   #case-content .nk-stage:has(.nk-scale) .nk-lifecycle p{font-size:14px;line-height:1.4;margin-top:9px}
 }
