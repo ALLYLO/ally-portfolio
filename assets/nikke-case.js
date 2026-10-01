@@ -15,12 +15,25 @@
     retain: '<path d="M5 28h23M9 26V16M16 26V10M23 26V5"/>'
   };
   const lifecycleIcon = (key) => `<svg class="nk-lifecycle-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lifecycleIcons[key]}</svg>`;
+  const channelIcons = {
+    youtube: '<rect x="1" y="3" width="22" height="18" rx="5" fill="#ff0033"/><path d="m10 8 7 4-7 4z" fill="#fff"/>',
+    twitch: '<path d="M2 2h20v14l-5 5h-5l-3 3v-3H2z" fill="#9146ff"/><path d="M8 7v8m7-8v8" stroke="#fff" stroke-width="2"/>',
+    discord: '<path d="M5 5q7-4 14 0l3 13q-3 3-6 3l-1-2q-3 1-6 0l-1 2q-3 0-6-3z" fill="#5865f2"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/>',
+    reddit: '<circle cx="12" cy="13" r="10" fill="#ff4500"/><path d="m12 7 1-4 4 1M6 11l-3-1m15 1 3-1" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="9" cy="13" r="1.2" fill="#fff"/><circle cx="15" cy="13" r="1.2" fill="#fff"/><path d="M9 17q3 2 6 0" fill="none" stroke="#fff" stroke-width="1.4"/>'
+  };
   const metric = (value, label, note = '') => `<div class="nk-metric"><strong>${value}</strong><b>${label}</b>${note ? `<small>${note}</small>` : ''}</div>`;
   const pageHead = (number, title) => `<div class="nk-page-head"><span class="nk-kicker">NIKKE / NORTH AMERICA</span><span class="nk-kicker">${number} / 04</span></div><h2 class="nk-page-title" id="nk-page-title" tabindex="-1">${title}</h2>`;
 
   function operatingSystem() {
-    const stages = [['SOURCE','Discovery · Fit','search'],['OUTREACH','Email · Discord','send'],['ONBOARD','NDA · Documentation','document'],['SUPPORT','Q&amp;A · Issues','support'],['ACTIVATE','Brief · Submission','document'],['RETAIN','Performance · Reward','retain']];
-    return `${pageHead('01', 'CREATOR<br>OPERATING SYSTEM')}
+    const stages = [['SOURCE','Discovery · Fit','search'],['OUTREACH','Email · Discord','send'],['ONBOARD','NDA · Documentation','document'],['SUPPORT','Q&amp;A · Issues','support'],['ACTIVATE','Brief · Submission','document'],['RETAIN','Performance · Reward<br>Re-engage','retain']];
+    const touchpoints = [
+      ['YouTube', 'Video content creation', 'youtube'],
+      ['Twitch', 'Live streams &amp; events', 'twitch'],
+      ['Discord', 'Creator support &amp; communication', 'discord'],
+      ['Reddit', 'Community content &amp; discussion', 'reddit']
+    ];
+    return `<div class="nk-operating-page">
+      <div class="nk-hero">${pageHead('01', 'CREATOR<br>OPERATING SYSTEM')}<p>A structured approach to manage the creator lifecycle<br>from sourcing to long-term collaboration.</p></div>
       <section class="nk-scale" aria-label="Project scale — independent measures">
         ${metric('154', 'CREATORS RECOMMENDED', 'Qualified for client review')}
         ${metric('176', 'CREATORS REACHED', 'Progressed through outreach')}
@@ -28,7 +41,10 @@
       </section>
       <section class="nk-section nk-lifecycle"><div class="nk-section-heading"><h3>CREATOR LIFECYCLE</h3><span class="nk-kicker">END-TO-END OPERATING FLOW</span></div>
         <ol>${stages.map(([name, text, icon], i) => `<li>${lifecycleIcon(icon)}<span>0${i + 1}</span><strong>${name}</strong><p>${text}</p></li>`).join('')}</ol>
-      </section>`;
+      </section>
+      <section class="nk-touchpoints" aria-label="Key touchpoints"><div class="nk-section-heading"><h3>KEY TOUCHPOINTS</h3><span class="nk-kicker">CREATOR OPERATIONS ACROSS MULTIPLE CHANNELS</span></div>
+        <div class="nk-touchpoint-grid">${touchpoints.map(([name, description, key]) => `<article class="nk-touchpoint nk-touchpoint--${key}"><div class="nk-touchpoint-label"><svg viewBox="0 0 24 24" aria-hidden="true">${channelIcons[key]}</svg><strong>${name}</strong></div><p>${description}</p></article>`).join('')}</div>
+      </section></div>`;
   }
 
   function operationsEvidence() {
@@ -86,9 +102,9 @@
 
   window.renderNikkeDetails = () => `<section class="case-details nk-details" aria-label="NIKKE project introduction">
     <div class="nk-intro-head"><span class="nk-kicker">THE PROJECT</span><h2 id="case-title">NIKKE Creator<br>&amp; Community Operations</h2><span class="nk-kicker">CREATOR MARKETING / NORTH AMERICA</span></div>
-    <section class="nk-intro-section"><h3>PROJECT OVERVIEW</h3><p>A long-term KOC program supporting NIKKE’s creator ecosystem through sourcing, onboarding, community support and recurring campaign operations.</p><p>Alongside creator operations, I produced Reddit content around key game moments to encourage organic community discussion.</p></section>
+    <section class="nk-intro-section"><h3>PROJECT OVERVIEW</h3><p>A long-term KOC program supporting NIKKE’s creator ecosystem through sourcing, onboarding, community engagement and recurring campaign operations.</p></section>
     <section class="nk-intro-section"><h3>PROJECT INFO</h3><dl class="nk-metadata"><div><dt>ROLE</dt><dd>Creator &amp; Community Operations Intern</dd></div><div><dt>MARKET</dt><dd>North America / English-speaking</dd></div><div><dt>CHANNELS</dt><dd>YouTube · Twitch · Discord · Reddit</dd></div><div><dt>PROJECT TYPE</dt><dd>Long-term KOC Program</dd></div></dl></section>
-    <section class="nk-intro-section"><h3>CORE RESPONSIBILITIES</h3><ol class="nk-responsibilities"><li><span>01</span><div><b>Creator Acquisition</b><p>Sourcing · Outreach · Onboarding</p></div></li><li><span>02</span><div><b>Community Operations</b><p>Discord Support · Creator Relations</p></div></li><li><span>03</span><div><b>Campaign Operations</b><p>Activation · Performance · Fulfillment</p></div></li><li><span>04</span><div><b>Process Documentation</b><p>SOP · Tracking · Handover</p></div></li></ol></section>
+    <section class="nk-intro-section"><h3>CORE RESPONSIBILITIES</h3><ol class="nk-responsibilities"><li><span>01</span><div><b>Creator Acquisition</b><p>Sourcing · Outreach · Onboarding</p></div></li><li><span>02</span><div><b>Community Operations</b><p>Discord Support · Reddit Content · Creator Relations</p></div></li><li><span>03</span><div><b>Campaign Operations</b><p>Activation · Performance · Fulfillment</p></div></li><li><span>04</span><div><b>Process Documentation</b><p>SOP · Tracking · Handover</p></div></li></ol></section>
     <section class="nk-intro-section nk-featured"><h3>FEATURED CONTRIBUTION</h3><p>Created the project’s operations playbook and handover guide, documenting recurring workflows from creator onboarding to campaign tracking and reward fulfillment.</p></section>
   </section>`;
 

@@ -26,6 +26,41 @@
 #case-content .nk-lifecycle li>span{display:block;margin-bottom:3px;font:500 20px/1 'Space Grotesk',sans-serif;color:#f4f0e7}
 #case-content .nk-lifecycle strong{display:block;font:650 clamp(16px,1.35vw,21px)/1.1 'Space Grotesk',sans-serif}
 #case-content .nk-lifecycle p{margin:8px 0 0;font:400 14px/1.5 'DM Sans',sans-serif;color:#b2b7ac}
+#case-content .nk-operating-page{display:grid;grid-template-rows:minmax(0,1.2fr) minmax(0,.8fr) minmax(0,1.35fr) minmax(0,.9fr);height:calc(100% + 36px);min-height:0;margin:-18px calc(-1 * clamp(18px,1.6vw,28px));overflow:hidden}
+#case-content .nk-hero{position:relative;display:flex;flex-direction:column;justify-content:center;min-width:0;padding:7px clamp(22px,2vw,38px);isolation:isolate;background:#171b1a;color:#fff}
+#case-content .nk-hero::before{content:'';position:absolute;inset:0;z-index:-2;background:url('nikke/anniversary-our-story.png') center 31%/cover no-repeat;filter:grayscale(1) brightness(.65)}
+#case-content .nk-hero::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0b0e0cf5 0%,#0b0e0cdb 38%,#0b0e0c35 83%)}
+#case-content .nk-hero .nk-page-head{margin:0 0 4px}
+#case-content .nk-hero .nk-kicker{color:#f1f0eccc}
+#case-content .nk-hero .nk-page-title{font-size:clamp(30px,2.7vw,48px);line-height:.9;margin:0;max-width:580px;text-shadow:0 2px 8px #0009}
+#case-content .nk-hero>p{margin:5px 0 0;font:400 clamp(11px,1vw,14px)/1.25 'DM Sans',sans-serif;max-width:520px;color:#f0f2ef}
+#case-content .nk-operating-page .nk-scale{align-items:center;padding:8px clamp(22px,2vw,38px);border-block:1px solid #e8e7de35}
+#case-content .nk-operating-page .nk-metric strong{font-size:clamp(39px,3.4vw,64px)}
+#case-content .nk-operating-page .nk-metric b{font-size:clamp(10px,.9vw,13px);margin-top:2px}
+#case-content .nk-operating-page .nk-metric small{font-size:clamp(10px,.85vw,12px);margin-top:2px;line-height:1.2}
+#case-content .nk-operating-page .nk-lifecycle{padding:9px clamp(22px,2vw,38px) 5px;border-bottom:1px solid #e8e7de35}
+#case-content .nk-operating-page .nk-section-heading{display:flex;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:12px;margin:0 0 8px}
+#case-content .nk-operating-page .nk-section-heading h3{font-size:clamp(17px,1.5vw,23px)}
+#case-content .nk-operating-page .nk-section-heading .nk-kicker{font-size:9px}
+#case-content .nk-operating-page .nk-lifecycle ol{gap:clamp(10px,1.2vw,20px);margin:0;padding:0}
+#case-content .nk-operating-page .nk-lifecycle li:not(:last-child)::after{top:6px;right:-13px;font-size:19px}
+#case-content .nk-operating-page .nk-lifecycle-icon{width:26px;height:26px;margin-bottom:3px}
+#case-content .nk-operating-page .nk-lifecycle li>span{font-size:15px;margin-bottom:1px}
+#case-content .nk-operating-page .nk-lifecycle strong{font-size:clamp(11px,1.05vw,16px)}
+#case-content .nk-operating-page .nk-lifecycle p{font-size:clamp(9px,.8vw,11px);line-height:1.2;margin-top:4px}
+#case-content .nk-touchpoints{min-width:0;padding:7px clamp(22px,2vw,38px) 9px}
+#case-content .nk-touchpoint-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;height:calc(100% - 31px)}
+#case-content .nk-touchpoint{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;padding:8px;border:1px solid #e8e7de45;overflow:hidden;isolation:isolate;background:#202620}
+#case-content .nk-touchpoint::before{content:'';position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;filter:brightness(.78)}
+#case-content .nk-touchpoint::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#0a0c0bf5,#0a0c0b10 90%)}
+#case-content .nk-touchpoint--youtube::before{background-image:url('nikke/anniversary-our-story.png');background-position:35% 45%}
+#case-content .nk-touchpoint--twitch::before{background-image:url('nikke/F1XUz30XsAAL3DR.jpg');background-position:45% 48%}
+#case-content .nk-touchpoint--discord::before{background-image:url('nikke/Fa_qL4yUIAE3tt1.jpg')}
+#case-content .nk-touchpoint--reddit::before{background-image:url('nikke/FgoD4D0XEAIDXS3.jpg')}
+#case-content .nk-touchpoint-label{display:flex;align-items:center;gap:4px;min-width:0}
+#case-content .nk-touchpoint-label svg{display:block;width:15px;height:15px;flex:none;filter:drop-shadow(0 1px 2px #0008)}
+#case-content .nk-touchpoint strong{display:block;font:650 clamp(12px,1vw,16px)/1.1 'Space Grotesk',sans-serif;color:#fff;text-shadow:0 1px 3px #000}
+#case-content .nk-touchpoint p{margin:3px 0 0;font:400 clamp(9px,.75vw,11px)/1.2 'DM Sans',sans-serif;color:#f4f0e7}
 #case-content .nk-evidence-grid, #case-content .nk-activation-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:26px;margin-top:20px;border-top:1px solid #e8e7de35}
 #case-content .nk-document-excerpt{padding:24px;background:#e9e6dd;color:#30372b}
 #case-content .nk-document-excerpt .nk-kicker{color:#717b65;font-size:9px}
@@ -189,6 +224,7 @@
 }
 @media(min-width:1101px) and (max-height:820px){
   #case-content .nk-stage{padding-block:10px}
+  #case-content .nk-operating-page{height:calc(100% + 20px);margin-block:-10px}
   #case-content .nk-page-head{margin-bottom:4px}
   #case-content .nk-page-title{font-size:34px;margin-bottom:10px}
   #case-content .nk-document-excerpt{padding:14px}
@@ -202,21 +238,19 @@
   #case-content .nk-intro-section>p{line-height:1.34}
   #case-content .nk-responsibilities li{margin-bottom:5px}
 }
-@media(min-width:1101px) and (min-height:780px){
-  #case-content .nk-stage:has(.nk-scale) .nk-scale{padding-block:27px}
-  #case-content .nk-stage:has(.nk-scale) .nk-metric strong{font-size:clamp(62px,5vw,72px)}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle{padding-top:30px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle ol{margin-top:35px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li{padding-top:0}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle li>span{margin-bottom:3px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle strong{font-size:18px}
-  #case-content .nk-stage:has(.nk-scale) .nk-lifecycle p{font-size:14px;line-height:1.4;margin-top:9px}
-}
 @media(max-width:1100px){
   #case-content .case-layout--nikke{grid-template-columns:1fr;height:auto;min-height:0}
   #case-content .case-layout--nikke .case-canvas--nikke{height:auto;min-height:0;padding:16px}
   #case-content .nikke-showcase{height:auto;grid-template-rows:auto auto}
   #case-content .nk-stage{overflow:visible;padding:30px}
+  #case-content .nk-operating-page{display:block;height:auto;min-height:0;margin:-30px;overflow:visible}
+  #case-content .nk-hero{min-height:210px;padding:25px 30px}
+  #case-content .nk-operating-page .nk-scale{padding:22px 30px}
+  #case-content .nk-operating-page .nk-lifecycle{padding:22px 30px}
+  #case-content .nk-operating-page .nk-lifecycle ol{margin-top:16px}
+  #case-content .nk-touchpoints{padding:22px 30px}
+  #case-content .nk-touchpoint-grid{height:auto}
+  #case-content .nk-touchpoint{min-height:110px}
   #case-content .nk-page-title{font-size:44px}
   #case-content .nk-pagination{min-height:86px}
   #case-content .case-layout--nikke .nk-details{height:auto;min-height:0;overflow:visible;padding:36px 6vw}
@@ -235,6 +269,15 @@
 @media(max-width:760px){
   #case-content .case-layout--nikke .case-canvas--nikke{padding:10px}
   #case-content .nk-stage{padding:24px 18px 30px}
+  #case-content .nk-operating-page{margin:-24px -18px -30px}
+  #case-content .nk-hero{min-height:200px;padding:22px 18px}
+  #case-content .nk-hero::after{background:linear-gradient(90deg,#0b0e0cf2,#0b0e0cca)}
+  #case-content .nk-hero .nk-page-title{font-size:34px}
+  #case-content .nk-hero>p br{display:none}
+  #case-content .nk-operating-page .nk-scale{padding:18px}
+  #case-content .nk-operating-page .nk-lifecycle{padding:20px 18px}
+  #case-content .nk-touchpoints{padding:20px 18px}
+  #case-content .nk-touchpoint-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   #case-content .nk-page-head{margin-bottom:22px}
   #case-content .nk-kicker{font-size:10px}
   #case-content .nk-page-title{font-size:34px;margin-bottom:25px}
