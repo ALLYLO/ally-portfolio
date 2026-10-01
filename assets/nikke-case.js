@@ -48,22 +48,18 @@
   }
 
   function operationsEvidence() {
-    return `${pageHead('02', 'OPERATIONS<br>EVIDENCE')}
-      <div class="nk-evidence-grid">
-        <section class="nk-section nk-playbook"><div class="nk-section-heading"><h3>OPERATIONS PLAYBOOK</h3><span class="nk-kicker">ORIGINAL HANDOVER DOCUMENTATION</span></div>
-          <div class="nk-document-excerpt"><span class="nk-kicker">SANITIZED TRANSCRIPTION · TRANSLATED FROM CHINESE</span><h4>Campaign reporting &amp; handover</h4><ol><li>Send the data-collection request ahead of the deadline and remind creators to submit.</li><li>Record submitted performance in the tracking sheet; organize screenshots by campaign and creator.</li><li>Include a screenshot of the live broadcast in each Twitch data package.</li></ol><details><summary>READ SOURCE EXCERPT <span aria-hidden="true">↗</span></summary><div lang="zh-CN"><p>可以提前一天将数据收集文案的word发给KOC，并提醒他们尽快提交。</p><p>Twitch直播的数据包中是需要有当次直播截图，我们自己截图上传即可。</p></div></details></div>
-          <p class="nk-playbook-flow">Campaign Brief <i>→</i> Submission Collection <i>→</i> Deadline Check <i>→</i> Data Collection <i>→</i> Reward Confirmation</p>
-          <p class="nk-caption">Campaign execution · Reporting · Handover</p>
-        </section>
-        <section class="nk-section nk-tracking"><div class="nk-section-heading"><h3>CREATOR TRACKING</h3><span class="nk-kicker">ANONYMIZED · ILLUSTRATIVE SAMPLE</span></div>
-          <div class="nk-table-wrap"><table><thead><tr><th>CREATOR</th><th>STATUS</th><th>CAMPAIGN</th><th>REWARD</th></tr></thead><tbody>
-            <tr><th scope="row">KOC 012</th><td>Signed</td><td>Anniversary</td><td>Delivered</td></tr>
-            <tr><th scope="row">KOC 021</th><td>Follow-up</td><td>Anniversary</td><td>Pending</td></tr>
-            <tr><th scope="row">KOC 034</th><td>Discord Joined</td><td>—</td><td>—</td></tr>
-          </tbody></table></div>
-          <p class="nk-tracking-note">One creator pool.<br>Multiple stages.<br>One shared operating record.</p>
-        </section>
-      </div>`;
+    const steps = [
+      ['01','Campaign Brief','Confirm the brief and send it before the campaign starts.'],
+      ['02','Submission Collection','Record video and stream links in the internal master sheet.'],
+      ['03','Deadline Check','Check missing submissions and follow up before the deadline.'],
+      ['04','Data Collection','Verify performance and organize screenshots by campaign.'],
+      ['05','Reward Confirmation','Confirm distribution and update the operating record.']
+    ];
+    return `<div class="nk-system-page">
+      <div class="nk-system-hero">${pageHead('02', 'SYSTEM<br>IN PRACTICE')}<p>From documentation to daily operations,<br>keeping the creator program running.</p></div>
+      <section class="nk-system-playbook" aria-label="Operations playbook"><button type="button" class="nk-open-playbook" data-nk-open-playbook aria-label="Open Operations Playbook document"><span class="nk-section-heading"><h3>OPERATIONS PLAYBOOK</h3><span class="nk-kicker">END-TO-END CAMPAIGN EXECUTION · OPEN DOCUMENT ↗</span></span><span class="nk-system-steps">${steps.map(([n,title,summary]) => `<span class="nk-system-step"><b>${n}</b><strong>${title}</strong><small>${summary}</small></span>`).join('')}</span><span class="nk-system-flow">BRIEF <i>→</i> SUBMISSION <i>→</i> CHECK <i>→</i> DATA <i>→</i> REWARD</span></button></section>
+      <div class="nk-system-bottom"><section class="nk-operating-record"><div class="nk-section-heading"><h3>OPERATING RECORD</h3><span class="nk-kicker">INTERNAL-TO-CLIENT DATA FLOW</span></div><div class="nk-record-grid"><div><b>01 / INTERNAL MASTER SHEET</b><p>Creator status · campaign data · performance · rewards</p></div><div><b>02 / DAILY CHECK</b><p>Outreach · submissions · pending follow-ups</p></div><div><b>03 / CLIENT UPDATE</b><p>Verified progress · creator list · final data</p></div></div></section><section class="nk-system-support"><div class="nk-section-heading"><h3>CREATOR SUPPORT &amp; DATA FOLLOW-UP</h3></div><p><b>DISCORD</b> Participation, onboarding and reward questions.</p><p><b>YOUTUBE / TWITCH</b> Post-campaign analytics and screenshots.</p></section></div>
+    </div>`;
   }
 
   function activation() {
@@ -98,7 +94,7 @@
   }
 
   const pages = [operatingSystem, operationsEvidence, activation, communityActivation];
-  window.renderNikkeShowcase = () => `<div class="nikke-showcase"><div class="nk-stage" role="region" aria-label="NIKKE case study content" tabindex="0">${operatingSystem()}</div><nav class="cm-pagination nk-pagination" aria-label="NIKKE case study pages"><button type="button" data-nikke-page="1" class="active" aria-current="page"><small>01</small><b>OPERATING<br>SYSTEM</b></button><button type="button" data-nikke-page="2" aria-current="false"><small>02</small><b>OPERATIONS<br>EVIDENCE</b></button><button type="button" data-nikke-page="3" aria-current="false"><small>03</small><b>CREATOR<br>ACTIVATION</b></button><button type="button" data-nikke-page="4" aria-current="false"><small>04</small><b>COMMUNITY &amp;<br>FOLLOW-THROUGH</b></button></nav></div>`;
+  window.renderNikkeShowcase = () => `<div class="nikke-showcase"><div class="nk-stage" role="region" aria-label="NIKKE case study content" tabindex="0">${operatingSystem()}</div><nav class="cm-pagination nk-pagination" aria-label="NIKKE case study pages"><button type="button" data-nikke-page="1" class="active" aria-current="page"><small>01</small><b>OPERATING<br>SYSTEM</b></button><button type="button" data-nikke-page="2" aria-current="false"><small>02</small><b>SYSTEM<br>IN PRACTICE</b></button><button type="button" data-nikke-page="3" aria-current="false"><small>03</small><b>CREATOR<br>ACTIVATION</b></button><button type="button" data-nikke-page="4" aria-current="false"><small>04</small><b>COMMUNITY &amp;<br>FOLLOW-THROUGH</b></button></nav></div>`;
 
   window.renderNikkeDetails = () => `<section class="case-details nk-details" aria-label="NIKKE project introduction">
     <div class="nk-intro-head"><span class="nk-kicker">THE PROJECT</span><h2 id="case-title">NIKKE Creator<br>&amp; Community Operations</h2><span class="nk-kicker">CREATOR MARKETING / NORTH AMERICA</span></div>
@@ -107,6 +103,64 @@
     <section class="nk-intro-section"><h3>CORE RESPONSIBILITIES</h3><ol class="nk-responsibilities"><li><span>01</span><div><b>Creator Acquisition</b><p>Sourcing · Outreach · Onboarding</p></div></li><li><span>02</span><div><b>Community Operations</b><p>Discord Support · Reddit Content · Creator Relations</p></div></li><li><span>03</span><div><b>Campaign Operations</b><p>Activation · Performance · Fulfillment</p></div></li><li><span>04</span><div><b>Process Documentation</b><p>SOP · Tracking · Handover</p></div></li></ol></section>
     <section class="nk-intro-section nk-featured"><h3>FEATURED CONTRIBUTION</h3><p>Created the project’s operations playbook and handover guide, documenting recurring workflows from creator onboarding to campaign tracking and reward fulfillment.</p></section>
   </section>`;
+
+  const escapeHtml = (value) => value.replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  function playbookReader() {
+    const source = window.nikkePlaybookData;
+    const blocks = (items) => items.map(({type,text}) => {
+      const safe = escapeHtml(text.startsWith('• ') ? text.slice(2) : text);
+      if (type === 'Heading2') return `<h3>${safe}</h3>`;
+      if (type === 'Heading3') return `<h4>${safe}</h4>`;
+      return `<p class="${text.startsWith('• ') ? 'nk-reader-bullet' : ''}">${safe}</p>`;
+    }).join('');
+    return `<div class="nk-reader-overlay" aria-label="Operations Playbook document" role="region"><aside class="nk-reader-nav"><div class="nk-reader-intro"><span class="nk-kicker">END-TO-END CAMPAIGN EXECUTION</span><h2>OPERATIONS<br>PLAYBOOK</h2><p>Public-sanitized handover documentation covering the creator workflow, operating records and campaign data collection.</p></div><nav aria-label="Playbook chapters">${source.chapters.map((chapter,i) => `<button type="button" data-nk-reader-chapter="${i}" class="${i===0?'active':''}" aria-current="${i===0?'true':'false'}"><b>0${i+1}</b><span>${escapeHtml(chapter.title.replace(/^[一二三四五]、/,''))}</span></button>`).join('')}</nav><button type="button" class="nk-reader-back" data-nk-reader-close>← BACK TO CASE STUDY</button></aside><div class="nk-reader-document"><div class="nk-reader-toolbar"><span><b id="nk-reader-current">01 / 05</b> &nbsp; <span id="nk-reader-current-title">${escapeHtml(source.chapters[0].title)}</span></span><span>SOURCE: PUBLIC-SANITIZED NIKKE HANDOVER DOCUMENT</span></div><div class="nk-reader-scroll" id="nk-reader-scroll" tabindex="0"><article lang="zh-CN"><div class="nk-reader-title"><h1>${escapeHtml(source.title)}</h1><p>NIKKE CREATOR OPERATIONS · HANDOVER DOCUMENTATION</p></div>${source.chapters.map((chapter,i) => `<section class="nk-reader-chapter" id="nk-reader-chapter-${i}"><h2><span>0${i+1}</span>${escapeHtml(chapter.title)}</h2>${blocks(chapter.blocks)}</section>`).join('')}</article></div></div></div>`;
+  }
+
+  document.addEventListener('click', (event) => {
+    const open = event.target.closest('[data-nk-open-playbook]');
+    if (open) {
+      const content = document.querySelector('#case-content');
+      content.insertAdjacentHTML('beforeend', playbookReader());
+      const reader = content.querySelector('.nk-reader-overlay');
+      const scroller = reader.querySelector('.nk-reader-scroll');
+      scroller.addEventListener('scroll', () => {
+        const sections = [...reader.querySelectorAll('.nk-reader-chapter')];
+        let index = 0;
+        sections.forEach((section,i) => {if (section.getBoundingClientRect().top <= scroller.getBoundingClientRect().top + 45) index = i;});
+        reader.querySelector('#nk-reader-current').textContent = `0${index+1} / 05`;
+        reader.querySelector('#nk-reader-current-title').textContent = window.nikkePlaybookData.chapters[index].title;
+        reader.querySelectorAll('[data-nk-reader-chapter]').forEach((button,i) => {const active=i===index;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'true':'false');});
+      }, {passive:true});
+      content.querySelector('.nk-reader-back').focus();
+      return;
+    }
+    const close = event.target.closest('[data-nk-reader-close]');
+    if (close) {
+      close.closest('.nk-reader-overlay').remove();
+      document.querySelector('[data-nk-open-playbook]')?.focus();
+      return;
+    }
+    const chapter = event.target.closest('[data-nk-reader-chapter]');
+    if (chapter) {
+      const index = Number(chapter.dataset.nkReaderChapter);
+      const reader = chapter.closest('.nk-reader-overlay');
+      const scroller = reader.querySelector('.nk-reader-scroll');
+      const section = reader.querySelector(`#nk-reader-chapter-${index}`);
+      scroller.scrollTo({top:scroller.scrollTop + section.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 14,behavior:'smooth'});
+      reader.querySelector('#nk-reader-current').textContent = `0${index+1} / 05`;
+      reader.querySelector('#nk-reader-current-title').textContent = window.nikkePlaybookData.chapters[index].title;
+      reader.querySelectorAll('[data-nk-reader-chapter]').forEach((button) => {const active=button===chapter;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'true':'false');});
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const reader = document.querySelector('.nk-reader-overlay');
+    if (!reader) return;
+    event.preventDefault();
+    event.stopPropagation();
+    reader.remove();
+    document.querySelector('[data-nk-open-playbook]')?.focus();
+  }, true);
 
   document.addEventListener('click', (event) => {
     const button = event.target.closest('[data-nikke-page]');
