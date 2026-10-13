@@ -59,32 +59,34 @@
     stop();
   }
 
+
   function stepSpring(dt) {
-    // A single slightly underdamped follower can curl on sharp turns
-    // without leaving multiple offset copies of the same circle.
+    // One spring only, with slow enough response to curl rather than copy
+    // the direct pointer path. Integrate stably across dropped frames.
     const subdivisions = Math.max(1, Math.ceil(dt));
-    const substep = dt / subdivisions;
+    const step = dt / subdivisions;
     for (let i = 0; i < subdivisions; i++) {
-      spring.vx = (spring.vx + (target.x - spring.x) * .15 * substep) * Math.pow(.78, substep);
-      spring.vy = (spring.vy + (target.y - spring.y) * .15 * substep) * Math.pow(.78, substep);
-      spring.x += spring.vx * substep;
-      spring.y += spring.vy * substep;
+      spring.vx = (spring.vx + (target.x - spring.x) * .085 * step) * Math.pow(.80, step);
+      spring.vy = (spring.vy + (target.y - spring.y) * .085 * step) * Math.pow(.80, step);
+      spring.x += spring.vx * step;
+      spring.y += spring.vy * step;
     }
   }
 
+
   function tangent(points, index) {
-    if (index <= 0 || index >= points.length - 1) return { x: 0, y: 0 };
-    const before = points[index - 1];
+    const before = points[Math.max(0, index - 1)];
     const current = points[index];
-    const after = points[index + 1];
-    const beforeLength = Math.hypot(current.x - before.x, current.y - before.y);
-    const afterLength = Math.hypot(after.x - current.x, after.y - current.y);
+    const after = points[Math.min(points.length - 1, index + 1)];
     const dx = after.x - before.x, dy = after.y - before.y;
     const length = Math.hypot(dx, dy);
     if (length < .001) return { x: 0, y: 0 };
-    // One tangent per knot gives C1 continuity; limiting its length
-    // prevents a sharp corner from turning into a Bézier overshoot.
-    const scale = Math.min(.5, 1.2 * Math.min(beforeLength, afterLength) / length);
+    const previousLength = Math.hypot(current.x - before.x, current.y - before.y);
+    const followingLength = Math.hypot(after.x - current.x, after.y - current.y);
+    const short = index === 0 ? followingLength
+      : index === points.length - 1 ? previousLength
+      : Math.min(previousLength, followingLength);
+    const scale = Math.min(.5, 1.25 * short / length);
     return { x: dx * scale, y: dy * scale };
   }
 
@@ -120,6 +122,7 @@
     ctx.shadowBlur = 0;
   }
 
+
   function draw(now) {
     raf = 0;
     if (!target || reducedMotion.matches) {
@@ -129,53 +132,74 @@
     const dt = clamp(lastFrame ? (now - lastFrame) / 16.667 : 1, .25, 2.25);
     lastFrame = now;
 
-    // Stop generating new ink shortly after pointer activity ends.
-    const active = now - target.t < 115;
-    if (active) {
+    // Mouse events can stop while the spring is still catching up.
+    // Physics and ink lifetime are deliberately independent.
+    const error = Math.hypot(target.x - spring.x, target.y - spring.y);
+    const velocity = Math.hypot(spring.vx, spring.vy);
+    const moving = error > .55 || velocity > .35;
+    if (moving) {
       stepSpring(dt);
       const last = path[path.length - 1];
-      if (!last || Math.hypot(spring.x - last.x, spring.y - last.y) >= .65) {
+      if (!last || Math.hypot(spring.x - last.x, spring.y - last.y) > .45) {
         path.push({ x: spring.x, y: spring.y, t: now, tone: currentTone });
       }
+    } else {
+      spring.x = target.x;
+      spring.y = target.y;
+      spring.vx = spring.vy = 0;
     }
-
     while (path.length && now - path[0].t >= FADE_MS) path.shift();
     paint(now);
 
-    if (active || path.length) {
-      raf = requestAnimationFrame(draw);
-    } else {
-      target = null;
-      lastFrame = 0;
-    }
+    if (moving || path.length) raf = requestAnimationFrame(draw);
+    else lastFrame = 0; // Retain spring position for the next entry.
   }
+
 
   function onPointerMove(event) {
     if (event.pointerType !== 'mouse' || reducedMotion.matches) return;
     const x = event.clientX, y = event.clientY;
     if (!Number.isFinite(x) || !Number.isFinite(y)) return;
     const now = performance.now();
-    const idle = !target || now - target.t > 250;
-    const teleported = target && Math.hypot(x - target.x, y - target.y) > 420;
+    currentTone = surfaceTone(x, y);
 
-    if (idle || teleported) {
-      stop();
+    if (!target) {
+      // Only the first event following a fresh load initializes position.
       spring.x = x;
       spring.y = y;
-      path.push({ x, y, t: now, tone: surfaceTone(x, y) });
+      spring.vx = spring.vy = 0;
+      target = { x, y };
+      return;
     }
-    target = { x, y, t: now };
-    currentTone = surfaceTone(x, y);
-    if (!raf) raf = requestAnimationFrame(draw);
+
+    // Do not reset after inactivity or a large jump back into the viewport.
+    // A fresh trail grows out of the previously parked virtual cursor.
+    const distance = Math.hypot(x - spring.x, y - spring.y);
+    if (!path.length && distance > .7) {
+      path.push({ x: spring.x, y: spring.y, t: now, tone: currentTone });
+    }
+    target = { x, y };
+    if (!raf && (path.length || distance > .55)) {
+      raf = requestAnimationFrame(draw);
+    }
+  }
+
+  function pauseInk() {
+    // Changing tabs should drop stale drawn pixels, not the saved position.
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    lastFrame = 0;
+    path = [];
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
   }
 
   resize();
   document.body.appendChild(canvas);
   addEventListener('pointermove', onPointerMove, { passive: true });
-  addEventListener('blur', stop, { passive: true });
+  addEventListener('blur', () => { if (document.hidden) pauseInk(); }, { passive: true });
   addEventListener('resize', resize, { passive: true });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop();
+    if (document.hidden) pauseInk();
   });
   reducedMotion.addEventListener?.('change', () => {
     canvas.style.display = reducedMotion.matches ? 'none' : '';
