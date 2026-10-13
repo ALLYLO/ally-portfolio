@@ -881,10 +881,11 @@ html.portfolio-wheel-animating {
   }
 }
 
-/* The opened two-column hero also gets less cramped thesis and buttons. */
-@media (min-width: 600px) and (max-width: 959px) {
+/* Throughout the initial expanded composition, text and controls follow
+   a continuous fluid scale instead of shrinking abruptly at 960px. */
+@media (min-width: 600px) and (max-width: 1399px) {
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
-    font-size: clamp(23px, 3.25vw, 33px);
+    font-size: clamp(23px, 3.25vw, 36px);
     line-height: 1.23;
     letter-spacing: -.04em;
   }
