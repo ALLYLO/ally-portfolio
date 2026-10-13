@@ -498,7 +498,7 @@ html.portfolio-wheel-animating {
       max(23px, env(safe-area-inset-top))
       5.8%
       max(23px, env(safe-area-inset-bottom));
-    background: #e8e5dd;
+    background: #ded5c8;
     color: #342f2a;
     -webkit-overflow-scrolling: touch;
     transform: translate3d(0, 10px, 0);
