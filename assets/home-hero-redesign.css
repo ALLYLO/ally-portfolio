@@ -1,21 +1,27 @@
 /* Homepage hero redesign: collage layout follows the owner-provided visual reference. */
 
-/* Let the numbered navigation reverse naturally where it crosses the hero lettering. */
+/* Composite the complete header against the hero, not the nav inside its own stacking context. */
 @media (min-width: 761px) {
   .editorial-header {
     z-index: 20;
-    isolation: auto;
+    isolation: auto !important;
+    mix-blend-mode: difference;
   }
   .editorial-header nav {
     position: relative;
     z-index: 1;
-    color: #fff;
+    mix-blend-mode: normal !important;
     background: transparent;
-    mix-blend-mode: difference;
   }
-  .editorial-header nav a,
-  .editorial-header nav a:visited {
-    color: inherit;
+  .editorial-header,
+  .editorial-header nav,
+  .editorial-header a,
+  .editorial-header a:visited,
+  .editorial-header a *,
+  .editorial-header nav *,
+  .editorial-header .header-contact {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
   }
 }
 
