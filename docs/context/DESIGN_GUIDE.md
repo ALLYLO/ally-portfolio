@@ -15,3 +15,7 @@ When Works cards appear side by side, their visual frames should have equal heig
 ## NIKKE detail view
 
 Use the existing case modal, roughly two-thirds content and one-third project introduction on desktop, with the shared top and Previous/Next navigation. Four internal pages separate the Operating System, Operations Evidence, Creator Activation, and Community & Follow-through so each page fits a normal desktop viewport without an inner vertical scrollbar. The Operating System lifecycle uses six icon-led steps with arrows between them. Switching pages changes only the left content. Keep typography readable, parallel scale figures separate from any conversion funnel, and evidence-led editorial sections with thin dividers. Stack content on smaller screens using the existing case layout strategy. Show official campaign visuals and clearly identified sanitized material; never imitate a real screenshot when source evidence is unavailable.
+
+## Page scroll behavior
+
+Hide the root browser scrollbar visually without disabling vertical page scrolling. Use restrained desktop wheel easing and a modest reduction in scroll distance; preserve native mobile touch scrolling, keyboard navigation, nested case-study/dialog scrolling, and reduced-motion preferences. Avoid replacing the page with a transformed scrolling container or locking normal navigation.

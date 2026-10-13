@@ -25,6 +25,22 @@
   }
 }
 
+/* Keep the page scrollable while hiding only the root scrollbar. */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* Avoid compounding native CSS easing with the desktop wheel animation. */
+html.portfolio-wheel-animating {
+  scroll-behavior: auto !important;
+}
+
 .home-hero-redesign {
   position: relative;
   isolation: isolate;

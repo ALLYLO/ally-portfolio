@@ -84,3 +84,14 @@
   link.removeAttribute('aria-disabled');
   link.removeAttribute('title');
 })();
+
+/* Standalone site scrolling enhancement; the oversized index.html is left unchanged. */
+(() => {
+  if (document.querySelector('script[data-portfolio-scroll-loader]')) return;
+  const script = document.createElement('script');
+  const source = document.currentScript?.src || document.baseURI;
+  script.src = new URL('site-scroll.js', source).href;
+  script.dataset.portfolioScrollLoader = 'true';
+  script.async = true;
+  document.head.appendChild(script);
+})();
