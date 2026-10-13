@@ -1007,11 +1007,184 @@ html.portfolio-wheel-animating {
   }
 }
 
-/* Beyond the first expanded stage, restore the original desktop hierarchy:
-   heading + thesis + CTAs as one left column; collage and cards at right. */
+/* Fully expanded first viewport: 135px are reserved for the fixed header
+   by the canonical page. Keep every part of the Hero in the remainder.
+   The portrait and three paper cards occupy distinct right-column Grid rows. */
 @media (min-width: 1400px) {
+  .home-hero-redesign {
+    box-sizing: border-box;
+    height: calc(100svh - 135px);
+    min-height: calc(100svh - 135px);
+    padding: clamp(8px, 1.3svh, 17px) 3.5% clamp(13px, 2.2svh, 26px);
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+    gap: clamp(20px, 2.6vw, 43px);
+    align-items: stretch;
+    width: 100%;
+    max-width: 1620px;
+    height: 100%;
+    min-height: 0;
+    margin-inline: auto;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+    min-height: 0;
+    padding: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    margin: 0 0 clamp(18px, 2.9svh, 31px);
+    font-size: clamp(55px, min(6vw, 9.4svh), 106px);
+    line-height: .98;
+    white-space: nowrap;
+  }
   .home-hero-layout.home-hero-structured .home-hero-info {
     display: block;
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    margin: 0;
+    font-size: clamp(22px, min(2.55vw, 3.85svh), 40px);
+    line-height: 1.16;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(15px, 2.1vw, 33px);
+    margin-top: clamp(18px, 2.8svh, 31px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 0;
+    height: clamp(44px, 5.7svh, 56px);
+    padding: 0 clamp(15px, 1.45vw, 25px);
+    margin: 0;
+    border: 1.5px solid #34312b;
+    border-radius: 999px;
+    font-size: clamp(11px, .85vw, 13px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    row-gap: clamp(8px, 1.45svh, 18px);
+    align-items: center;
+    justify-items: center;
+    align-content: stretch;
+    align-self: stretch;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    inset: auto;
+    justify-self: center;
+    align-self: center;
+    width: min(100%, 580px, 59svh);
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1360 / 1157;
+    margin: 0;
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    position: relative;
+    grid-column: 1;
+    grid-row: 2;
+    inset: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: clamp(7px, .9vw, 13px);
+    margin: 0;
+    padding: 0 2px 3px;
+    z-index: 4;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    min-width: 0;
+    min-height: clamp(130px, 17.5svh, 167px);
+    margin: 0;
+    padding: clamp(8px, 1.3svh, 14px) clamp(7px, .85vw, 14px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2) {
+    margin-top: clamp(2px, .4svh, 5px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card h2 {
+    padding: 5px clamp(6px, .65vw, 11px);
+    margin-bottom: clamp(5px, .8svh, 10px);
+    font-size: clamp(8px, .62vw, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: clamp(100px, 8.8vw, 132px);
+    height: clamp(72px, 9.5svh, 96px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    width: clamp(52px, 5vw, 68px);
+    height: clamp(52px, 5vw, 68px);
+    font-size: clamp(8px, .6vw, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 25%; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list,
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
+    min-height: clamp(72px, 9svh, 105px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-market-list {
+    padding-left: 0;
+    font-size: clamp(10px, .73vw, 12px);
+    line-height: 1.65;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note {
+    font-size: 8px !important;
+  }
+}
+/* On physically short desktop windows, allow normal scroll rather than
+   clipping the content or shrinking labels to unreadable sizes. */
+@media (min-width: 1400px) and (max-height: 630px) {
+  .home-hero-redesign {
+    height: auto;
+    min-height: calc(100svh - 135px);
+  }
+  .home-hero-layout.home-hero-structured {
+    height: auto;
+    min-height: 465px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(100%, 410px, 52svh);
   }
 }
 
