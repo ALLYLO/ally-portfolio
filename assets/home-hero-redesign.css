@@ -484,3 +484,11 @@ html.portfolio-wheel-animating {
   .portfolio-mobile-navigation,
   .portfolio-mobile-navigation-links a { transition: none !important; }
 }
+
+
+/* Reveal the hamburger after the shared desktop default hides it. */
+@media (max-width: 760px) {
+  html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
+    display: flex !important;
+  }
+}
