@@ -50,7 +50,12 @@
       item.querySelector('sup').textContent = numerals[index] || String(index + 1).padStart(2, '0');
       if (source.target) item.target = source.target;
       if (source.rel) item.rel = source.rel;
-      nav.appendChild(item);
+      // Clip each moving link inside a stationary line to produce the
+      // reference-style rising text reveal without hiding real link content.
+      const row = document.createElement('div');
+      row.className = 'portfolio-mobile-navigation-item';
+      row.appendChild(item);
+      nav.appendChild(row);
     });
 
     const footer = document.createElement('div');
