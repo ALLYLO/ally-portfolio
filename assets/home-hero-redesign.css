@@ -17,7 +17,7 @@ html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
 
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
-@media (min-width: 961px) {
+@media (min-width: 1200px) {
   .editorial-header {
     z-index: 20;
     isolation: auto !important;
@@ -139,7 +139,7 @@ html.portfolio-wheel-animating {
 
 /* Continuous desktop layout: proportional media and content-safe columns.
    Only narrow-to-middle desktop widths need to reduce the card density. */
-@media (min-width: 961px) and (max-width: 1359px) {
+@media (min-width: 1200px) and (max-width: 1399px) {
   .home-hero-layout {
     grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
     gap: clamp(12px, 2vw, 32px);
@@ -160,27 +160,10 @@ html.portfolio-wheel-animating {
   .home-hero-market-list { font-size: clamp(10px, .85vw, 12px); }
 }
 
-/* Compact the fixed-size card art before its three columns become too narrow. */
-@media (min-width: 961px) and (max-width: 1199px) {
-  .home-hero-card { padding-inline: 8px; }
-  .home-hero-card h2 {
-    padding: 6px 7px;
-    font-size: 9px;
-    letter-spacing: .11em;
-  }
-  .home-hero-skill-venn { width: 108px; height: 85px; }
-  .home-hero-skill-venn span { width: 57px; height: 57px; font-size: 8px; }
-  .home-hero-skill-venn span:nth-child(1) { left: 26px; }
-  .home-hero-skill-venn span:nth-child(2) { left: 0; }
-  .home-hero-skill-venn span:nth-child(3) { right: 0; }
-  .home-hero-market-list { padding-left: 0; line-height: 1.6; }
-  .home-hero-tool-note { font-size: 8px !important; }
-}
-
 
 /* Canonical portrait-first layout. One set of mobile rules replaces the old
    succession of phone overrides; all dimensions follow the available width. */
-@media (max-width: 960px) {
+@media (max-width: 1199px) {
   body { padding-top: clamp(87px, 9vw, 98px); }
   .editorial-header {
     display: flex !important;
@@ -445,10 +428,101 @@ html.portfolio-wheel-animating {
   }
 }
 
+
+/* Growing stacked stage: 600-1199px. Text wraps naturally into fewer lines as
+   its container expands, while the portrait grows instead of hitting 504px. */
+@media (min-width: 600px) and (max-width: 1199px) {
+  .home-hero-redesign {
+    padding-inline: clamp(27px, 4.5vw, 62px);
+  }
+  .home-hero-layout {
+    width: 100%;
+    max-width: 1090px;
+    margin-inline: auto;
+  }
+  .home-hero-copy h1 {
+    font-size: clamp(56px, 7vw, 83px);
+    max-width: 100%;
+    margin-bottom: clamp(38px, 6vw, 72px);
+  }
+
+  /* At 600px, match the narrow portrait width. Then gradually grow it from
+     86% to about 93% of the column before switching to the wide layout. */
+  .home-hero-person {
+    width: min(96%, calc(86% + max(0px, 12.5vw - 75px)));
+    max-width: 1040px;
+    height: clamp(348px, 52vw, 635px);
+    margin-bottom: clamp(66px, 8vw, 102px);
+  }
+  .home-hero-person img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    transform: scale(1.055);
+  }
+
+  /* Inline emphasis participates in line-breaking. The two phrases need not
+     stay on separate rows once the available line is wide enough. */
+  .home-hero-thesis {
+    max-width: 100%;
+    font-size: clamp(24px, 2.9vw, 34px);
+    line-height: 1.28;
+    overflow-wrap: normal;
+  }
+  .home-hero-thesis em {
+    display: inline;
+    margin: 0 0 0 .26em;
+  }
+  .home-hero-actions {
+    margin-top: clamp(43px, 5vw, 61px);
+  }
+
+  .home-hero-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 242px), 1fr));
+    align-items: stretch;
+    gap: clamp(10px, 1.7vw, 18px);
+    margin-top: clamp(70px, 8vw, 112px);
+  }
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    min-width: 0;
+    grid-template-columns: minmax(74px, 95px) minmax(0, 1fr);
+  }
+}
+@media (min-width: 840px) and (max-width: 1199px) {
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 175px;
+    padding: clamp(13px, 1.5vw, 20px);
+    gap: 10px;
+  }
+  .home-hero-card h2,
+  .home-hero-card:nth-child(2) h2 {
+    display: table;
+    align-self: center;
+    margin: 0 0 5px;
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+  .home-hero-skill-venn { width: 120px; height: 92px; }
+  .home-hero-skill-venn span { width: 60px; height: 60px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 30px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 0; }
+  .home-hero-skill-venn span:nth-child(3) { right: 0; }
+}
+
 /* The overlay is only visible with the desktop links collapsed. */
 .portfolio-mobile-menu-toggle,
 .portfolio-mobile-navigation { display: none; }
-@media (max-width: 960px) {
+@media (max-width: 1199px) {
   html.portfolio-mobile-menu-open,
   html.portfolio-mobile-menu-open body { overflow: hidden !important; }
   .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
@@ -599,7 +673,7 @@ html.portfolio-wheel-animating {
 
 
 /* Reveal the hamburger after the shared desktop default hides it. */
-@media (max-width: 960px) {
+@media (max-width: 1199px) {
   html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
     display: flex !important;
   }
