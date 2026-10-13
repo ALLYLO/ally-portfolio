@@ -6,6 +6,15 @@
   display: none !important;
 }
 
+/* White canvas ink in difference mode automatically inverts underlying art. */
+html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
+  mix-blend-mode: difference !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
+
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
 @media (min-width: 761px) {

@@ -21,23 +21,14 @@
   let raf = 0;
   let lastFrame = 0;
   let dpr = 1;
-  let currentTone = 'dark';
+
 
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-
-  function surfaceTone(x, y) {
-    let element = document.elementFromPoint(x, y);
-    while (element && element !== document.documentElement) {
-      const color = getComputedStyle(element).backgroundColor;
-      const match = color && color.match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
-      if (match && Number(match[4] ?? 1) > .18) {
-        const brightness = .2126 * Number(match[1]) + .7152 * Number(match[2]) + .0722 * Number(match[3]);
-        return brightness < 135 ? 'light' : 'dark';
-      }
-      element = element.parentElement;
-    }
-    return 'dark';
-  }
+  // Higher contrast at the leading edge, smooth fade to transparent at tail.
+  const fadeAlpha = (now, time) => {
+    const life = clamp(1 - (now - time) / FADE_MS, 0, 1);
+    return .98 * life * life * (3 - 2 * life);
+  };
 
   function stop() {
     if (raf) cancelAnimationFrame(raf);
@@ -102,10 +93,14 @@
       const a = path[i - 1], b = path[i];
       if (Math.hypot(b.x - a.x, b.y - a.y) < .15) continue;
 
-      const life = clamp(1 - (now - b.t) / FADE_MS, 0, 1);
-      if (life <= 0) continue;
-      const color = b.tone === 'light' ? '250,246,239' : '55,50,43';
-      const alpha = (b.tone === 'light' ? .66 : .61) * life;
+      // Stronger head-to-tail contrast and true continuous segment fading.
+      const older = fadeAlpha(now, a.t);
+      const newer = fadeAlpha(now, b.t);
+      if (newer <= .002) continue;
+      const gradient = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+      gradient.addColorStop(0, 'rgba(255,255,255,' + older + ')');
+      gradient.addColorStop(1, 'rgba(255,255,255,' + newer + ')');
+
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.bezierCurveTo(
@@ -113,10 +108,11 @@
         b.x - handles[i].x / 3, b.y - handles[i].y / 3,
         b.x, b.y
       );
-      ctx.strokeStyle = 'rgba(' + color + ',' + alpha + ')';
-      ctx.shadowColor = 'rgba(' + color + ',' + (.3 * alpha) + ')';
-      ctx.shadowBlur = 1.5 * life;
-      ctx.lineWidth = .3 + 2 * life;
+      // The white ink inverts underlying pixels via CSS difference blending.
+      ctx.strokeStyle = gradient;
+      ctx.shadowColor = 'rgba(255,255,255,' + (.17 * newer) + ')';
+      ctx.shadowBlur = 1.6 * newer;
+      ctx.lineWidth = .24 + 2.15 * (older + newer) / 2;
       ctx.stroke();
     }
     ctx.shadowBlur = 0;
@@ -141,7 +137,7 @@
       stepSpring(dt);
       const last = path[path.length - 1];
       if (!last || Math.hypot(spring.x - last.x, spring.y - last.y) > .45) {
-        path.push({ x: spring.x, y: spring.y, t: now, tone: currentTone });
+        path.push({ x: spring.x, y: spring.y, t: now });
       }
     } else {
       spring.x = target.x;
@@ -161,7 +157,6 @@
     const x = event.clientX, y = event.clientY;
     if (!Number.isFinite(x) || !Number.isFinite(y)) return;
     const now = performance.now();
-    currentTone = surfaceTone(x, y);
 
     if (!target) {
       // Only the first event following a fresh load initializes position.
@@ -176,7 +171,7 @@
     // A fresh trail grows out of the previously parked virtual cursor.
     const distance = Math.hypot(x - spring.x, y - spring.y);
     if (!path.length && distance > .7) {
-      path.push({ x: spring.x, y: spring.y, t: now, tone: currentTone });
+      path.push({ x: spring.x, y: spring.y, t: now });
     }
     target = { x, y };
     if (!raf && (path.length || distance > .55)) {
