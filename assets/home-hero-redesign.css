@@ -60,7 +60,9 @@ html.portfolio-wheel-animating {
 .home-hero-redesign {
   position: relative;
   isolation: isolate;
-  min-height: min(790px, calc(100svh - 135px));
+  min-height: 100vh;
+  min-height: 100svh;
+  box-sizing: border-box;
   padding: 16px 3.5% 44px;
   overflow: hidden;
   background: transparent;
@@ -356,7 +358,6 @@ html.portfolio-wheel-animating {
 /* Portrait-first layout only when two content columns cannot fit. */
 @media (max-width: 599px) {
   .home-hero-redesign {
-    min-height: 0;
     width: auto;
     max-width: 100%;
     padding: 4px 5% 42px;
@@ -830,7 +831,6 @@ html.portfolio-wheel-animating {
    windows have a compact left column but can retain the hamburger. */
 @media (min-width: 600px) and (max-width: 959px) {
   .home-hero-redesign {
-    min-height: 0;
     overflow: visible;
     padding: clamp(2px, 1.5vw, 14px) 3.5% 34px;
   }
@@ -890,15 +890,98 @@ html.portfolio-wheel-animating {
     font-size: 8px !important;
   }
 }
-@media (min-width: 600px) and (max-width: 799px) {
-  /* A tiny right-hand column cannot hold three useful cards in one row. */
+/* Narrow two-column stage: portrait stays on the right, but the three
+   reduced-size paper cards share a full-width horizontal row. This prevents
+   an unreadable 3 x 80px row squeezed into the narrow right-hand column. */
+@media (min-width: 600px) and (max-width: 819px) {
+  .home-hero-layout.home-hero-structured {
+    grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    row-gap: clamp(14px, 2.2vw, 24px);
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    display: contents;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
+    display: none !important;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    width: min(92%, 345px);
+    justify-self: center;
+  }
   .home-hero-layout.home-hero-structured .home-hero-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
     grid-column: 1 / -1;
-    min-height: 85px;
+    grid-row: 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(8px, 1.25vw, 13px);
+    width: 100%;
   }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    grid-column: auto;
+    min-height: clamp(106px, 17vw, 137px);
+    padding: 9px clamp(7px, 1.5vw, 13px);
+    margin-top: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card h2 {
+    font-size: 9px;
+    padding: 5px 9px;
+    margin-bottom: 7px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: 102px;
+    height: 78px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    width: 53px;
+    height: 53px;
+    font-size: 8px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 25px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list {
+    min-height: 78px;
+    font-size: clamp(9px, 1.35vw, 11px);
+    line-height: 1.58;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
+    min-height: 78px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note {
+    font-size: 8px !important;
+  }
+}
+
+/* Once the right column can hold three small cards, they sit directly
+   beneath its portrait, still in one horizontal row. */
+@media (min-width: 820px) and (max-width: 959px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(91%, 480px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card {
+    min-height: 110px;
+    padding: 9px 5px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: 88px;
+    height: 72px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    width: 47px;
+    height: 47px;
+    font-size: 7px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 21px; }
 }
 @media (min-width: 960px) and (max-width: 1199px) {
   .home-hero-layout.home-hero-structured .home-hero-copy h1 {
