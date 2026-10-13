@@ -106,3 +106,14 @@
   script.async = true;
   document.head.appendChild(script);
 })();
+
+/* Mobile homepage menu: reuse the desktop navigation without editing the large index file. */
+(() => {
+  if (document.querySelector('script[data-mobile-hero-nav-loader]')) return;
+  const script = document.createElement('script');
+  const source = document.currentScript?.src || document.baseURI;
+  script.src = new URL('mobile-hero-nav.js', source).href;
+  script.dataset.mobileHeroNavLoader = 'true';
+  script.async = true;
+  document.head.appendChild(script);
+})();
