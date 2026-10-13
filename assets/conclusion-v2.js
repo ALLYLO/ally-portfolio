@@ -117,3 +117,17 @@
   script.async = true;
   document.head.appendChild(script);
 })();
+
+
+/* Keep the hero portrait physically inside its right-hand collage so desktop
+   CSS Grid can reserve distinct areas for the photo and the three cards.
+   The narrow layout uses display: contents to preserve the original order. */
+(() => {
+  const layout = document.querySelector('.home-hero-layout');
+  const collage = layout?.querySelector(':scope > .home-hero-collage');
+  const portrait = layout?.querySelector(':scope > .home-hero-person');
+  const cards = collage?.querySelector(':scope > .home-hero-cards');
+  if (!layout || !collage || !portrait || !cards) return;
+  collage.insertBefore(portrait, cards);
+  layout.classList.add('home-hero-structured');
+})();
