@@ -8,5 +8,6 @@ Only decisions explicitly confirmed by the Portfolio owner belong here. Each fut
 | D-002 | 2026-09-30 | Older HTML, outputs, and historical page versions remain archival references and do not override current source. | Version authority; Portfolio owner confirmation in the Baseline Consolidation request. |
 | D-003 | 2026-09-30 | A displayed business metric is not confirmed until its source, definition, personal attribution, and permission to publish are established. | Content claims; Portfolio owner confirmation in the Baseline Consolidation request. |
 | D-004 | 2026-09-30 | Historical chat proposals remain discussion or candidate unless the Portfolio owner explicitly confirms adoption. | Decision status; Portfolio owner confirmation in the Baseline Consolidation request. |
+| D-005 | 2026-10-13 | Use “VIEW RESUME” for the homepage résumé CTA. When an approved PDF is configured, open it in a new tab for online viewing rather than forcing download; otherwise leave the link disabled. | Homepage CTA; Portfolio owner confirmation on 2026-10-13. |
 
-No candidate design or copy proposal has been promoted by this bootstrap.
+No candidate design or copy proposal from the original bootstrap was promoted without owner confirmation.

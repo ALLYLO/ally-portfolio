@@ -66,3 +66,21 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true });
   else initialize();
 })();
+
+/* Homepage resume CTA. Kept here temporarily while index.html contains oversized inline media. */
+(() => {
+  const link = document.querySelector('.home-hero-actions .resume-link');
+  if (!link) return;
+  const label = link.firstChild;
+  if (label?.nodeType === Node.TEXT_NODE && label.textContent.includes('DOWNLOAD RÉSUMÉ')) {
+    label.textContent = label.textContent.replace('DOWNLOAD RÉSUMÉ', 'VIEW RESUME');
+  }
+  const pdf = (link.dataset.resumeFile || '').trim();
+  if (!pdf) return;
+  link.href = pdf;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.removeAttribute('download');
+  link.removeAttribute('aria-disabled');
+  link.removeAttribute('title');
+})();

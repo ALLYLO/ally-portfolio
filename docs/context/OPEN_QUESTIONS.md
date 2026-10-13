@@ -18,3 +18,4 @@ The owner-approved figures are displayed on the page, but the four-part claim ga
 - Needs confirmation: which existing images and customer-related details have permission for public use.
 - Needs confirmation: which historical design and copy proposals, if any, should become durable project constraints or decisions.
 - Candidate: any future replacement wording or layout proposal until explicitly approved.
+- Needs confirmation: approved public résumé PDF asset/path for the homepage VIEW RESUME link. No PDF exists in the preview repository, so the CTA must remain disabled until supplied.
