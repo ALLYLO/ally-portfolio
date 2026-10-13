@@ -196,6 +196,10 @@ html.portfolio-wheel-animating {
   }
   .home-hero-person {
     top: -22px;
+    /* Position within the right column, not at a page-relative left offset. */
+    left: auto;
+    right: 0;
+    width: min(100%, 650px);
   }
   .home-hero-card {
     min-height: clamp(148px, 15.7vw, 180px);
