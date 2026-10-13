@@ -548,3 +548,85 @@ html.portfolio-wheel-animating {
 @media (max-width: 390px) {
   .home-hero-copy h1 { font-size: 10.1vw; }
 }
+
+/* Narrow-screen CTAs: editorial hierarchy instead of two equal pills.
+   Desktop styles and the existing destinations/disabled state are untouched. */
+@media (max-width: 760px) {
+  .home-hero-actions {
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: clamp(21px, 5.6vw, 43px);
+    margin-top: clamp(47px, 9vw, 66px);
+  }
+  .home-hero-actions .work-cta {
+    box-sizing: border-box;
+    flex: 0 1 clamp(172px, 48vw, 294px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: clamp(56px, 13.7vw, 86px);
+    padding: 14px clamp(17px, 3.5vw, 28px);
+    border: 1px solid #38322c;
+    border-radius: 999px;
+    background: transparent;
+    color: #38322c;
+    font-size: clamp(11px, 2.65vw, 15px);
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .18em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .home-hero-actions .resume-link {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 10px 0 9px;
+    border: 0;
+    border-bottom: 1px solid #38322c;
+    border-radius: 0;
+    background: transparent;
+    color: #38322c;
+    font-size: clamp(11px, 2.55vw, 15px);
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .16em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+  .home-hero-actions .resume-link:not([aria-disabled="true"]):hover {
+    opacity: .62;
+  }
+  .home-hero-actions .work-cta:focus-visible,
+  .home-hero-actions .resume-link:focus-visible {
+    outline: 2px solid #38322c;
+    outline-offset: 5px;
+  }
+}
+@media (max-width: 390px) {
+  .home-hero-actions { gap: clamp(13px, 4vw, 20px); }
+  .home-hero-actions .work-cta {
+    flex-basis: clamp(157px, 47vw, 185px);
+    padding-inline: 12px;
+    letter-spacing: .13em;
+  }
+  .home-hero-actions .resume-link {
+    font-size: 10px;
+    letter-spacing: .1em;
+    gap: 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-actions .work-cta,
+  .home-hero-actions .resume-link { transition: none !important; }
+}
