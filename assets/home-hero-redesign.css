@@ -17,7 +17,7 @@ html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
 
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .editorial-header {
     z-index: 20;
     isolation: auto !important;
@@ -139,7 +139,7 @@ html.portfolio-wheel-animating {
 
 /* Continuous desktop layout: proportional media and content-safe columns.
    Only narrow-to-middle desktop widths need to reduce the card density. */
-@media (min-width: 1200px) and (max-width: 1399px) {
+@media (min-width: 1000px) and (max-width: 1399px) {
   .home-hero-layout {
     grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
     gap: clamp(12px, 2vw, 32px);
@@ -161,9 +161,67 @@ html.portfolio-wheel-animating {
 }
 
 
+/* The compact desktop stage starts as soon as two columns fit. The portrait
+   intentionally shrinks on this switch; its size is controlled by its column. */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .home-hero-layout {
+    min-height: clamp(550px, 55vw, 610px);
+    gap: clamp(12px, 1.8vw, 24px);
+  }
+  .home-hero-copy {
+    min-width: 0;
+    padding-bottom: 52px;
+  }
+  .home-hero-copy h1 {
+    font-size: clamp(61px, 6.85vw, 82px);
+    letter-spacing: -.085em;
+  }
+  .home-hero-thesis {
+    font-size: clamp(23px, 2.55vw, 30px);
+    line-height: 1.15;
+  }
+  .home-hero-actions {
+    gap: clamp(12px, 1.8vw, 24px);
+    flex-wrap: wrap;
+    margin-top: 35px;
+  }
+  .home-hero-actions .work-cta,
+  .home-hero-actions .resume-link {
+    min-width: 0;
+    padding: 14px clamp(15px, 1.7vw, 22px);
+    font-size: clamp(10px, 1vw, 12px);
+    white-space: nowrap;
+  }
+  .home-hero-collage {
+    min-height: clamp(550px, 55vw, 610px);
+  }
+  .home-hero-person {
+    top: -22px;
+  }
+  .home-hero-card {
+    min-height: clamp(148px, 15.7vw, 180px);
+    padding: 11px 8px;
+  }
+  .home-hero-card h2 {
+    padding: 5px 6px;
+    margin-bottom: 8px;
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+  .home-hero-skill-venn { width: 100px; height: 78px; margin-inline: auto; }
+  .home-hero-skill-venn span { width: 54px; height: 54px; font-size: 8px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 23px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 0; }
+  .home-hero-skill-venn span:nth-child(3) { right: 0; }
+  .home-hero-market-list { min-height: 87px; padding-left: 0; font-size: 9px; }
+  .home-hero-market-list span::before { margin-right: 5px; }
+  .home-hero-tool-marks { min-height: 87px; }
+  .home-hero-tool-note { font-size: 8px !important; }
+}
+
 /* Canonical portrait-first layout. One set of mobile rules replaces the old
    succession of phone overrides; all dimensions follow the available width. */
-@media (max-width: 1199px) {
+@media (max-width: 999px) {
   body { padding-top: clamp(87px, 9vw, 98px); }
   .editorial-header {
     display: flex !important;
@@ -429,9 +487,9 @@ html.portfolio-wheel-animating {
 }
 
 
-/* Growing stacked stage: 600-1199px. Text wraps naturally into fewer lines as
+/* Growing stacked stage: 600-999px. Text wraps naturally into fewer lines as
    its container expands, while the portrait grows instead of hitting 504px. */
-@media (min-width: 600px) and (max-width: 1199px) {
+@media (min-width: 600px) and (max-width: 999px) {
   .home-hero-redesign {
     padding-inline: clamp(27px, 4.5vw, 62px);
   }
@@ -446,8 +504,8 @@ html.portfolio-wheel-animating {
     margin-bottom: clamp(38px, 6vw, 72px);
   }
 
-  /* At 600px, match the narrow portrait width. Then gradually grow it from
-     86% to about 93% of the column before switching to the wide layout. */
+  /* From 600px the portrait grows continuously; at 1000px it deliberately
+     becomes smaller when it moves into the desktop's right-hand column. */
   .home-hero-person {
     width: min(96%, calc(86% + max(0px, 12.5vw - 75px)));
     max-width: 1040px;
@@ -492,7 +550,7 @@ html.portfolio-wheel-animating {
     grid-template-columns: minmax(74px, 95px) minmax(0, 1fr);
   }
 }
-@media (min-width: 840px) and (max-width: 1199px) {
+@media (min-width: 840px) and (max-width: 999px) {
   .home-hero-card,
   .home-hero-card:nth-child(2),
   .home-hero-card:nth-child(3) {
@@ -522,7 +580,7 @@ html.portfolio-wheel-animating {
 /* The overlay is only visible with the desktop links collapsed. */
 .portfolio-mobile-menu-toggle,
 .portfolio-mobile-navigation { display: none; }
-@media (max-width: 1199px) {
+@media (max-width: 999px) {
   html.portfolio-mobile-menu-open,
   html.portfolio-mobile-menu-open body { overflow: hidden !important; }
   .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
@@ -673,7 +731,7 @@ html.portfolio-wheel-animating {
 
 
 /* Reveal the hamburger after the shared desktop default hides it. */
-@media (max-width: 1199px) {
+@media (max-width: 999px) {
   html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
     display: flex !important;
   }
