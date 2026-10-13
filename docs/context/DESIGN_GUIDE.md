@@ -19,3 +19,7 @@ Use the existing case modal, roughly two-thirds content and one-third project in
 ## Page scroll behavior
 
 Hide the root browser scrollbar visually without disabling vertical page scrolling. Use restrained desktop wheel easing and a modest reduction in scroll distance; preserve native mobile touch scrolling, keyboard navigation, nested case-study/dialog scrolling, and reduced-motion preferences. Avoid replacing the page with a transformed scrolling container or locking normal navigation.
+
+## Pointer trail
+
+The pointer trail should maintain a genuinely smooth path without sharp corners at direction changes. Keep the established light/dark surface-contrast colors, line-width taper, 220 ms fade, cursor size, and reduced-motion/mobile behavior. The implementation currently uses Catmull–Rom-to-cubic-Bézier interpolation in an external enhancement script; the legacy inline trail remains an invisible fallback when the enhancement is active. Avoid added pointer lag or unrelated interaction changes.

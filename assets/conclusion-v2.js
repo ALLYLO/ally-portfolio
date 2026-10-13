@@ -95,3 +95,14 @@
   script.async = true;
   document.head.appendChild(script);
 })();
+
+/* Smooth pointer trail asset loader. The original inline trail stays as fallback. */
+(() => {
+  if (document.querySelector('script[data-smooth-pointer-loader]')) return;
+  const source = document.currentScript?.src || document.baseURI;
+  const script = document.createElement('script');
+  script.src = new URL('pointer-trail-smooth.js', source).href;
+  script.dataset.smoothPointerLoader = 'true';
+  script.async = true;
+  document.head.appendChild(script);
+})();

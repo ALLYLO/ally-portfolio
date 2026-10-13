@@ -1,5 +1,12 @@
 /* Homepage hero redesign: collage layout follows the owner-provided visual reference. */
 
+/* Hide the legacy straight-segment trail only once the smooth replacement is ready.
+   Keep the original visible if the replacement script cannot initialize. */
+.portfolio-smooth-trail-ready .pointer-trail:not(.pointer-trail-smooth) {
+  display: none !important;
+}
+
+
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
 @media (min-width: 761px) {
   .editorial-header {
