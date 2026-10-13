@@ -730,35 +730,38 @@ html.portfolio-wheel-animating {
 
 
 
-/* Structured home hero: the portrait is reparented inside the right-hand
-   collage in conclusion-v2.js. Grid, not page-relative absolute offsets,
-   reserves separate room for the image, three cards, and left-side CTAs. */
+/* Canonical structured hero. The DOM groups thesis + CTAs so the title can
+   span both tracks at the first expanded stage without manual offsets.
+   The photo and paper cards always have their own grid cells. */
+@media (max-width: 599px) {
+  .home-hero-info { display: contents; }
+}
 @media (min-width: 600px) {
   .home-hero-layout.home-hero-structured {
-    --hero-gap: clamp(12px, 2.3vw, 38px);
     display: grid;
     grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
-    gap: var(--hero-gap);
+    gap: clamp(16px, 2.2vw, 38px);
     align-items: center;
     min-height: 0;
   }
   .home-hero-layout.home-hero-structured > .home-hero-copy {
+    position: relative;
+    display: block;
     min-width: 0;
     padding: 0;
     align-self: center;
-    position: relative;
     z-index: 2;
   }
   .home-hero-layout.home-hero-structured > .home-hero-collage {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto;
-    align-content: start;
-    align-self: center;
-    row-gap: clamp(16px, 2.2vw, 30px);
+    row-gap: clamp(12px, 2vw, 28px);
     min-width: 0;
     min-height: 0;
-    position: relative;
+    align-self: center;
+    align-content: start;
     z-index: 1;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
@@ -766,16 +769,12 @@ html.portfolio-wheel-animating {
     grid-row: 1;
     position: relative;
     inset: auto;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
     justify-self: center;
     width: min(100%, 620px);
     max-width: 100%;
     height: auto;
-    min-height: 0;
     aspect-ratio: 1360 / 1157;
+    min-height: 0;
     margin: 0;
     overflow: visible;
     z-index: 3;
@@ -793,31 +792,23 @@ html.portfolio-wheel-animating {
     grid-row: 2;
     position: relative;
     inset: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
     width: 100%;
     min-width: 0;
     margin: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
-    gap: clamp(5px, 1vw, 13px);
+    gap: clamp(6px, 1vw, 13px);
     z-index: 4;
   }
   .home-hero-layout.home-hero-structured .home-hero-card {
     min-width: 0;
   }
-  .home-hero-layout.home-hero-structured .home-hero-blue-paper,
-  .home-hero-layout.home-hero-structured .home-hero-rays,
-  .home-hero-layout.home-hero-structured .home-hero-dots {
-    pointer-events: none;
-  }
   .home-hero-layout.home-hero-structured .home-hero-actions {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: clamp(9px, 1.7vw, 28px);
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.8vw, 28px);
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
   .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
@@ -825,172 +816,198 @@ html.portfolio-wheel-animating {
     min-width: 0;
     white-space: nowrap;
   }
+  .home-hero-layout.home-hero-structured .home-hero-blue-paper,
+  .home-hero-layout.home-hero-structured .home-hero-rays,
+  .home-hero-layout.home-hero-structured .home-hero-dots {
+    pointer-events: none;
+  }
 }
 
-/* Two-column layout comes before full navigation: zoomed and mid-width
-   windows have a compact left column but can retain the hamburger. */
-@media (min-width: 600px) and (max-width: 959px) {
+/* FIRST EXPANDED STAGE | 600-1399px
+   The headline is a full-width editorial masthead. Only below it do
+   description/actions and portrait become side-by-side. Three paper cards
+   form a single horizontal band below, never beside the headline. */
+@media (min-width: 600px) and (max-width: 1399px) {
   .home-hero-redesign {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: clamp(9px, 1.4vw, 23px) clamp(21px, 4vw, 62px) clamp(48px, 7vh, 94px);
     overflow: visible;
-    padding: clamp(2px, 1.5vw, 14px) 3.5% 34px;
   }
-  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
-    font-size: clamp(30px, calc(7.8vw - 15px), 63px);
-    margin-bottom: clamp(20px, 3.4vw, 36px);
-    letter-spacing: -.082em;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-thesis {
-    font-size: clamp(17px, 2.5vw, 25px);
-    line-height: 1.19;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions {
-    margin-top: clamp(20px, 3.7vw, 36px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    font-size: clamp(9px, 1.1vw, 12px);
-    padding: 11px clamp(8px, 1.6vw, 16px);
-    letter-spacing: .1em;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-collage {
-    row-gap: clamp(12px, 1.6vw, 18px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-card {
-    min-height: 100px;
-    padding: 9px 6px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-card h2 {
-    font-size: 8px;
-    letter-spacing: .1em;
-    padding: 5px 5px;
-    margin-bottom: 7px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
-    width: 95px;
-    height: 75px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
-    width: 51px;
-    height: 51px;
-    font-size: 7px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 22px; }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 0; }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 0; }
-  .home-hero-layout.home-hero-structured .home-hero-market-list {
-    min-height: 78px;
-    padding: 0;
-    line-height: 1.6;
-    font-size: 9px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
-    min-height: 78px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-tool-note {
-    font-size: 8px !important;
-  }
-}
-/* Narrow two-column stage: portrait stays on the right, but the three
-   reduced-size paper cards share a full-width horizontal row. This prevents
-   an unreadable 3 x 80px row squeezed into the narrow right-hand column. */
-@media (min-width: 600px) and (max-width: 819px) {
   .home-hero-layout.home-hero-structured {
-    grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
-    grid-template-rows: auto auto;
-    align-items: center;
-    row-gap: clamp(14px, 2.2vw, 24px);
+    display: grid;
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    grid-template-rows: auto auto auto;
+    column-gap: clamp(22px, 4vw, 68px);
+    row-gap: 0;
+    align-items: start;
+    width: 100%;
+    max-width: 1180px;
+    min-height: 0;
+    margin-inline: auto;
   }
-  .home-hero-layout.home-hero-structured > .home-hero-copy {
-    grid-column: 1;
-    grid-row: 1;
-  }
+  /* Flatten wrappers in CSS while retaining the original accessible DOM.
+     .home-hero-info keeps thesis and buttons together as one grid item. */
+  .home-hero-layout.home-hero-structured > .home-hero-copy,
   .home-hero-layout.home-hero-structured > .home-hero-collage {
     display: contents;
   }
-  .home-hero-layout.home-hero-structured .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
-    display: none !important;
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: clamp(20px, 3.4vw, 42px) 0 clamp(54px, 7vw, 94px);
+    padding: 0;
+    font-size: clamp(42px, 7.3vw, 96px);
+    line-height: .99;
+    letter-spacing: -.078em;
+    white-space: nowrap;
+    align-self: start;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis {
+    max-width: 100%;
+    margin: 0;
+    font-size: clamp(19px, 2.7vw, 32px);
+    line-height: 1.3;
+    letter-spacing: -.045em;
+    text-wrap: pretty;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    display: inline;
+    margin: 0 0 0 .17em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    margin-top: clamp(31px, 5vw, 66px);
+    gap: clamp(13px, 2.5vw, 30px);
+    flex-wrap: wrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    padding: clamp(12px, 1.5vw, 17px) clamp(14px, 2vw, 26px);
+    font-size: clamp(10px, 1.12vw, 13px);
+    line-height: 1.1;
+    letter-spacing: .13em;
+    white-space: nowrap;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
     grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-    width: min(92%, 345px);
+    grid-row: 2;
     justify-self: center;
+    align-self: center;
+    width: min(100%, 585px);
+    aspect-ratio: 1360 / 1157;
+    max-height: min(46svh, 470px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
   .home-hero-layout.home-hero-structured .home-hero-cards {
     grid-column: 1 / -1;
-    grid-row: 2;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(8px, 1.25vw, 13px);
+    grid-row: 3;
     width: 100%;
+    max-width: 1050px;
+    justify-self: center;
+    margin-top: clamp(65px, 8vw, 118px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2.2vw, 28px);
   }
   .home-hero-layout.home-hero-structured .home-hero-card,
   .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
     grid-column: auto;
-    min-height: clamp(106px, 17vw, 137px);
-    padding: 9px clamp(7px, 1.5vw, 13px);
+    min-width: 0;
+    min-height: clamp(135px, 13vw, 190px);
     margin-top: 0;
+    padding: clamp(11px, 1.6vw, 19px) clamp(12px, 1.5vw, 18px);
   }
   .home-hero-layout.home-hero-structured .home-hero-card h2 {
-    font-size: 9px;
-    padding: 5px 9px;
-    margin-bottom: 7px;
+    padding: 5px clamp(8px, 1vw, 13px);
+    margin-bottom: clamp(8px, 1vw, 14px);
+    font-size: clamp(8px, .95vw, 11px);
   }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn {
-    width: 102px;
-    height: 78px;
+    width: clamp(100px, 13vw, 138px);
+    height: clamp(80px, 10vw, 103px);
   }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
-    width: 53px;
-    height: 53px;
-    font-size: 8px;
+    width: clamp(52px, 6.5vw, 72px);
+    height: clamp(52px, 6.5vw, 72px);
+    font-size: clamp(7px, .85vw, 10px);
   }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 25px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 24%; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
   .home-hero-layout.home-hero-structured .home-hero-market-list {
-    min-height: 78px;
-    font-size: clamp(9px, 1.35vw, 11px);
-    line-height: 1.58;
+    min-height: clamp(88px, 10vw, 111px);
+    padding-left: 0;
+    font-size: clamp(10px, 1vw, 12px);
   }
   .home-hero-layout.home-hero-structured .home-hero-tool-marks {
-    min-height: 78px;
+    min-height: clamp(88px, 10vw, 111px);
   }
   .home-hero-layout.home-hero-structured .home-hero-tool-note {
-    font-size: 8px !important;
+    font-size: 9px !important;
+  }
+  /* The portrait asset already contains its own torn-paper illustration. */
+  .home-hero-layout.home-hero-structured .home-hero-blue-paper,
+  .home-hero-layout.home-hero-structured .home-hero-rays,
+  .home-hero-layout.home-hero-structured .home-hero-dots {
+    display: none !important;
+  }
+}
+/* First expanded width must remain functional in both columns. */
+@media (min-width: 600px) and (max-width: 779px) {
+  .home-hero-layout.home-hero-structured {
+    column-gap: clamp(12px, 2vw, 22px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    font-size: clamp(39px, 7.2vw, 56px);
+    margin-bottom: clamp(33px, 5vw, 48px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    font-size: clamp(17px, 2.6vw, 21px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    margin-top: clamp(21px, 3.5vw, 30px);
+    gap: 9px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    padding: 11px clamp(9px, 1.4vw, 13px);
+    font-size: clamp(9px, 1.35vw, 11px);
+    letter-spacing: .06em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(100%, 345px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    margin-top: clamp(45px, 6vw, 70px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    min-height: 115px;
+  }
+}
+/* Beyond the first expanded stage, restore the original desktop hierarchy:
+   heading + thesis + CTAs as one left column; collage and cards at right. */
+@media (min-width: 1400px) {
+  .home-hero-layout.home-hero-structured .home-hero-info {
+    display: block;
   }
 }
 
-/* Once the right column can hold three small cards, they sit directly
-   beneath its portrait, still in one horizontal row. */
-@media (min-width: 820px) and (max-width: 959px) {
-  .home-hero-layout.home-hero-structured .home-hero-person {
-    width: min(91%, 480px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .home-hero-layout.home-hero-structured .home-hero-card {
-    min-height: 110px;
-    padding: 9px 5px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
-    width: 88px;
-    height: 72px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
-    width: 47px;
-    height: 47px;
-    font-size: 7px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 21px; }
-}
-@media (min-width: 960px) and (max-width: 1199px) {
-  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
-    font-size: clamp(61px, calc(7.8vw - 15px), 84px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions {
-    margin-top: clamp(25px, 3vw, 41px);
-  }
-}
+/* Fall back to normal flow for the collage's non-grid decorative elements at
+   mid widths; they are hidden above so they cannot overlap the headline. */
 
 @media (prefers-reduced-motion: reduce) {
   .home-hero-actions .work-cta,

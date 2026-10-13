@@ -129,5 +129,18 @@
   const cards = collage?.querySelector(':scope > .home-hero-cards');
   if (!layout || !collage || !portrait || !cards) return;
   collage.insertBefore(portrait, cards);
+
+  // In the first expanded layout, the headline spans the page while the
+  // description and its two CTAs stay together in a separate grid cell.
+  // Keep the original elements and their links; do not clone their content.
+  const copy = layout.querySelector(':scope > .home-hero-copy');
+  const thesis = copy?.querySelector('.home-hero-thesis');
+  const actions = copy?.querySelector('.home-hero-actions');
+  if (copy && thesis && actions && !copy.querySelector('.home-hero-info')) {
+    const info = document.createElement('div');
+    info.className = 'home-hero-info';
+    thesis.before(info);
+    info.append(thesis, actions);
+  }
   layout.classList.add('home-hero-structured');
 })();
