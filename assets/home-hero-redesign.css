@@ -1,4 +1,24 @@
 /* Homepage hero redesign: collage layout follows the owner-provided visual reference. */
+
+/* Let the numbered navigation reverse naturally where it crosses the hero lettering. */
+@media (min-width: 761px) {
+  .editorial-header {
+    z-index: 20;
+    isolation: auto;
+  }
+  .editorial-header nav {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    background: transparent;
+    mix-blend-mode: difference;
+  }
+  .editorial-header nav a,
+  .editorial-header nav a:visited {
+    color: inherit;
+  }
+}
+
 .home-hero-redesign {
   position: relative;
   isolation: isolate;
