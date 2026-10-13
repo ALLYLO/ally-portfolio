@@ -531,9 +531,9 @@ html.portfolio-wheel-animating {
   /* Keep the original collage asset but crop peripheral stickers/doodles.
      Remove only the extra CSS blue-paper backing on narrow screens. */
   .home-hero-person {
-    width: 94%;
-    max-width: 548px;
-    height: clamp(230px, 68vw, 365px);
+    width: 86%;
+    max-width: 504px;
+    height: clamp(210px, 62vw, 332px);
     margin-bottom: clamp(65px, 11vw, 86px);
     overflow: hidden;
   }
@@ -543,6 +543,11 @@ html.portfolio-wheel-animating {
   .home-hero-person img {
     transform: scale(1.105);
     transform-origin: center 49%;
+  }
+  /* More restrained portrait caption sizing on phones and narrow tablets. */
+  .home-hero-thesis {
+    font-size: clamp(22px, 5.3vw, 30px);
+    line-height: 1.2;
   }
 }
 @media (max-width: 390px) {
