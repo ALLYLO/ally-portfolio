@@ -102,7 +102,7 @@ html.portfolio-wheel-animating {
 .home-hero-paper { position: absolute; filter: drop-shadow(0 8px 9px #54493622); }
 .home-hero-torn { clip-path: polygon(3% 1%,14% 2%,20% 0,33% 2%,46% 1%,59% 3%,74% 1%,88% 3%,98% 1%,97% 15%,100% 25%,98% 39%,100% 51%,97% 64%,99% 78%,97% 98%,83% 97%,69% 100%,55% 97%,41% 100%,28% 97%,14% 99%,2% 96%,3% 82%,0 68%,2% 53%,0 39%,3% 24%); }
 .home-hero-blue-paper { position: absolute; top: 14%; left: 23%; width: 75%; height: 65%; background: #92adbd; opacity: .78; clip-path: polygon(5% 3%,35% 0,48% 4%,100% 2%,96% 30%,100% 55%,95% 100%,58% 96%,29% 100%,0 92%,4% 62%,0 35%); transform: rotate(-2.5deg); }
-.home-hero-person { position: absolute; top: -42px; left: var(--portrait-inset); right: auto; z-index: 3; width: min(650px, calc(100% - var(--portrait-inset))); aspect-ratio: 1360 / 1157; height: auto; overflow: visible; }
+.home-hero-person { position: absolute; top: -42px; left: var(--portrait-inset, 46%); right: auto; z-index: 3; width: min(650px, calc(100% - var(--portrait-inset, 46%))); aspect-ratio: 1360 / 1157; height: auto; overflow: visible; }
 .home-hero-person img { display: block; width: 100%; height: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 9px 8px #54493620); }
 .home-hero-person::before { display: none; }
 .home-hero-person::after { display: none; }
@@ -158,6 +158,23 @@ html.portfolio-wheel-animating {
   }
   .home-hero-card p,
   .home-hero-market-list { font-size: clamp(10px, .85vw, 12px); }
+}
+
+/* Compact the fixed-size card art before its three columns become too narrow. */
+@media (min-width: 961px) and (max-width: 1199px) {
+  .home-hero-card { padding-inline: 8px; }
+  .home-hero-card h2 {
+    padding: 6px 7px;
+    font-size: 9px;
+    letter-spacing: .11em;
+  }
+  .home-hero-skill-venn { width: 108px; height: 85px; }
+  .home-hero-skill-venn span { width: 57px; height: 57px; font-size: 8px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 26px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 0; }
+  .home-hero-skill-venn span:nth-child(3) { right: 0; }
+  .home-hero-market-list { padding-left: 0; line-height: 1.6; }
+  .home-hero-tool-note { font-size: 8px !important; }
 }
 
 
