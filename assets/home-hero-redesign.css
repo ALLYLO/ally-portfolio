@@ -17,7 +17,7 @@ html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
 
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
-@media (min-width: 1000px) {
+@media (min-width: 740px) {
   .editorial-header {
     z-index: 20;
     isolation: auto !important;
@@ -84,7 +84,7 @@ html.portfolio-wheel-animating {
   margin: 0 0 clamp(32px, 4vw, 58px);
   color: #24231f;
   font-family: 'Space Grotesk', 'DM Sans', sans-serif;
-  font-size: clamp(62px, 7.05vw, 118px);
+  font-size: clamp(39px, calc(9vw - 24px), 118px);
   font-weight: 700;
   letter-spacing: -.078em;
   line-height: .99;
@@ -139,7 +139,7 @@ html.portfolio-wheel-animating {
 
 /* Continuous desktop layout: proportional media and content-safe columns.
    Only narrow-to-middle desktop widths need to reduce the card density. */
-@media (min-width: 1000px) and (max-width: 1399px) {
+@media (min-width: 740px) and (max-width: 1399px) {
   .home-hero-layout {
     grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
     gap: clamp(12px, 2vw, 32px);
@@ -147,7 +147,6 @@ html.portfolio-wheel-animating {
   }
   .home-hero-copy { min-width: 0; }
   .home-hero-copy h1 {
-    font-size: clamp(59px, 7vw, 96px);
     max-width: 100%;
   }
   .home-hero-collage { min-width: 0; min-height: clamp(515px, 44vw, 610px); }
@@ -161,9 +160,9 @@ html.portfolio-wheel-animating {
 }
 
 
-/* The compact desktop stage starts as soon as two columns fit. The portrait
-   intentionally shrinks on this switch; its size is controlled by its column. */
-@media (min-width: 1000px) and (max-width: 1199px) {
+/* Enter a compact two-column composition as soon as the content can fit,
+   including zoomed browser windows. The image deliberately becomes smaller. */
+@media (min-width: 740px) and (max-width: 1199px) {
   .home-hero-layout {
     min-height: clamp(550px, 55vw, 610px);
     gap: clamp(12px, 1.8vw, 24px);
@@ -173,7 +172,7 @@ html.portfolio-wheel-animating {
     padding-bottom: 52px;
   }
   .home-hero-copy h1 {
-    font-size: clamp(61px, 6.85vw, 82px);
+    font-size: clamp(39px, calc(9vw - 24px), 83px);
     letter-spacing: -.085em;
   }
   .home-hero-thesis {
@@ -219,9 +218,78 @@ html.portfolio-wheel-animating {
   .home-hero-tool-note { font-size: 8px !important; }
 }
 
+
+/* The first desktop stage is deliberately compact: the primary actions remain
+   beside the portrait rather than being pushed below the initial viewport. */
+@media (min-width: 740px) and (max-width: 899px) {
+  .home-hero-redesign {
+    padding-top: 9px;
+    padding-inline: 3%;
+    padding-bottom: 28px;
+  }
+  .home-hero-layout,
+  .home-hero-collage {
+    min-height: clamp(450px, 58vw, 520px);
+  }
+  .home-hero-layout { gap: 12px; }
+  .home-hero-copy { padding: 0 0 24px; }
+  .home-hero-copy h1 {
+    font-size: clamp(39px, calc(9vw - 24px), 57px);
+    margin-bottom: clamp(20px, 3vw, 30px);
+  }
+  .home-hero-thesis {
+    font-size: clamp(18px, 2.5vw, 22px);
+    line-height: 1.16;
+  }
+  .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: clamp(21px, 3vw, 31px);
+  }
+  .home-hero-actions .work-cta,
+  .home-hero-actions .resume-link {
+    min-width: 0;
+    padding: 11px clamp(9px, 1.5vw, 15px);
+    font-size: 9px;
+    letter-spacing: .08em;
+  }
+  .home-hero-person { top: -8px; }
+  .home-hero-card { min-height: 128px; padding: 9px 5px; }
+  .home-hero-card h2 {
+    padding: 5px 4px;
+    margin-bottom: 6px;
+    font-size: 7.5px;
+    letter-spacing: .08em;
+  }
+  .home-hero-skill-venn { width: 82px; height: 70px; }
+  .home-hero-skill-venn span { width: 46px; height: 46px; font-size: 7px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 18px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 0; }
+  .home-hero-skill-venn span:nth-child(3) { right: 0; }
+  .home-hero-market-list { min-height: 80px; font-size: 8px; line-height: 1.5; }
+  .home-hero-tool-marks { min-height: 80px; gap: 3px; }
+  .home-hero-tool-marks span { width: 22px; height: 22px; font-size: 13px; }
+  .home-hero-tool-marks i { width: 15px; height: 15px; }
+  .home-hero-tool-marks b { font-size: 14px; }
+  .home-hero-tool-note { font-size: 7px !important; }
+}
+
+/* Shorter viewports should not amplify the growing stacked portrait so much
+   that all primary actions are pushed below the fold. Natural scroll remains. */
+@media (max-width: 739px) and (max-height: 740px) {
+  .home-hero-person {
+    height: min(clamp(210px, 58vw, 365px), 36svh);
+    margin-bottom: clamp(34px, 6svh, 56px);
+  }
+  .home-hero-copy h1 { margin-bottom: clamp(22px, 5vw, 38px); }
+  .home-hero-actions { margin-top: clamp(25px, 5svh, 44px); }
+}
+
 /* Canonical portrait-first layout. One set of mobile rules replaces the old
    succession of phone overrides; all dimensions follow the available width. */
-@media (max-width: 999px) {
+@media (max-width: 739px) {
   body { padding-top: clamp(87px, 9vw, 98px); }
   .editorial-header {
     display: flex !important;
@@ -487,9 +555,9 @@ html.portfolio-wheel-animating {
 }
 
 
-/* Growing stacked stage: 600-999px. Text wraps naturally into fewer lines as
+/* Growing stacked stage: 600-739px. Text wraps naturally into fewer lines as
    its container expands, while the portrait grows instead of hitting 504px. */
-@media (min-width: 600px) and (max-width: 999px) {
+@media (min-width: 600px) and (max-width: 739px) {
   .home-hero-redesign {
     padding-inline: clamp(27px, 4.5vw, 62px);
   }
@@ -550,37 +618,12 @@ html.portfolio-wheel-animating {
     grid-template-columns: minmax(74px, 95px) minmax(0, 1fr);
   }
 }
-@media (min-width: 840px) and (max-width: 999px) {
-  .home-hero-card,
-  .home-hero-card:nth-child(2),
-  .home-hero-card:nth-child(3) {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    min-height: 175px;
-    padding: clamp(13px, 1.5vw, 20px);
-    gap: 10px;
-  }
-  .home-hero-card h2,
-  .home-hero-card:nth-child(2) h2 {
-    display: table;
-    align-self: center;
-    margin: 0 0 5px;
-    padding: 6px 10px;
-    font-size: 10px;
-  }
-  .home-hero-skill-venn { width: 120px; height: 92px; }
-  .home-hero-skill-venn span { width: 60px; height: 60px; }
-  .home-hero-skill-venn span:nth-child(1) { left: 30px; }
-  .home-hero-skill-venn span:nth-child(2) { left: 0; }
-  .home-hero-skill-venn span:nth-child(3) { right: 0; }
-}
+
 
 /* The overlay is only visible with the desktop links collapsed. */
 .portfolio-mobile-menu-toggle,
 .portfolio-mobile-navigation { display: none; }
-@media (max-width: 999px) {
+@media (max-width: 739px) {
   html.portfolio-mobile-menu-open,
   html.portfolio-mobile-menu-open body { overflow: hidden !important; }
   .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
@@ -731,7 +774,7 @@ html.portfolio-wheel-animating {
 
 
 /* Reveal the hamburger after the shared desktop default hides it. */
-@media (max-width: 999px) {
+@media (max-width: 739px) {
   html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
     display: flex !important;
   }
