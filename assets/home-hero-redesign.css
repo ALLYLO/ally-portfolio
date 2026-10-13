@@ -903,9 +903,11 @@ html.portfolio-wheel-animating {
     grid-row: 2;
     justify-self: center;
     align-self: center;
-    width: min(100%, 585px);
+    /* Bound the image by both its column and viewport height so it cannot
+       push the headline/CTA composition down on shorter windows. */
+    width: min(100%, 585px, 53svh);
     aspect-ratio: 1360 / 1157;
-    max-height: min(46svh, 470px);
+    max-height: 46svh;
   }
   .home-hero-layout.home-hero-structured .home-hero-person img {
     height: 100%;
@@ -957,6 +959,12 @@ html.portfolio-wheel-animating {
   }
   .home-hero-layout.home-hero-structured .home-hero-tool-note {
     font-size: 9px !important;
+  }
+  /* Since both original wrappers are flattened in Grid, conceal any
+     incidental collage decoration that would otherwise become an unplaced
+     grid item or a page-positioned overlay. The portrait PNG keeps its own art. */
+  .home-hero-layout.home-hero-structured > .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
+    display: none !important;
   }
   /* The portrait asset already contains its own torn-paper illustration. */
   .home-hero-layout.home-hero-structured .home-hero-blue-paper,
