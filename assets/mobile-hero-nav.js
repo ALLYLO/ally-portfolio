@@ -3,7 +3,7 @@
   'use strict';
   if (window.__allyMobileNavigationReady) return;
 
-  const mobile = matchMedia('(max-width: 760px)');
+  const mobile = matchMedia('(max-width: 960px)');
   const init = () => {
     const header = document.querySelector('.editorial-header');
     const desktopNav = header?.querySelector('nav');

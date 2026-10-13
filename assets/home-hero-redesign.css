@@ -17,7 +17,7 @@ html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
 
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
-@media (min-width: 761px) {
+@media (min-width: 961px) {
   .editorial-header {
     z-index: 20;
     isolation: auto !important;
@@ -66,8 +66,9 @@ html.portfolio-wheel-animating {
   background: transparent;
 }
 .home-hero-layout {
+  --portrait-inset: clamp(390px, 46%, 699px);
   display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(480px, .98fr);
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
   gap: clamp(16px, 2.2vw, 38px);
   position: relative;
   max-width: 1620px;
@@ -101,7 +102,7 @@ html.portfolio-wheel-animating {
 .home-hero-paper { position: absolute; filter: drop-shadow(0 8px 9px #54493622); }
 .home-hero-torn { clip-path: polygon(3% 1%,14% 2%,20% 0,33% 2%,46% 1%,59% 3%,74% 1%,88% 3%,98% 1%,97% 15%,100% 25%,98% 39%,100% 51%,97% 64%,99% 78%,97% 98%,83% 97%,69% 100%,55% 97%,41% 100%,28% 97%,14% 99%,2% 96%,3% 82%,0 68%,2% 53%,0 39%,3% 24%); }
 .home-hero-blue-paper { position: absolute; top: 14%; left: 23%; width: 75%; height: 65%; background: #92adbd; opacity: .78; clip-path: polygon(5% 3%,35% 0,48% 4%,100% 2%,96% 30%,100% 55%,95% 100%,58% 96%,29% 100%,0 92%,4% 62%,0 35%); transform: rotate(-2.5deg); }
-.home-hero-person { position: absolute; top: -42px; left: 699px; right: auto; z-index: 3; width: min(650px,calc(100% - 699px)); aspect-ratio: 1360 / 1157; height: auto; overflow: visible; }
+.home-hero-person { position: absolute; top: -42px; left: var(--portrait-inset); right: auto; z-index: 3; width: min(650px, calc(100% - var(--portrait-inset))); aspect-ratio: 1360 / 1157; height: auto; overflow: visible; }
 .home-hero-person img { display: block; width: 100%; height: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 9px 8px #54493620); }
 .home-hero-person::before { display: none; }
 .home-hero-person::after { display: none; }
@@ -134,109 +135,114 @@ html.portfolio-wheel-animating {
 @media (min-width:1500px) {
   .home-hero-layout { grid-template-columns: minmax(0,1.02fr) minmax(600px,.98fr); }
 }
-@media (max-width:1100px) and (min-width:761px) {
-  .home-hero-person { top: -38px; left: 390px; width: min(530px,calc(100% - 390px)); }
-  .home-hero-layout { grid-template-columns: minmax(0,1fr) minmax(390px,.95fr); gap: 10px; }
-  .home-hero-copy h1 { font-size: clamp(59px,7vw,82px); }
-  .home-hero-collage { min-height: 550px; }
-  .home-hero-card { min-height: 170px; padding-inline: 10px; }
-  .home-hero-card p,.home-hero-market-list { font-size: 10px; }
-}
-@media (max-width:760px) {
-  .editorial-header { height: 100px; margin-inline: 4%; padding-top: 20px; grid-template-columns: 1fr 1fr auto; gap: 8px; }
-  .editorial-header nav { gap: 7px; font-size: 12px; }
-  .editorial-header nav a:nth-child(2) { margin-left: 9px; }
-  .editorial-header nav a:nth-child(3) { margin-left: 18px; }
-  .header-contact { font-size: 10px; }
-  body { padding-top: 114px; }
-  .home-hero-redesign { min-height: unset; padding: 7px 5% 33px; overflow: hidden; }
-  .home-hero-layout { display: flex; flex-direction: column; gap: 4px; min-height: 0; }
-  .home-hero-copy { align-self: stretch; width: 100%; padding: 14px 0 4px; }
-  .home-hero-copy h1 { gap: 0; margin-bottom: 23px; font-size: clamp(39px,11.2vw,51px); letter-spacing: -.08em; line-height: 1.02; }
-  .home-hero-thesis { font-size: clamp(23px,6.5vw,27px); }
-  .home-hero-thesis em { margin-top: 3px; }
-  .home-hero-actions { gap: 23px; margin-top: 19px; }
-  .home-hero-actions .work-cta { min-width: 132px; padding: 13px 16px; font-size: 11px; }
-  .home-hero-actions .resume-link { min-width: 0; padding: 13px 13px; gap: 6px; font-size: 10px; letter-spacing: .07em; }
-  .home-hero-collage { display: block; position: relative; order: 2; width: 100%; min-height: 0; height: 555px; }
-  .home-hero-person { position: absolute; top: calc(100% - 555px); right: 4%; left: auto; width: 86%; height: 250px; aspect-ratio: auto; margin: 0; }
-  .home-hero-person img { width: 100%; height: 100%; object-fit: contain; }
-  .home-hero-blue-paper { top: 52px; bottom: auto; left: 19%; width: 77%; height: 185px; }
-  .home-hero-rays { top: 0; right: 4%; }
-  .home-hero-dots { top: 9%; right: -2%; width: 25%; height: 105px; }
-  .home-hero-cards { position: absolute; top: 236px; right: 3px; bottom: auto; left: 3px; grid-template-columns: 1fr; gap: 8px; padding: 3px 0 0; }
-  .home-hero-card,.home-hero-card:nth-child(2),.home-hero-card:nth-child(3) { display: grid; grid-template-columns: 95px minmax(0,1fr); align-items: center; gap: 10px; min-height: 94px; margin: 0; padding: 10px 13px; transform: none; }
-  .home-hero-card h2,.home-hero-card:nth-child(2) h2 { justify-self: stretch; margin: 0; padding: 7px 5px; font-size: 9px; text-align: center; }
-  .home-hero-skill-venn { width: 120px; height: 70px; margin: 0 auto; }
-  .home-hero-skill-venn span { width: 51px; height: 51px; font-size: 8px; }
-  .home-hero-skill-venn span:nth-child(1) { left: 35px; }
-  .home-hero-skill-venn span:nth-child(2) { left: 8px; }
-  .home-hero-skill-venn span:nth-child(3) { right: 8px; }
-  .home-hero-market-list { min-height: 0; padding-left: 5px; font-size: 10px; line-height: 1.6; }
-  .home-hero-tool-marks { min-height: 0; grid-template-columns: repeat(3,34px); justify-content: center; gap: 11px; }
-  .home-hero-tool-note { grid-column: 1/-1; font-size: 8px !important; }
-}
-@media (max-width:390px) {
-  .home-hero-copy h1 { font-size: 10.6vw; }
-  .home-hero-card,.home-hero-card:nth-child(2),.home-hero-card:nth-child(3) { grid-template-columns: 84px minmax(0,1fr); gap: 6px; padding-inline: 8px; }
-  .home-hero-actions { gap: 16px; }
-  .home-hero-actions .work-cta { min-width: 120px; }
+
+
+/* Continuous desktop layout: proportional media and content-safe columns.
+   Only narrow-to-middle desktop widths need to reduce the card density. */
+@media (min-width: 961px) and (max-width: 1359px) {
+  .home-hero-layout {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+    gap: clamp(12px, 2vw, 32px);
+    min-height: clamp(560px, 46vw, 640px);
+  }
+  .home-hero-copy { min-width: 0; }
+  .home-hero-copy h1 {
+    font-size: clamp(59px, 7vw, 96px);
+    max-width: 100%;
+  }
+  .home-hero-collage { min-width: 0; min-height: clamp(515px, 44vw, 610px); }
+  .home-hero-card {
+    min-width: 0;
+    min-height: clamp(158px, 13.5vw, 190px);
+    padding-inline: clamp(10px, 1.3vw, 16px);
+  }
+  .home-hero-card p,
+  .home-hero-market-list { font-size: clamp(10px, .85vw, 12px); }
 }
 
 
-/* Mobile editorial layout: title, portrait, introduction, actions, cards. */
-@media (max-width: 760px) {
-  body { padding-top: 91px; }
+/* Canonical portrait-first layout. One set of mobile rules replaces the old
+   succession of phone overrides; all dimensions follow the available width. */
+@media (max-width: 960px) {
+  body { padding-top: clamp(87px, 9vw, 98px); }
   .editorial-header {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    height: 84px !important;
-    min-height: 84px;
+    height: clamp(79px, 8.6vw, 92px) !important;
+    min-height: 79px;
     grid-template-columns: none !important;
     width: auto;
     margin: 0 5% !important;
     padding: 14px 0 0 !important;
     gap: 18px;
+    isolation: auto !important;
+    mix-blend-mode: difference !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
+  .editorial-header > :first-child,
+  .editorial-header > :first-child *,
+  .editorial-header .portfolio-mobile-menu-toggle {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  .editorial-header > :first-child svg,
+  .editorial-header > :first-child svg * { fill: #fff !important; }
   .portfolio-mobile-menu-ready .editorial-header nav,
-  .portfolio-mobile-menu-ready .editorial-header .header-contact {
-    display: none !important;
-  }
-  .portfolio-mobile-menu-toggle {
+  .portfolio-mobile-menu-ready .editorial-header .header-contact { display: none !important; }
+  .editorial-header .portfolio-mobile-menu-toggle {
+    display: flex !important;
     flex: 0 0 auto;
-    display: flex;
     width: 48px;
     height: 48px;
     padding: 9px;
     border: 0;
     border-radius: 50%;
     background: transparent;
-    color: #342e29;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 7px;
     cursor: pointer;
   }
-  .portfolio-mobile-menu-toggle span {
+  .editorial-header .portfolio-mobile-menu-toggle span {
     width: 30px;
     height: 3px;
-    background: currentColor;
     border-radius: 9px;
+    background: #fff !important;
   }
-  .portfolio-mobile-menu-toggle span:last-child { width: 23px; margin-left: 7px; }
-  .portfolio-mobile-menu-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-
-  .home-hero-redesign { padding: 4px 5% 42px; overflow: visible; }
+  .editorial-header .portfolio-mobile-menu-toggle span:last-child {
+    width: 23px;
+    margin-left: 7px;
+  }
+  .editorial-header .portfolio-mobile-menu-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+  .home-hero-redesign {
+    min-height: 0;
+    width: auto;
+    max-width: 100%;
+    padding: 4px 5% 42px;
+    overflow: visible;
+  }
   .home-hero-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "title" "portrait" "thesis" "actions" "cards";
+    grid-template-areas:
+      "title"
+      "portrait"
+      "thesis"
+      "actions"
+      "cards";
     gap: 0;
+    min-width: 0;
     min-height: 0;
-    max-width: 690px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
   }
   .home-hero-copy,
   .home-hero-collage { display: contents; }
@@ -244,11 +250,13 @@ html.portfolio-wheel-animating {
     grid-area: title;
     width: 100%;
     max-width: 100%;
-    margin: 20px 0 clamp(30px, 7vw, 52px);
+    min-width: 0;
     padding: 0;
-    font-size: clamp(39px, 10.7vw, 72px);
-    letter-spacing: -.078em;
-    line-height: 1.04;
+    margin: clamp(19px, 4vw, 35px) 0 clamp(36px, 6.7vw, 62px);
+    gap: 0;
+    font-size: clamp(38px, 9.5vw, 70px);
+    letter-spacing: -.073em;
+    line-height: 1.055;
     white-space: nowrap;
   }
   .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
@@ -256,87 +264,174 @@ html.portfolio-wheel-animating {
   }
   .home-hero-person {
     grid-area: portrait;
-    position: relative;
     display: block;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
+    position: relative;
+    inset: auto;
     justify-self: center;
-    width: 100%;
-    max-width: 620px;
-    height: clamp(245px, 76vw, 405px);
+    width: min(86%, 504px);
+    max-width: 100%;
+    height: clamp(210px, 58vw, 365px);
     min-height: 0;
     aspect-ratio: auto;
-    margin: 0 0 clamp(42px, 10vw, 68px);
-    isolation: isolate;
+    margin: 0 0 clamp(60px, 10vw, 84px);
     overflow: hidden;
+    isolation: isolate;
   }
-  .home-hero-person::before {
-    display: block;
-    content: "";
-    position: absolute;
-    z-index: 0;
-    inset: 7% 6% 5% 12%;
-    background: #aec3d0;
-    clip-path: polygon(4% 4%, 28% 0, 59% 3%, 98% 1%, 95% 51%, 100% 96%, 71% 98%, 36% 96%, 1% 100%, 3% 53%);
-    transform: rotate(-1.5deg);
-    opacity: .92;
-  }
+  .home-hero-person::before,
+  .home-hero-person::after { display: none !important; }
   .home-hero-person img {
-    display: block;
     position: relative;
-    z-index: 1;
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center bottom;
+    transform: scale(1.105);
+    transform-origin: center 49%;
   }
   .home-hero-thesis {
     grid-area: thesis;
+    min-width: 0;
     margin: 0;
-    font-size: clamp(25px, 6vw, 34px);
-    line-height: 1.18;
+    font-size: clamp(22px, 5.3vw, 30px);
+    line-height: 1.2;
   }
   .home-hero-thesis em { margin-top: 5px; }
   .home-hero-actions {
     grid-area: actions;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin: 38px 0 0;
-  }
-  .home-hero-actions .work-cta,
-  .home-hero-actions .resume-link {
-    min-height: 52px;
+    flex-wrap: nowrap;
+    gap: clamp(16px, 4.8vw, 43px);
     min-width: 0;
-    padding: 15px clamp(15px, 4.3vw, 24px);
-    font-size: clamp(10px, 2.6vw, 13px);
+    margin: clamp(44px, 8.5vw, 66px) 0 0;
+  }
+  .home-hero-actions .work-cta {
+    box-sizing: border-box;
+    flex: 0 1 clamp(172px, 45vw, 294px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: clamp(56px, 12.3vw, 86px);
+    padding: 14px clamp(15px, 3.5vw, 28px);
+    border: 1px solid #38322c;
+    border-radius: 999px;
+    background: transparent;
+    color: #38322c;
+    font-size: clamp(11px, 2.5vw, 15px);
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .18em;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .home-hero-actions .resume-link {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 10px 0 9px;
+    border: 0;
+    border-bottom: 1px solid #38322c;
+    border-radius: 0;
+    background: transparent;
+    color: #38322c;
+    font-size: clamp(11px, 2.45vw, 15px);
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .16em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+  .home-hero-actions .resume-link:not([aria-disabled="true"]):hover { opacity: .62; }
+  .home-hero-actions .work-cta:focus-visible,
+  .home-hero-actions .resume-link:focus-visible {
+    outline: 2px solid #38322c;
+    outline-offset: 5px;
   }
   .home-hero-cards {
     grid-area: cards;
     position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
+    inset: auto;
     width: 100%;
-    margin: 62px 0 0;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin: clamp(58px, 8vw, 90px) 0 0;
     padding: 0;
   }
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    display: grid;
+    grid-template-columns: minmax(84px, 95px) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    min-height: 94px;
+    margin: 0;
+    padding: 10px 13px;
+    transform: none;
+  }
+  .home-hero-card h2,
+  .home-hero-card:nth-child(2) h2 {
+    justify-self: stretch;
+    margin: 0;
+    padding: 7px 5px;
+    font-size: 9px;
+    text-align: center;
+  }
+  .home-hero-skill-venn { width: 120px; height: 70px; margin: 0 auto; }
+  .home-hero-skill-venn span { width: 51px; height: 51px; font-size: 8px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 35px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 8px; }
+  .home-hero-skill-venn span:nth-child(3) { right: 8px; }
+  .home-hero-market-list { min-height: 0; padding-left: 5px; font-size: 10px; line-height: 1.6; }
+  .home-hero-tool-marks {
+    min-height: 0;
+    grid-template-columns: repeat(3, 34px);
+    justify-content: center;
+    gap: 11px;
+  }
+  .home-hero-tool-note { grid-column: 1 / -1; font-size: 8px !important; }
 }
+/* The smallest portrait widths need tighter button tracking and card labels. */
 @media (max-width: 390px) {
-  .home-hero-copy h1 { font-size: 10.5vw; }
-  .home-hero-actions { gap: 12px; }
-  .home-hero-actions .work-cta,
-  .home-hero-actions .resume-link { padding-inline: 13px; }
+  .home-hero-copy h1 { font-size: clamp(38px, 10.1vw, 40px); }
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    grid-template-columns: minmax(0, 84px) minmax(0, 1fr);
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .home-hero-actions { gap: clamp(12px, 4vw, 20px); }
+  .home-hero-actions .work-cta {
+    flex-basis: clamp(148px, 46vw, 180px);
+    padding-inline: 12px;
+    letter-spacing: .13em;
+  }
+  .home-hero-actions .resume-link {
+    font-size: 10px;
+    letter-spacing: .1em;
+    gap: 4px;
+  }
 }
 
 /* The overlay is only visible with the desktop links collapsed. */
 .portfolio-mobile-menu-toggle,
 .portfolio-mobile-navigation { display: none; }
-@media (max-width: 760px) {
+@media (max-width: 960px) {
   html.portfolio-mobile-menu-open,
   html.portfolio-mobile-menu-open body { overflow: hidden !important; }
   .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
@@ -487,150 +582,13 @@ html.portfolio-wheel-animating {
 
 
 /* Reveal the hamburger after the shared desktop default hides it. */
-@media (max-width: 760px) {
+@media (max-width: 960px) {
   html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
     display: flex !important;
   }
 }
 
 
-/* Mobile visual refinement: retain editorial scroll overlaps but invert the
-   entire header as one white-ink group against the actual artwork beneath. */
-@media (max-width: 760px) {
-  .editorial-header {
-    isolation: auto !important;
-    mix-blend-mode: difference !important;
-    background: transparent !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-  .editorial-header > :first-child,
-  .editorial-header > :first-child *,
-  .editorial-header .portfolio-mobile-menu-toggle {
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-  }
-  .editorial-header > :first-child svg,
-  .editorial-header > :first-child svg * {
-    fill: #fff !important;
-  }
-  .editorial-header .portfolio-mobile-menu-toggle span {
-    background: #fff !important;
-  }
-
-  /* Leave breathing room before the headline at rest.
-     Scrolling can still bring it naturally behind the fixed logo. */
-  .home-hero-copy h1 {
-    margin-top: clamp(20px, 4.8vw, 34px);
-    margin-bottom: clamp(45px, 8vw, 68px);
-    font-size: clamp(38px, 10.1vw, 69px);
-    letter-spacing: -.073em;
-    line-height: 1.055;
-  }
-
-  /* Keep the original collage asset but crop peripheral stickers/doodles.
-     Remove only the extra CSS blue-paper backing on narrow screens. */
-  .home-hero-person {
-    width: 86%;
-    max-width: 504px;
-    height: clamp(210px, 62vw, 332px);
-    margin-bottom: clamp(65px, 11vw, 86px);
-    overflow: hidden;
-  }
-  .home-hero-person::before {
-    display: none !important;
-  }
-  .home-hero-person img {
-    transform: scale(1.105);
-    transform-origin: center 49%;
-  }
-  /* More restrained portrait caption sizing on phones and narrow tablets. */
-  .home-hero-thesis {
-    font-size: clamp(22px, 5.3vw, 30px);
-    line-height: 1.2;
-  }
-}
-@media (max-width: 390px) {
-  .home-hero-copy h1 { font-size: 10.1vw; }
-}
-
-/* Narrow-screen CTAs: editorial hierarchy instead of two equal pills.
-   Desktop styles and the existing destinations/disabled state are untouched. */
-@media (max-width: 760px) {
-  .home-hero-actions {
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: clamp(21px, 5.6vw, 43px);
-    margin-top: clamp(47px, 9vw, 66px);
-  }
-  .home-hero-actions .work-cta {
-    box-sizing: border-box;
-    flex: 0 1 clamp(172px, 48vw, 294px);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    min-height: clamp(56px, 13.7vw, 86px);
-    padding: 14px clamp(17px, 3.5vw, 28px);
-    border: 1px solid #38322c;
-    border-radius: 999px;
-    background: transparent;
-    color: #38322c;
-    font-size: clamp(11px, 2.65vw, 15px);
-    font-weight: 450;
-    line-height: 1.1;
-    letter-spacing: .18em;
-    white-space: nowrap;
-    text-decoration: none;
-    transition: background-color .2s ease, color .2s ease;
-  }
-  .home-hero-actions .resume-link {
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    width: auto;
-    min-width: 0;
-    min-height: 0;
-    margin: 0;
-    padding: 10px 0 9px;
-    border: 0;
-    border-bottom: 1px solid #38322c;
-    border-radius: 0;
-    background: transparent;
-    color: #38322c;
-    font-size: clamp(11px, 2.55vw, 15px);
-    font-weight: 450;
-    line-height: 1.1;
-    letter-spacing: .16em;
-    white-space: nowrap;
-    text-decoration: none;
-    transition: opacity .2s ease;
-  }
-  .home-hero-actions .resume-link:not([aria-disabled="true"]):hover {
-    opacity: .62;
-  }
-  .home-hero-actions .work-cta:focus-visible,
-  .home-hero-actions .resume-link:focus-visible {
-    outline: 2px solid #38322c;
-    outline-offset: 5px;
-  }
-}
-@media (max-width: 390px) {
-  .home-hero-actions { gap: clamp(13px, 4vw, 20px); }
-  .home-hero-actions .work-cta {
-    flex-basis: clamp(157px, 47vw, 185px);
-    padding-inline: 12px;
-    letter-spacing: .13em;
-  }
-  .home-hero-actions .resume-link {
-    font-size: 10px;
-    letter-spacing: .1em;
-    gap: 4px;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .home-hero-actions .work-cta,
   .home-hero-actions .resume-link { transition: none !important; }
