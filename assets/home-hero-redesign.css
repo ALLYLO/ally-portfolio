@@ -890,19 +890,63 @@ html.portfolio-wheel-animating {
     letter-spacing: -.04em;
   }
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
-    gap: clamp(10px, 1.65vw, 20px);
-    margin-top: clamp(29px, 4vw, 45px);
+    display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    gap: clamp(14px, 1.9vw, 26px);
+    margin-top: clamp(29px, 4vw, 45px);
   }
+  /* Both CTA links use exactly the same internal box alignment and height.
+     The second link reserves a little more width for its diagonal arrow. */
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
   .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    min-height: clamp(46px, 5.3vw, 58px);
-    padding: clamp(12px, 1.5vw, 17px) clamp(13px, 1.85vw, 20px);
-    font-size: clamp(11px, 1.35vw, 14px);
-    line-height: 1.15;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: clamp(54px, 5.6vw, 62px);
+    min-height: 0;
+    min-width: 0;
+    padding: 0 clamp(12px, 1.45vw, 20px);
+    margin: 0;
+    border: 1px solid #34312b;
+    border-radius: 999px;
+    color: #302e29;
+    background: transparent;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+    font-size: clamp(12px, 1.3vw, 14px);
+    font-weight: 450;
+    line-height: 1;
     letter-spacing: .1em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
     white-space: nowrap;
+    vertical-align: middle;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    width: clamp(146px, 17vw, 186px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    width: clamp(174px, 20vw, 212px);
+    gap: clamp(6px, .8vw, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > span,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > svg {
+    flex-shrink: 0;
+    align-self: center;
+    line-height: 1;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > svg {
+    display: block;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta:focus-visible,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link:focus-visible {
+    outline: 2px solid #34312b;
+    outline-offset: 4px;
   }
 }
 
@@ -972,14 +1016,6 @@ html.portfolio-wheel-animating {
     margin-top: clamp(31px, 5vw, 66px);
     gap: clamp(13px, 2.5vw, 30px);
     flex-wrap: wrap;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    padding: clamp(12px, 1.5vw, 17px) clamp(14px, 2vw, 26px);
-    font-size: clamp(10px, 1.12vw, 13px);
-    line-height: 1.1;
-    letter-spacing: .13em;
-    white-space: nowrap;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
     grid-column: 2;
@@ -1071,12 +1107,6 @@ html.portfolio-wheel-animating {
   .home-hero-layout.home-hero-structured .home-hero-actions {
     margin-top: clamp(21px, 3.5vw, 30px);
     gap: 9px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    padding: 11px clamp(9px, 1.4vw, 13px);
-    font-size: clamp(9px, 1.35vw, 11px);
-    letter-spacing: .06em;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
     width: min(100%, 345px);
