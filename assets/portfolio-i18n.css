@@ -1,0 +1,97 @@
+/* Language controls are independent of the three-column page structure.
+   English content stays canonical, Chinese alters only rendered interface copy. */
+.portfolio-language-switcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: max-content;
+  min-width: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+.portfolio-language-switcher button {
+  appearance: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  margin: 0;
+  padding: 7px 5px 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: .05em;
+  line-height: 1.25;
+  cursor: pointer;
+  opacity: .58;
+  transition: opacity .18s ease, border-color .18s ease;
+}
+.portfolio-language-switcher button[aria-pressed="true"] {
+  opacity: 1;
+  border-bottom-color: currentColor;
+}
+.portfolio-language-switcher button:hover { opacity: 1; }
+.portfolio-language-switcher button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (min-width: 600px) {
+  .editorial-header > .portfolio-language-switcher--header {
+    display: inline-flex !important;
+    position: absolute;
+    right: 0;
+    top: clamp(58px, 5.4vw, 70px);
+    z-index: 2;
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+    font-size: clamp(10px, 1vw, 12px);
+    /* The header already uses mix-blend-mode:difference, so this white
+       source ink receives the same adaptive contrast as the navigation. */
+  }
+}
+@media (max-width: 599px) {
+  .editorial-header > .portfolio-language-switcher--header { display: none !important; }
+
+  .portfolio-mobile-navigation-panel > .portfolio-language-switcher--mobile {
+    display: inline-flex !important;
+    position: absolute;
+    top: max(31px, env(safe-area-inset-top));
+    left: 5.8%;
+    z-index: 3;
+    color: #342f2a;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+    font-size: 12px;
+    background: transparent;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* Chinese has different glyph widths and punctuation. Preserve the
+   existing responsive grid instead of scaling all content indiscriminately. */
+html[lang="zh-CN"] .home-hero-copy h1 {
+  font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', 'Space Grotesk', sans-serif;
+  font-weight: 750;
+  letter-spacing: -.045em;
+}
+html[lang="zh-CN"] .home-hero-thesis,
+html[lang="zh-CN"] .skillsets-intro p,
+html[lang="zh-CN"] .project-caption p,
+html[lang="zh-CN"] .case-details p,
+html[lang="zh-CN"] .portfolio-mobile-navigation-links a {
+  font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', 'DM Sans', sans-serif;
+  letter-spacing: -.025em;
+}
+html[lang="zh-CN"] .home-hero-actions a,
+html[lang="zh-CN"] .editorial-header nav a {
+  letter-spacing: .035em !important;
+}
+html[lang="zh-CN"] .portfolio-mobile-navigation-links a {
+  letter-spacing: .055em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-language-switcher button { transition: none !important; }
+}

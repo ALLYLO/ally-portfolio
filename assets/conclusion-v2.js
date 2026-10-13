@@ -119,6 +119,36 @@
 })();
 
 
+/* Bilingual interface: load dictionary first, then the reversible DOM
+   presentation layer. Leave the large canonical HTML and source media intact. */
+(() => {
+  if (window.__allyPortfolioI18nLoaderReady) return;
+  window.__allyPortfolioI18nLoaderReady = true;
+  const source = document.currentScript?.src || document.baseURI;
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.href = new URL('portfolio-i18n.css', source).href;
+  stylesheet.dataset.portfolioI18nStyle = 'true';
+  document.head.appendChild(stylesheet);
+
+  const dictionary = document.createElement('script');
+  dictionary.src = new URL('portfolio-i18n-dictionary.js', source).href;
+  dictionary.async = true;
+  dictionary.onload = () => {
+    const controller = document.createElement('script');
+    controller.src = new URL('portfolio-i18n.js', source).href;
+    controller.async = true;
+    controller.dataset.portfolioI18nLoader = 'true';
+    document.head.appendChild(controller);
+  };
+  dictionary.onerror = () => {
+    // English canonical content remains readable if the translation asset
+    // cannot be loaded; do not display a nonfunctional switcher.
+    console.warn('[Portfolio] Language dictionary unavailable; English retained.');
+  };
+  document.head.appendChild(dictionary);
+})();
+
 /* Keep the hero portrait physically inside its right-hand collage so desktop
    CSS Grid can reserve distinct areas for the photo and the three cards.
    The narrow layout uses display: contents to preserve the original order. */
