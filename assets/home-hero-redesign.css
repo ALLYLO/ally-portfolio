@@ -355,7 +355,7 @@ html.portfolio-wheel-animating {
 
 /* Portrait-first layout only when two content columns cannot fit. */
 @media (max-width: 599px) {
-.home-hero-redesign {
+  .home-hero-redesign {
     min-height: 0;
     width: auto;
     max-width: 100%;
@@ -890,7 +890,7 @@ html.portfolio-wheel-animating {
     font-size: 8px !important;
   }
 }
-@media (min-width: 600px) and (max-width: 899px) {
+@media (min-width: 600px) and (max-width: 799px) {
   /* A tiny right-hand column cannot hold three useful cards in one row. */
   .home-hero-layout.home-hero-structured .home-hero-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
