@@ -17,7 +17,7 @@ html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
 
 
 /* Composite the complete header against the hero, not the nav inside its own stacking context. */
-@media (min-width: 960px) {
+@media (min-width: 600px) {
   .editorial-header {
     z-index: 20;
     isolation: auto !important;
@@ -295,7 +295,7 @@ html.portfolio-wheel-animating {
 
 /* Canonical portrait-first layout. One set of mobile rules replaces the old
    succession of phone overrides; all dimensions follow the available width. */
-@media (max-width: 959px) {
+@media (max-width: 599px) {
   body { padding-top: clamp(87px, 9vw, 98px); }
   .editorial-header {
     display: flex !important;
@@ -571,7 +571,7 @@ html.portfolio-wheel-animating {
 /* The overlay is only visible with the desktop links collapsed. */
 .portfolio-mobile-menu-toggle,
 .portfolio-mobile-navigation { display: none; }
-@media (max-width: 959px) {
+@media (max-width: 599px) {
   html.portfolio-mobile-menu-open,
   html.portfolio-mobile-menu-open body { overflow: hidden !important; }
   .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
@@ -722,7 +722,7 @@ html.portfolio-wheel-animating {
 
 
 /* Reveal the hamburger after the shared desktop default hides it. */
-@media (max-width: 959px) {
+@media (max-width: 599px) {
   html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
     display: flex !important;
   }
@@ -820,6 +820,88 @@ html.portfolio-wheel-animating {
   .home-hero-layout.home-hero-structured .home-hero-rays,
   .home-hero-layout.home-hero-structured .home-hero-dots {
     pointer-events: none;
+  }
+}
+
+
+/* Bring back the complete editorial header at the first 600px expansion. */
+@media (min-width: 600px) and (max-width: 959px) {
+  .editorial-header {
+    z-index: 20;
+    display: grid !important;
+    grid-template-columns: minmax(90px, 1fr) minmax(104px, 1fr) minmax(128px, 1fr) !important;
+    align-items: start;
+    justify-content: space-between;
+    column-gap: clamp(12px, 2.6vw, 28px);
+    width: auto;
+    height: auto;
+    min-height: 95px;
+    margin: 0 clamp(22px, 4vw, 50px) !important;
+    padding: clamp(14px, 2vw, 22px) 0 0 !important;
+    isolation: auto !important;
+    mix-blend-mode: difference !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .editorial-header > :first-child {
+    justify-self: start;
+    align-self: start;
+    min-width: 0;
+  }
+  .editorial-header nav {
+    display: flex !important;
+    position: relative;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: clamp(3px, .7vw, 8px);
+    z-index: 1;
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    mix-blend-mode: normal !important;
+  }
+  .editorial-header nav a {
+    display: block;
+    max-width: 100%;
+    font-size: clamp(12px, 1.45vw, 16px);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .editorial-header .header-contact {
+    display: block !important;
+    justify-self: end;
+    align-self: start;
+    font-size: clamp(10px, 1.24vw, 14px);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+}
+
+/* The opened two-column hero also gets less cramped thesis and buttons. */
+@media (min-width: 600px) and (max-width: 959px) {
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    font-size: clamp(23px, 3.25vw, 33px);
+    line-height: 1.23;
+    letter-spacing: -.04em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    gap: clamp(10px, 1.65vw, 20px);
+    margin-top: clamp(29px, 4vw, 45px);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    min-height: clamp(46px, 5.3vw, 58px);
+    padding: clamp(12px, 1.5vw, 17px) clamp(13px, 1.85vw, 20px);
+    font-size: clamp(11px, 1.35vw, 14px);
+    line-height: 1.15;
+    letter-spacing: .1em;
+    white-space: nowrap;
   }
 }
 
