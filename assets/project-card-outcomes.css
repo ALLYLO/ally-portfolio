@@ -149,5 +149,11 @@ html[lang="zh-CN"] .work :is(#koc, #nikke) .project-head { padding-right: 0; }
 html[lang="zh-CN"] .work :is(#koc, #nikke) .project-head h3 { white-space: nowrap; }
 html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw, 43px); }
 @media (max-width: 760px) {
-  html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(18px, 4.6vw, 29px); }
+  /* Keep the requested single-line Chinese title without letting its
+     unbroken text widen the whole document at narrow phone widths. */
+  html[lang="zh-CN"] .work #nikke .project-head h3 {
+    min-width: 0;
+    max-width: 100%;
+    font-size: clamp(15px, 4.25vw, 29px);
+  }
 }

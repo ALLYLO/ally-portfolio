@@ -429,6 +429,21 @@ html.portfolio-wheel-animating {
   }
   .home-hero-tool-note { grid-column: 1 / -1; font-size: 8px !important; }
 }
+/* Mobile collage-label paint isolation: the flattened display:contents
+   wrappers should never let the absolutely positioned SKILLS circle captions
+   paint on top of the portrait when the viewport is resized. */
+@media (max-width: 599px) {
+  .home-hero-layout.home-hero-structured .home-hero-card {
+    contain: paint;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    position: relative;
+    isolation: isolate;
+    contain: layout paint;
+    overflow: clip;
+  }
+}
+
 /* The smallest portrait widths need tighter button tracking and card labels. */
 @media (max-width: 390px) {
   .home-hero-copy h1 { font-size: clamp(38px, 10.1vw, 40px); }
