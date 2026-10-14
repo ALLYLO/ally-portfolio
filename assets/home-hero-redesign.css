@@ -1167,11 +1167,11 @@ html.portfolio-wheel-animating {
   }
   .home-hero-layout.home-hero-structured {
     display: grid;
-    grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
-    gap: clamp(12px, 1.4vw, 28px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, .96fr);
+    gap: clamp(20px, 1.6vw, 28px);
     align-items: stretch;
     width: 100%;
-    max-width: 1620px;
+    max-width: 1380px;
     height: 100%;
     min-height: 0;
     margin-inline: auto;
