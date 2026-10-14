@@ -117,3 +117,27 @@
     font-size: clamp(20px, 6.8vw, 29px);
   }
 }
+
+/* WORKS static project covers: show only the first existing visual in each
+   card. Preserve the image frame, outcome metrics, role panel and case links. */
+.work .koc-media .koc-carousel-track,
+.work .nikke-media .nikke-carousel-track {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: none !important;
+  transform: none !important;
+  will-change: auto;
+}
+.work .koc-media .koc-carousel-track > img,
+.work .nikke-media .nikke-carousel-track > img {
+  display: none;
+}
+.work .koc-media .koc-carousel-track > img:first-child,
+.work .nikke-media .nikke-carousel-track > img:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex: none;
+}

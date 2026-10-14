@@ -63,6 +63,8 @@
     ["CREATOR MARKETING · JAPAN", "创作者营销 · 日本"],
     ["PROJECT HIGHLIGHTS", "项目亮点"],
     ["VISUAL ARCHIVE · AUTO SCROLL", "视觉档案 · 自动滚动"],
+    ["PROJECT VISUAL", "项目主视觉"],
+    ["OFFICIAL PROJECT VISUAL", "官方项目主视觉"],
     ["Creators Reached", "已触达创作者"],
     ["Qualified Pool", "筛选后的创作者池"],
     ["High-performing Posts", "高表现内容"],

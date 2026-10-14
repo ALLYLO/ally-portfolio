@@ -174,3 +174,44 @@
   }
   layout.classList.add('home-hero-structured');
 })();
+
+/* WORKS card previews are still covers, not self-running galleries.
+   This only removes repeated card-preview image nodes after the large
+   canonical index is parsed; case-study content and source files stay intact. */
+(() => {
+  const cards = [
+    ['.work .koc-media .koc-carousel-track', '.work .koc-media-label', 'PROJECT VISUAL'],
+    ['.work .nikke-media .nikke-carousel-track', '.work .nikke-media-label', 'OFFICIAL PROJECT VISUAL']
+  ];
+  const apply = () => {
+    let ready = 0;
+    for (const [trackSelector, labelSelector, caption] of cards) {
+      const track = document.querySelector(trackSelector);
+      if (!track) continue;
+      ready++;
+      if (!track.dataset.staticProjectCover) {
+        const images = track.querySelectorAll(':scope > img');
+        for (let i = 1; i < images.length; i++) images[i].remove();
+        track.dataset.staticProjectCover = 'true';
+      }
+      const label = document.querySelector(labelSelector);
+      if (label && !label.dataset.staticProjectCoverLabel) {
+        label.textContent = caption;
+        label.dataset.staticProjectCoverLabel = 'true';
+      }
+    }
+    return ready === cards.length;
+  };
+  const init = () => {
+    if (apply()) return;
+    // The NIKKE card is inserted later by the existing inline page script.
+    const root = document.getElementById('more-work') || document.querySelector('.work') || document.body;
+    const observer = new MutationObserver(() => {
+      if (apply()) observer.disconnect();
+    });
+    observer.observe(root, { childList: true, subtree: true });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else init();
+})();
