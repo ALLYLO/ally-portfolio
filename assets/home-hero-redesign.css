@@ -1353,25 +1353,26 @@ html.portfolio-wheel-animating {
   .home-hero-actions .resume-link { transition: none !important; }
 }
 
-/* Responsive Hero layout: keep the desktop two-column composition, then
-   switch tablets to a readable vertical sequence before the copy becomes cramped. */
+/* Responsive Hero layout: use the two-column composition only while both
+   columns can keep their intended proportions. Below that, switch to a
+   deliberate single-column sequence with copy and actions grouped together. */
 @media (min-width: 1000px) and (max-width: 1399px) {
   .home-hero-layout.home-hero-structured .home-hero-info {
-    width: calc(100% - clamp(72px, 8vw, 112px));
+    width: min(calc(100% - clamp(72px, 8vw, 112px)), 520px);
     margin-inline-start: clamp(72px, 8vw, 112px);
   }
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
     flex-wrap: nowrap;
     justify-content: flex-start;
-    gap: clamp(18px, 2vw, 28px);
+    gap: clamp(16px, 1.8vw, 24px);
   }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
-    width: clamp(126px, 14vw, 148px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    width: clamp(146px, 15.4vw, 168px);
-  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta { width: clamp(126px, 13vw, 148px); }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link { width: clamp(146px, 14.5vw, 166px); }
 }
+
+/* Tablet: headline, portrait and a right-aligned copy/action block follow one
+   vertical flow. Cards remain horizontal so this mode does not become a long
+   miniature desktop column. */
 @media (min-width: 600px) and (max-width: 999px) {
   .home-hero-redesign {
     height: auto;
@@ -1395,11 +1396,12 @@ html.portfolio-wheel-animating {
   .home-hero-layout.home-hero-structured .home-hero-copy h1 {
     grid-column: 1;
     grid-row: 1;
-    width: 100%;
+    width: max-content;
+    max-width: 100%;
     margin: 12px 0 clamp(28px, 5vw, 46px);
-    font-size: clamp(42px, 7.5vw, 70px);
+    font-size: clamp(40px, 7vw, 66px);
     line-height: .99;
-    white-space: nowrap;
+    white-space: normal;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
     grid-column: 1;
@@ -1417,9 +1419,9 @@ html.portfolio-wheel-animating {
     grid-column: 1;
     grid-row: 3;
     justify-self: end;
-    width: min(calc(100% - clamp(56px, 10vw, 100px)), 520px);
+    width: min(calc(100% - clamp(42px, 8vw, 80px)), 520px);
     max-width: 100%;
-    margin: clamp(22px, 4vw, 36px) 0 0 clamp(56px, 10vw, 100px);
+    margin: clamp(22px, 4vw, 36px) 0 0 clamp(42px, 8vw, 80px);
   }
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
     font-size: clamp(22px, 3vw, 30px);
@@ -1429,70 +1431,56 @@ html.portfolio-wheel-animating {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    gap: clamp(20px, 4vw, 34px);
+    gap: clamp(16px, 3vw, 26px);
     width: 100%;
     margin-top: 22px;
   }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
-    width: clamp(132px, 18vw, 160px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    width: clamp(150px, 20vw, 180px);
-  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta { width: clamp(132px, 18vw, 160px); }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link { width: clamp(150px, 20vw, 180px); }
   .home-hero-layout.home-hero-structured .home-hero-cards {
     grid-column: 1;
     grid-row: 4;
-    grid-template-columns: minmax(0, 1fr);
-    width: min(100%, 520px);
-    justify-self: center;
-    gap: 9px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    justify-self: stretch;
+    gap: clamp(7px, 1.5vw, 12px);
     margin: clamp(34px, 6vw, 54px) 0 0;
     padding: 0;
   }
   .home-hero-layout.home-hero-structured .home-hero-card,
   .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2),
   .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
-    display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-    min-height: 106px;
+    display: block;
+    min-width: 0;
+    min-height: 128px;
     margin: 0;
-    padding: 12px 15px;
+    padding: 11px 8px;
     transform: none;
   }
   .home-hero-layout.home-hero-structured .home-hero-card h2,
   .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2) h2 {
-    justify-self: stretch;
-    margin: 0;
-    padding: 7px 6px;
-    font-size: 9px;
+    margin: 0 auto 8px;
+    padding: 6px 5px;
+    font-size: 8px;
     text-align: center;
   }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn {
-    width: 120px;
+    width: 110px;
     height: 76px;
     margin: 0 auto;
   }
-  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
-    width: 55px;
-    height: 55px;
-    font-size: 8px;
-  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span { width: 51px; height: 51px; font-size: 7px; }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 28px; }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
   .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
   .home-hero-layout.home-hero-structured .home-hero-market-list,
-  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
-    min-height: 76px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-market-list {
-    padding-left: 0;
-    font-size: 11px;
-  }
-  .home-hero-layout.home-hero-structured .home-hero-tool-note {
-    font-size: 8px !important;
-  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks { min-height: 74px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list { padding-left: 0; font-size: 9px; line-height: 1.5; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list span::before { margin-right: 4px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks { grid-template-columns: repeat(3, 1fr); }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks span { width: 23px; height: 23px; font-size: 13px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks i { width: 16px; height: 16px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note { font-size: 7px !important; }
   .home-hero-layout.home-hero-structured > .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
     display: none !important;
   }
