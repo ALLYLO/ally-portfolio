@@ -92,6 +92,26 @@ html[lang="zh-CN"] .portfolio-mobile-navigation-links a {
   letter-spacing: .055em;
 }
 
+
+/* Fully expanded Chinese hero: three concise ideographic lines should carry
+   comparable visual weight to the substantially wider English headlines. */
+@media (min-width: 1400px) {
+  html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    font-size: clamp(74px, min(7.15vw, 11svh), 110px);
+    line-height: .955;
+    letter-spacing: -.055em;
+  }
+  html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
+    font-size: clamp(10px, .75vw, 12px);
+    font-style: normal;
+    font-weight: 450;
+    line-height: 1.16;
+    letter-spacing: -.02em;
+    overflow-wrap: anywhere;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .portfolio-language-switcher button { transition: none !important; }
 }
