@@ -215,3 +215,41 @@
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else init();
 })();
+
+
+/* One-line Chinese labels for the two featured WORKS titles. The original
+   two-line English headings are restored on language change. */
+(() => {
+  const featured = [
+    ['#koc', 'JAPAN CREATOR', 'MARKETING', '日本创作者营销'],
+    ['#nikke', 'NIKKE North America', 'Discord Operations', 'NIKKE 北美 · Discord 社群运营']
+  ];
+  const render = () => {
+    const chinese = document.documentElement.lang === 'zh-CN';
+    for (const [id, first, second, localized] of featured) {
+      const h3 = document.querySelector('.work ' + id + ' .project-head h3');
+      if (!h3) continue;
+      if (chinese) {
+        if (h3.dataset.portfolioChineseTitle !== 'true' || h3.textContent !== localized) {
+          h3.replaceChildren(document.createTextNode(localized));
+          h3.dataset.portfolioChineseTitle = 'true';
+        }
+      } else if (h3.dataset.portfolioChineseTitle === 'true') {
+        h3.replaceChildren(document.createTextNode(first), document.createElement('br'), document.createTextNode(second));
+        h3.removeAttribute('data-portfolio-chinese-title');
+      }
+    }
+  };
+  document.addEventListener('portfolio:languagechange', render);
+  const init = () => {
+    render();
+    const container = document.getElementById('more-work');
+    if (container) {
+      new MutationObserver(records => {
+        if (records.some(record => record.addedNodes.length)) render();
+      }).observe(container, { childList: true });
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();

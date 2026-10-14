@@ -12,6 +12,8 @@ The Japan Creator Marketing card on the Works page presents both programs' headl
 
 When Works cards appear side by side, their visual frames should have equal heights so the project titles align. Fit the Japan Creator Marketing image area around its outcome bar within that shared frame height.
 
+For the two featured WORKS cards, English project titles retain their two-line source structure while simplified Chinese displays the complete, naturally spaced localized name on one line. Permit responsive font fitting of the longer NIKKE localized title without modifying project content, images, or links.
+
 The two featured WORKS card previews use one static existing image each instead of a looping visual gallery. Retain the existing first image as the card cover and keep the original card proportions, results bar for Japan Creator Marketing, NIKKE role panel, two-line project titles, and click-through behavior. Replace the misleading auto-scroll caption with a neutral image label in both languages. This does not change case-study detail imagery or authorize deleting source assets.
 
 ## NIKKE detail view
