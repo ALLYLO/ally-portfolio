@@ -102,3 +102,18 @@
   .koc-outcome-metric > small{font-size:8px}
   .koc-outcome--reverse .koc-outcome-metric:last-child strong{font-size:17px}
 }
+
+/* WORKS project titles already contain a single intentional <br>.
+   Avoid the legacy 46% right-hand reservation forcing extra wraps on NIKKE.
+   Keep typography and the rest of the card layout unchanged. */
+.work #nikke .project-head {
+  padding-right: 0;
+}
+.work #nikke .project-head h3 {
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  .work #nikke .project-head h3 {
+    font-size: clamp(20px, 6.8vw, 29px);
+  }
+}
