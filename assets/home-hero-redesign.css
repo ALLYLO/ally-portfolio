@@ -1166,6 +1166,8 @@ html.portfolio-wheel-animating {
     overflow: visible;
   }
   .home-hero-layout.home-hero-structured {
+    --hero-wide-card-height: clamp(146px, 18.7svh, 184px);
+    --hero-wide-card-gap: clamp(7px, 1.2svh, 16px);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, .96fr);
     gap: clamp(20px, 1.6vw, 28px);
@@ -1180,15 +1182,15 @@ html.portfolio-wheel-animating {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: space-between;
     align-self: stretch;
     min-height: 0;
-    /* Bias the whole information group upward without positioning each
-       line/button independently. The empty space goes below the group. */
-    padding: 0 0 clamp(68px, 10.4svh, 113px);
+    /* Keep the three-line slogan high and left; reserve the lower row height
+       so its buttons finish level with the bottom of the portrait. */
+    padding: clamp(54px, 10.8svh, 112px) 0 calc(var(--hero-wide-card-height) + var(--hero-wide-card-gap));
   }
   .home-hero-layout.home-hero-structured .home-hero-copy h1 {
-    margin: 0 0 clamp(17px, 2.45svh, 27px);
+    margin: 0;
     font-size: clamp(55px, min(6vw, 9.4svh), 106px);
     line-height: .98;
     white-space: nowrap;
@@ -1196,7 +1198,9 @@ html.portfolio-wheel-animating {
   .home-hero-layout.home-hero-structured .home-hero-info {
     display: block;
     flex: 0 0 auto;
+    width: calc(100% - clamp(72px, 9vw, 150px));
     max-width: 100%;
+    margin-inline-start: clamp(72px, 9vw, 150px);
   }
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
     margin: 0;
@@ -1205,9 +1209,11 @@ html.portfolio-wheel-animating {
   }
   .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: space-between;
     gap: clamp(15px, 2.1vw, 33px);
+    width: 100%;
     margin-top: clamp(18px, 2.8svh, 31px);
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
@@ -1249,7 +1255,7 @@ html.portfolio-wheel-animating {
     /* Anchor the art slightly toward the editorial column; the source image
        already includes a generous transparent margin around the subject. */
     justify-self: start;
-    align-self: center;
+    align-self: end;
     width: min(96%, 550px, 55svh);
     max-width: 100%;
     max-height: 100%;
@@ -1286,7 +1292,7 @@ html.portfolio-wheel-animating {
   .home-hero-layout.home-hero-structured .home-hero-card,
   .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
     min-width: 0;
-    min-height: clamp(146px, 18.7svh, 184px);
+    min-height: var(--hero-wide-card-height);
     margin: 0;
     padding: clamp(10px, 1.55svh, 17px) clamp(9px, .9vw, 16px);
   }
