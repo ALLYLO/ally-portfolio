@@ -157,3 +157,17 @@ html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw
     font-size: clamp(15px, 4.25vw, 29px);
   }
 }
+
+/* Mobile WORKS: the inline renderer now nests the project cards inside
+   .work-pair. Restore the positioning/flex context that the old direct-child
+   selector no longer matches. Absolute category captions must stay anchored
+   to their own project rather than escaping into the hero viewport. */
+@media (max-width: 760px) {
+  .work #more-work .work-pair > .project {
+    position: relative;
+    top: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+}
