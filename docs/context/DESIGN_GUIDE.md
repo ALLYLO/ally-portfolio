@@ -6,7 +6,7 @@ For the current visual and interaction implementation, inspect index.html and th
 
 ## WORKS chapter naming
 
-Keep the English chapter heading “WORKS”. In simplified Chinese, present its fragmented solid/outline heading as “项目经历” (WO → 项, R → 目, KS → 经历), and use the same wording in the heading’s accessible label. Do not rename the separate Work navigation or VIEW WORK action.
+Keep the English chapter heading “WORKS” with its existing outlined middle letter. In simplified Chinese, display “项目经历” (WO → 项, R → 目, KS → 经历) with all four characters solid ivory (#f5f0e8), without the English-only outline effect, and with one consistent headline weight. Use the same Chinese wording for the heading's accessible label. Do not rename the separate Work navigation or VIEW WORK action.
 
 ## Japan Creator Marketing detail view
 

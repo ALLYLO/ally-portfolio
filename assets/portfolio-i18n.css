@@ -69,6 +69,15 @@
   }
 }
 
+/* The Chinese WORKS chapter has four solid ivory glyphs. Keep the
+   original outlined display letter exclusively in the English version. */
+html[lang="zh-CN"] .works-marquee h2 span {
+  color: #f5f0e8;
+  -webkit-text-fill-color: #f5f0e8;
+  -webkit-text-stroke: 0;
+  font-weight: 700;
+}
+
 /* Chinese has different glyph widths and punctuation. Preserve the
    existing responsive grid instead of scaling all content indiscriminately. */
 html[lang="zh-CN"] .home-hero-copy h1 {
