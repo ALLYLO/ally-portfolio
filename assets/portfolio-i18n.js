@@ -162,8 +162,21 @@
     }
   }
 
+  /* Google Noto SC shares its CJK glyph designs with Adobe Source Han.
+     Its unicode-range shards avoid fetching two enormous pan-CJK font files.
+     Load only for the Chinese view; system fonts remain a valid fallback. */
+  function loadChineseFonts() {
+    if (document.getElementById('ally-portfolio-zh-fonts')) return;
+    const cssLink = document.createElement('link');
+    cssLink.id = 'ally-portfolio-zh-fonts';
+    cssLink.rel = 'stylesheet';
+    cssLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600&display=swap';
+    document.head.appendChild(cssLink);
+  }
+
   function setLanguage(language) {
     if (language !== 'zh' && language !== 'en') return;
+    if (language === 'zh') loadChineseFonts();
     activeLanguage = language;
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
     document.documentElement.dataset.portfolioLanguage = language;

@@ -78,10 +78,105 @@ html[lang="zh-CN"] .works-marquee h2 span {
   font-weight: 700;
 }
 
+/* One Chinese type system. Preserve each component's Latin font first;
+   the Source Han / Noto fallback supplies the CJK glyphs only. */
+html[lang="zh-CN"] {
+  --portfolio-han-sans: "Source Han Sans CN", "Source Han Sans SC",
+    "Noto Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --portfolio-han-serif: "Source Han Serif CN", "Source Han Serif SC",
+    "Noto Serif SC", "Noto Serif CJK SC", "Songti SC",
+    "STSong", serif;
+}
+html[lang="zh-CN"] body {
+  font-family: "DM Sans", var(--portfolio-han-sans);
+}
+
+/* Headlines, navigation, captions and case-study labels keep their existing
+   sizes and Latin numerals while sharing the same Chinese sans glyphs. */
+html[lang="zh-CN"] :is(
+  .home-hero-copy h1,
+  .works-marquee h2,
+  .skillsets-intro h2,
+  .skill-group h3,
+  .proof-heading h2,
+  .project-head h3,
+  .dialog-nav,
+  .dialog-nav button,
+  .experience-row > span,
+  .skill-row b,
+  .outreach-steps button,
+  .portfolio-mobile-navigation-links a,
+  .editorial-header nav a,
+  .editorial-header .header-contact,
+  .home-hero-card h2,
+  .koc-outcome-heading,
+  .koc-outcome-metric strong,
+  .koc-outcome-metric > span,
+  .koc-outcome-metric > small,
+  .home-hero-market-list,
+  .home-hero-tool-note,
+  .project-meta,
+  .project-caption > span,
+  .project-caption p,
+  .skillsets-intro p,
+  .case-details p,
+  .work .nikke-role-list,
+  .work .nikke-role-panel,
+  .work .nikke-role-item,
+  .work .nikke-role-item span,
+  .label,
+  .eyebrow,
+  .section-heading > span
+) {
+  font-family: "Space Grotesk", var(--portfolio-han-sans);
+}
+html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-actions a,
+html[lang="zh-CN"] .portfolio-mobile-navigation-panel a {
+  font-family: "Space Grotesk", var(--portfolio-han-sans);
+}
+html[lang="zh-CN"] :is(
+  .home-hero-thesis,
+  .home-hero-card p,
+  .about-copy,
+  .intro-copy > p,
+  .skill-row,
+  .experience-row,
+  .case-details,
+  .project-caption,
+  .koc-metric > span
+) {
+  font-family: "DM Sans", var(--portfolio-han-sans);
+}
+html[lang="zh-CN"] .home-hero-skill-venn span {
+  font-family: Georgia, var(--portfolio-han-sans);
+  font-style: normal;
+}
+
+/* Serif is an editorial accent, not the body font. Keep Latin in Georgia,
+   use Source Han / Noto Serif for translated Han characters only. */
+html[lang="zh-CN"] :is(
+  .home-hero-thesis em,
+  .intro-copy h2 em,
+  .hero-bottom h2 em,
+  .about-grid h2 em,
+  .workflow-title em,
+  .proof-heading h2 em
+) {
+  font-family: Georgia, var(--portfolio-han-serif);
+  font-style: normal;
+  font-weight: 500;
+}
+html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-thesis em {
+  font-family: Georgia, var(--portfolio-han-serif);
+  font-style: normal;
+  font-weight: 500;
+}
+
 /* Chinese has different glyph widths and punctuation. Preserve the
    existing responsive grid instead of scaling all content indiscriminately. */
 html[lang="zh-CN"] .home-hero-copy h1 {
-  font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', 'Space Grotesk', sans-serif;
+  font-family: 'Space Grotesk', var(--portfolio-han-sans);
   font-weight: 750;
   letter-spacing: -.045em;
 }
@@ -90,7 +185,7 @@ html[lang="zh-CN"] .skillsets-intro p,
 html[lang="zh-CN"] .project-caption p,
 html[lang="zh-CN"] .case-details p,
 html[lang="zh-CN"] .portfolio-mobile-navigation-links a {
-  font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', 'DM Sans', sans-serif;
+  font-family: 'DM Sans', var(--portfolio-han-sans);
   letter-spacing: -.025em;
 }
 html[lang="zh-CN"] .home-hero-actions a,
@@ -111,7 +206,7 @@ html[lang="zh-CN"] .portfolio-mobile-navigation-links a {
     letter-spacing: -.055em;
   }
   html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
-    font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
+    font-family: Georgia, var(--portfolio-han-sans);
     font-size: clamp(10px, .75vw, 12px);
     font-style: normal;
     font-weight: 450;

@@ -4,6 +4,10 @@ No historical chat proposal has yet been confirmed as a durable project-wide des
 
 For the current visual and interaction implementation, inspect index.html and the relevant files in assets/ and prototypes/. Existing implementation is evidence of what is present, not proof that every choice is permanently approved. Keep unapproved alternatives in OPEN_QUESTIONS.md or outside the public repository; add a durable rule here only after the Portfolio owner explicitly confirms it.
 
+## Simplified Chinese typography
+
+Use a consistent bilingual typographic system without replacing the English presentation: Source Han Sans (思源黑体) is the Chinese headline/body/label font, while Source Han Serif (思源宋体) is reserved for a few editorial emphasis lines, including the second hero thesis line. Preserve Space Grotesk, DM Sans, and Georgia for Latin characters and numeric KPIs. In web browsers, prefer locally available Source Han faces, then the matching Noto Sans SC and Noto Serif SC families. Load Google Fonts' Noto SC unicode-range webfont subsets only when the Chinese interface is selected, using font-display swap and PingFang SC / Microsoft YaHei / Songti SC fallback when the font service is unreachable. Preserve existing component font sizes, grid breakpoints, card metrics, project titles, and English styling. Font choices should not depend on deleting original embedded evidence or converting text to images.
+
 ## WORKS chapter naming
 
 Keep the English chapter heading “WORKS” with its existing outlined middle letter. In simplified Chinese, display “项目经历” (WO → 项, R → 目, KS → 经历) with all four characters solid ivory (#f5f0e8), without the English-only outline effect, and with one consistent headline weight. Use the same Chinese wording for the heading's accessible label. Do not rename the separate Work navigation or VIEW WORK action.
