@@ -42,3 +42,31 @@ git push origin main
 ## Resource notes
 
 The page embeds most imagery and styles in `index.html`. The remaining images, fonts, creator-video thumbnails, and scripts are in `assets/`; the interactive screening page is in `prototypes/creator-screening/`. Links to original creator posts and videos open external sites. Those destinations are outside this repository and may depend on the viewer's region or network.
+
+## Cloudflare Pages migration pilot
+
+This is a static site being prepared for a Cloudflare Pages GitHub
+deployment. Vercel and the existing public domain remain unchanged.
+Embedded media have been extracted from `index.html` into `assets/media/`,
+and identical game icons reuse `assets/game-icons/`. Keep these files
+together: Cloudflare Pages limits any individual site asset to 25 MiB.
+
+Setup, after the owner connects their Cloudflare account:
+
+1. Cloudflare > Workers & Pages > Create application > Pages > Connect to
+   Git. Authorize the existing `ALLYLO/ally-portfolio` repository.
+2. During the trial, choose **`preview` as the initial Cloudflare production
+   branch**. This serves a separate test `*.pages.dev` address only.
+   GitHub `main` still has the oversized pre-migration HTML, so do not
+   choose `main` for Cloudflare deployment until the tested refactor is
+   promoted. Do not alter the current Vercel production site.
+3. Use Framework preset **None**, Root directory `.`, Build command blank
+   (or `exit 0`), and Build output directory `.` containing `index.html`.
+4. Test both languages, screen-width breakpoints, static WORKS covers,
+   project-detail dialogs, interactive demos, relative asset paths,
+   typography, scrolling, and downloadable files before sign-off.
+5. After approval, merge the tested changes from `preview` to `main`,
+   switch Cloudflare's production branch to `main`, and only then consider
+   changing the public domain. Use branch build controls to limit build usage.
+
+This repository change does not create or deploy a Cloudflare account/project.
