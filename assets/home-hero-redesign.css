@@ -98,7 +98,36 @@ html.portfolio-wheel-animating {
 .home-hero-actions { display: flex; align-items: center; gap: clamp(24px, 3vw, 48px); margin-top: 42px; }
 .home-hero-actions .work-cta { min-width: 178px; padding: 17px 27px; border: 1.5px solid #34312b; border-radius: 999px; text-align: center; font-size: 13px; letter-spacing: .18em; }
 .home-hero-actions .work-cta:hover { background: #34312b; color: #f7f1e7; }
-.home-hero-actions .resume-link { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 178px; padding: 17px 22px; border: 1.5px solid #34312b; border-radius: 999px; color: #302e29; font-size: 13px; letter-spacing: .11em; white-space: nowrap; }
+/* Resume is a lightweight underlined link at every viewport width. */
+.home-hero-actions .resume-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(7px, .8vw, 12px);
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 12px 0 11px;
+  border: 0;
+  border-bottom: 1px solid #34312b;
+  border-radius: 0;
+  background: transparent;
+  color: #302e29;
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 450;
+  line-height: 1.15;
+  letter-spacing: .16em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.home-hero-actions .resume-link:not([aria-disabled="true"]):hover { opacity: .62; }
 .home-hero-actions .resume-link[aria-disabled="true"] { opacity: 1; cursor: default; }
 .home-hero-collage { position: relative; align-self: stretch; min-width: 0; min-height: 610px; }
 .home-hero-paper { position: absolute; filter: drop-shadow(0 8px 9px #54493622); }
@@ -1013,9 +1042,8 @@ html.portfolio-wheel-animating {
     gap: clamp(11px, 1.7vw, 23px);
     margin: clamp(22px, 3vw, 39px) 0 0;
   }
-  /* One CTA component: identical line-box and centering for text and arrow. */
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+  /* Only VIEW WORK receives pill chrome; RESUME keeps its underline. */
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
     box-sizing: border-box;
     display: inline-flex;
     flex: 0 0 auto;
@@ -1043,10 +1071,6 @@ html.portfolio-wheel-animating {
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
     width: clamp(132px, 15.4vw, 178px);
-  }
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
-    width: clamp(154px, 17.7vw, 200px);
-    gap: clamp(6px, .7vw, 10px);
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > span,
   .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > svg {
@@ -1214,8 +1238,7 @@ html.portfolio-wheel-animating {
     width: 100%;
     margin-top: clamp(18px, 2.8svh, 31px);
   }
-  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -1364,7 +1387,6 @@ html.portfolio-wheel-animating {
     gap: clamp(16px, 1.8vw, 24px);
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta { width: clamp(126px, 13vw, 148px); }
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link { width: clamp(146px, 14.5vw, 166px); }
 }
 
 /* Compact tablet: retain a centered one-column editorial stack only until
@@ -1432,7 +1454,6 @@ html.portfolio-wheel-animating {
     margin-top: clamp(16px, 2.4vw, 24px);
   }
   .home-hero-layout.home-hero-structured .home-hero-actions .work-cta { width: clamp(138px, 17vw, 168px); }
-  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link { width: clamp(154px, 18vw, 184px); }
   .home-hero-layout.home-hero-structured .home-hero-cards {
     grid-column: 1;
     grid-row: 4;
