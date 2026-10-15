@@ -4,6 +4,10 @@ No historical chat proposal has yet been confirmed as a durable project-wide des
 
 For the current visual and interaction implementation, inspect index.html and the relevant files in assets/ and prototypes/. Existing implementation is evidence of what is present, not proof that every choice is permanently approved. Keep unapproved alternatives in OPEN_QUESTIONS.md or outside the public repository; add a durable rule here only after the Portfolio owner explicitly confirms it.
 
+## WORKS chapter naming
+
+Keep the English chapter heading “WORKS”. In simplified Chinese, present its fragmented solid/outline heading as “项目经历” (WO → 项, R → 目, KS → 经历), and use the same wording in the heading’s accessible label. Do not rename the separate Work navigation or VIEW WORK action.
+
 ## Japan Creator Marketing detail view
 
 In the desktop case-study modal, the interactive screening canvas should retain roughly two thirds of the width, with the project-detail area limited to roughly one third. The detail area should show the HoYoverse and Reverse: 1999 summaries together without its own scrollbar. On narrow screens, preserve complete text in the normal page flow rather than clipping content to force a fixed-height panel.
