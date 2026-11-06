@@ -1506,3 +1506,121 @@ html.portfolio-wheel-animating {
     width: min(93%, 320px, 38svh);
   }
 }
+
+/* Four lightweight orbiting capability tags replace the former three large
+   paper cards. Anchoring to the real photo keeps the layout responsive. */
+.home-hero-layout.home-hero-structured .home-hero-person {overflow:visible}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame {
+  position:relative;z-index:1;width:100%;height:auto;
+}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-capability-ring {
+  position:absolute;z-index:0;inset:11% -5% 9%;border:1px solid #675c4c55;
+  border-radius:50%;transform:rotate(-11deg);pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-capability-orbit {
+  position:absolute;z-index:3;inset:0;display:block;width:100%;height:100%;
+  padding:0;margin:0;pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability {
+  --r:0deg;--paper:#e8d6be;position:absolute;box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:38px;padding:7px 10px;border:1px solid #5c514b29;
+  clip-path:polygon(1% 6%,18% 3%,37% 5%,54% 1%,73% 3%,98% 0,100% 22%,98% 45%,100% 66%,98% 95%,81% 97%,65% 100%,44% 97%,23% 100%,1% 96%,3% 74%,0 50%);
+  background-color:var(--paper);background-image:url("hero-paper-texture.svg");
+  background-size:152px;color:#2d2b26;transform:rotate(var(--r));
+  filter:drop-shadow(0 4px 4px #40352924);white-space:nowrap;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon {
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;width:17px;height:17px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon svg {
+  display:block;width:100%;height:100%;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-family:"Space Grotesk","DM Sans","PingFang SC",sans-serif;
+  font-size:clamp(10px,.85vw,12px);font-weight:700;line-height:1.15;
+  letter-spacing:.01em;text-align:center;
+}
+html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-family:"Space Grotesk",var(--portfolio-han-sans);letter-spacing:-.025em;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight {--r:-4deg;--paper:#e8d6be}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure {--r:3deg;--paper:#cbdde1}
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment {--r:-3deg;--paper:#eee4d4}
+.home-hero-layout.home-hero-structured .home-hero-capability--execution {--r:4deg;--paper:#f0d5b9}
+
+@media(min-width:1400px) {
+  .home-hero-layout.home-hero-structured > .home-hero-copy {padding-bottom:clamp(16px,2.5svh,32px)}
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    grid-template-rows:minmax(0,1fr);row-gap:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    justify-self:center;align-self:center;width:min(91%,575px,63svh);margin:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:13%;left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:22%;right:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:21%;left:-11%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:15%;right:-10%}
+}
+@media(min-width:600px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured {grid-template-rows:auto auto}
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:32px;gap:5px;padding:6px 8px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:clamp(12px,1.35vw,16px);height:clamp(12px,1.35vw,16px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(9px,1.03vw,12px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:11%;left:-6%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:18%;right:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:23%;left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:17%;right:-6%}
+}
+@media(min-width:600px) and (max-width:899px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:28px;gap:3px;padding:5px 6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {font-size:9px;letter-spacing:-.02em}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure .home-hero-capability-title {
+    max-width:63px;white-space:normal;
+  }
+}
+@media(max-width:599px) {
+  .home-hero-layout.home-hero-structured {
+    grid-template-areas:"title" "portrait" "thesis" "actions";
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(81%,480px);overflow:visible;isolation:isolate;
+    margin-bottom:clamp(56px,12vw,85px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame {
+    height:100%;overflow:hidden;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:30px;max-width:130px;gap:4px;padding:5px 7px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {width:14px;height:14px}
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(9px,2.6vw,11px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:9%;left:-14%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:20%;right:-14%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:24%;left:-15%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:14%;right:-15%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure .home-hero-capability-title {
+    max-width:64px;white-space:normal;
+  }
+}
+@media(max-width:360px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:27px;padding:4px 6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {font-size:9px}
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {width:12px;height:12px}
+}
+@media(min-width:1400px) and (max-height:630px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {width:min(91%,410px,52svh)}
+}

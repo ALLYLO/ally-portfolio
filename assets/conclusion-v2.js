@@ -173,6 +173,45 @@
     info.append(thesis, actions);
   }
   layout.classList.add('home-hero-structured');
+
+  // Progressive enhancement: keep the source photo and replace only the
+  // decorative three-card band with four small, translated capability tags.
+  const image = portrait.querySelector(':scope > img');
+  if (!image || portrait.querySelector('.home-hero-capability-orbit')) return;
+  const photoFrame = document.createElement('div');
+  photoFrame.className = 'home-hero-photo-frame';
+  image.before(photoFrame);
+  photoFrame.appendChild(image);
+  const ring = document.createElement('div');
+  ring.className = 'home-hero-capability-ring';
+  ring.setAttribute('aria-hidden', 'true');
+  portrait.insertBefore(ring, photoFrame);
+
+  cards.className = 'home-hero-capability-orbit';
+  cards.setAttribute('role', 'list');
+  cards.setAttribute('aria-label', 'Core capabilities');
+  const items = [
+    ['insight', 'Insight', '<circle cx="10" cy="10" r="6.4"/><path d="m15 15 5.2 5.2"/>'],
+    ['structure', 'Structured Thinking', '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>'],
+    ['alignment', 'Alignment', '<circle cx="8.5" cy="7.2" r="2.8"/><circle cx="17" cy="8.4" r="2.5"/><path d="M2.4 19v-1.1c0-3.1 2.5-5.6 5.6-5.6h1c3.2 0 5.7 2.5 5.7 5.6V19M16.4 13.4c2.5.3 4.5 2.4 4.5 5V19"/>'],
+    ['execution', 'Execution', '<path d="M4 22V3m0 1c3-2 5 2 8 0s5-1 8 0v10c-3-1-5-2-8 0s-5-2-8 0"/>']
+  ];
+  cards.replaceChildren();
+  for (const [name, label, shape] of items) {
+    const tag = document.createElement('span');
+    tag.className = 'home-hero-capability home-hero-capability--' + name;
+    tag.setAttribute('role', 'listitem');
+    const icon = document.createElement('span');
+    icon.className = 'home-hero-capability-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + shape + '</svg>';
+    const title = document.createElement('span');
+    title.className = 'home-hero-capability-title';
+    title.textContent = label;
+    tag.append(icon, title);
+    cards.appendChild(tag);
+  }
+  portrait.appendChild(cards);
 })();
 
 /* WORKS card previews are still covers, not self-running galleries.
