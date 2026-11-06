@@ -1624,3 +1624,207 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
 @media(min-width:1400px) and (max-height:630px) {
   .home-hero-layout.home-hero-structured .home-hero-person {width:min(91%,410px,52svh)}
 }
+
+/* Visual QA correction for the four portrait stickers, following owner
+   screenshots at narrow mobile and the 600-1399px expanded stage.
+   The old texture SVG has an opaque ivory background: multiply it into
+   the sticker's actual paper tint instead of letting it bleach every tag. */
+.home-hero-layout.home-hero-structured .home-hero-capability {
+  border-color:#5c514b33;
+  background-blend-mode:multiply;
+  filter:drop-shadow(0 5px 5px #3f35282b);
+  gap:7px;
+  min-height:42px;
+  padding:9px 14px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  width:clamp(24px,2.8vw,37px);
+  height:7px;
+  background:#a9bbc394;
+  transform:translateX(-50%) rotate(3deg);
+  pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight {
+  --paper:#e7d1b5;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure {
+  --paper:#bed5de;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+  --paper:#e8dac3;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--execution {
+  --paper:#ebcfaf;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight::before,
+.home-hero-layout.home-hero-structured .home-hero-capability--execution::before {
+  background:#a3b8c394;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure::before,
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment::before {
+  background:#bda88d94;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-size:clamp(11px,.96vw,13px);
+  line-height:1.2;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon {
+  width:19px;
+  height:19px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-ring {
+  inset:14% 3% 12%;
+  border-color:#675c4c45;
+  opacity:.68;
+}
+
+/* The previous large bottom card row was removed, but the intermediate
+   grid still collapsed to content height. Spread title + intro/photo
+   through the remaining hero viewport instead of leaving a giant blank
+   slab under a miniature portrait. */
+@media (min-width:600px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:calc(100svh - 205px);
+    grid-template-rows:auto minmax(0,1fr);
+    align-content:stretch;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info,
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    align-self:center;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:36px;
+    padding:7px 10px;
+    gap:6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(10px,1.18vw,12px);
+    letter-spacing:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:clamp(14px,1.5vw,18px);
+    height:clamp(14px,1.5vw,18px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    top:8%;
+    left:-4%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    top:17%;
+    right:-4%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    bottom:22%;
+    left:-6%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    bottom:14%;
+    right:-5%;
+  }
+  html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    display:block;
+    margin:.16em 0 0;
+  }
+}
+@media (min-width:900px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(100%,555px,62svh);
+    max-height:none;
+  }
+}
+@media (min-width:600px) and (max-width:899px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:calc(100svh - 185px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:31px;
+    padding:5px 7px;
+    gap:4px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:10px;
+    line-height:1.22;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {left:-2%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {right:-2%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {left:-4%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {right:-4%}
+}
+@media (max-width:599px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:min(840px,calc(100svh - 110px));
+    grid-template-rows:auto minmax(0,1fr) auto auto;
+    align-content:stretch;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    align-self:center;
+    width:min(86%,510px);
+    margin-bottom:clamp(34px,7vw,60px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:34px;
+    padding:6px 9px;
+    gap:5px;
+    max-width:138px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability::before {
+    width:24px;
+    height:5px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(10px,2.85vw,12px);
+    letter-spacing:-.012em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:15px;
+    height:15px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    top:8%;
+    left:-9%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    top:18%;
+    right:-9%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    bottom:22%;
+    left:-11%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    bottom:12%;
+    right:-10%;
+  }
+}
+@media (max-width:360px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:30px;
+    padding:5px 6px;
+    gap:3px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:10px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:13px;
+    height:13px;
+  }
+}
+@media (min-width:1400px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(98%,620px,71svh);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {left:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {right:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {right:-7%}
+}
+@media (min-width:1400px) and (max-height:630px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(91%,410px,52svh);
+  }
+}
