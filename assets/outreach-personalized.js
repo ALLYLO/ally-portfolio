@@ -121,8 +121,8 @@
     const c = cases[state.creator] || cases.C041;
     const isEmail = state.channel === 'email';
     const message = isEmail
-      ? `<div class="po-email-meta"><span><b>FROM</b> Ally · Creator Relations</span><span><b>TO</b> ${escape(state.creator)}</span><span><b>SUBJECT</b> ${escape(c.emailSubject)}</span></div><div class="po-message-scroll"><div class="po-message-copy">${escape(c.email)}</div></div>`
-      : `<div class="po-chat-head"><span class="po-avatar po-avatar--ally">A</span><strong>Ally</strong><small>DM · 10:24 AM</small></div><div class="po-message-scroll"><div class="po-message-copy po-message-copy--chat">${escape(c.dm)}</div></div>`;
+      ? `<div class="po-email-meta"><span><b>FROM</b> Ally · Creator Relations</span><span><b>TO</b> ${escape(state.creator)}</span><span><b>SUBJECT</b> <span lang="ja">${escape(c.emailSubject)}</span></span></div><div class="po-message-scroll"><div class="po-message-copy" lang="ja">${escape(c.email)}</div></div>`
+      : `<div class="po-chat-head"><span class="po-avatar po-avatar--ally">A</span><strong>Ally</strong><small>DM · 10:24 AM</small></div><div class="po-message-scroll"><div class="po-message-copy po-message-copy--chat" lang="ja">${escape(c.dm)}</div></div>`;
     const coreTags = new Set([...c.content.split('/').map(part => part.trim().toUpperCase()), c.affinity.toUpperCase()]);
     const extraTags = c.tags.filter(tag => !coreTags.has(tag.toUpperCase()));
     if (typeof requestAnimationFrame === 'function') requestAnimationFrame(fitDirectMessage);

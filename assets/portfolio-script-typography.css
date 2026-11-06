@@ -1,0 +1,56 @@
+/* Sitewide serif type with per-script local Unicode routing.
+   Latin & digits = Times New Roman / Georgia.
+   Chinese = Songti SC / SimSun.
+   Japanese kana + lang=ja Kanji = Yu Mincho.
+   No proprietary font assets or large remote CJK downloads. */
+@font-face {
+  font-family:"Portfolio Song";
+  src:local("Songti SC"),local("Songti SC Regular"),local("STSong"),
+      local("SimSun"),local("Noto Serif CJK SC"),local("Noto Serif SC");
+  font-weight:100 900;
+  font-style:normal;
+  unicode-range:U+2E80-2EFF,U+2F00-2FDF,U+3000-303F,
+      U+31C0-31EF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FF00-FFEF;
+}
+@font-face {
+  font-family:"Portfolio Yu Kana";
+  src:local("Yu Mincho"),local("YuMincho"),local("YuMincho Regular"),
+      local("Hiragino Mincho ProN"),local("Noto Serif CJK JP");
+  font-weight:100 900;
+  font-style:normal;
+  unicode-range:U+3040-30FF,U+31F0-31FF,U+FF66-FF9F,U+1B000-1B16F;
+}
+@font-face {
+  font-family:"Portfolio Yu Japanese";
+  src:local("Yu Mincho"),local("YuMincho"),local("YuMincho Regular"),
+      local("Hiragino Mincho ProN"),local("Noto Serif CJK JP");
+  font-weight:100 900;
+  font-style:normal;
+  unicode-range:U+2E80-2EFF,U+2F00-2FDF,U+3000-303F,U+3040-30FF,
+      U+31C0-31FF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,
+      U+FF00-FFEF,U+1B000-1B16F;
+}
+:root {
+  --portfolio-script-serif:"Portfolio Yu Kana","Portfolio Song",
+      "Times New Roman",Georgia,"Songti SC",STSong,SimSun,serif;
+  --portfolio-japanese-serif:"Portfolio Yu Japanese",
+      "Times New Roman",Georgia,"Yu Mincho",YuMincho,
+      "Hiragino Mincho ProN",serif;
+}
+/* Override legacy geometric sans-serif declarations across UI and projects.
+   SVG graphic primitives are unchanged; SVG text uses the same serif system. */
+html body, html body * {
+  font-family:var(--portfolio-script-serif) !important;
+}
+/* Explicit Japanese regions use Japanese Han forms, not Chinese variants. */
+html body :lang(ja) {
+  font-family:var(--portfolio-japanese-serif) !important;
+}
+/* Original negative display tracking was designed for Space Grotesk. */
+.home-hero-copy h1,.home-hero-copy h1 span:last-child {
+  letter-spacing:-.045em !important;
+}
+html[lang="zh-CN"] .home-hero-copy h1,
+html[lang="zh-CN"] .home-hero-copy h1 span:last-child {
+  letter-spacing:-.028em !important;
+}
