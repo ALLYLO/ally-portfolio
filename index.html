@@ -1117,9 +1117,25 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     window.scrollTo({top,left:0,behavior:'auto'});
     requestAnimationFrame(()=>{root.style.scrollBehavior=previous});
   };
+  const heading=work.querySelector('.works-marquee');
+  const syncHeading=()=>{
+    if(!heading)return;
+    if(compact.matches){
+      heading.style.position='sticky';
+      heading.style.top='0px';
+      heading.style.zIndex='1200';
+      heading.style.backgroundColor='#3b3228';
+      heading.style.isolation='isolate';
+    }else{
+      ['position','top','z-index','background-color','isolation'].forEach(property=>heading.style.removeProperty(property));
+    }
+  };
+  syncHeading();
+  if(compact.addEventListener)compact.addEventListener('change',syncHeading);
+  else compact.addListener(syncHeading);
   const setStackOrder=(cards,active)=>{
     cards.forEach((card,index)=>{
-      card.style.zIndex=String(index===active?1000:index===active-1||index===active+1?900:20+index);
+      card.style.zIndex=String(10+cards.length-Math.abs(index-active));
     });
   };
   const playCardStep=(from,to,direction)=>{
