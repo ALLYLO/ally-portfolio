@@ -8,9 +8,10 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const root = document.documentElement;
   const distanceMultiplier = 0.75;
-  const easing = 0.17;
+  const easingTimeMs = 86;
 
   let frame = 0;
+  let lastFrameTime = 0;
   let rendered = window.scrollY;
   let target = rendered;
 
@@ -20,13 +21,16 @@
   function cancel() {
     if (frame) cancelAnimationFrame(frame);
     frame = 0;
+    lastFrameTime = 0;
     root.classList.remove('portfolio-wheel-animating');
     rendered = target = window.scrollY;
   }
 
+  window.__allyPortfolioCancelWheelScroll = cancel;
+
   function isNativeScrollArea(targetElement) {
     if (!(targetElement instanceof Element)) return false;
-    if (targetElement.closest('dialog[open], [role="dialog"], .cm-stage, .cm-modal, .modal, .modal-overlay, [data-scroll-native]')) return true;
+    if (targetElement.closest('#work.compact-stepper-active, dialog[open], [role="dialog"], .cm-stage, .cm-modal, .modal, .modal-overlay, [data-scroll-native]')) return true;
     for (let element = targetElement; element && element !== root && element !== document.body; element = element.parentElement) {
       const overflow = getComputedStyle(element).overflowY;
       if (/(auto|scroll|overlay)/.test(overflow) && element.scrollHeight > element.clientHeight + 2) return true;
@@ -34,14 +38,18 @@
     return false;
   }
 
-  function draw() {
+  function draw(now) {
     frame = 0;
     target = clamp(target, 0, bottom());
+    const elapsed = lastFrameTime ? Math.min(48, Math.max(1, now - lastFrameTime)) : 1000 / 60;
+    lastFrameTime = now;
+    const easing = 1 - Math.exp(-elapsed / easingTimeMs);
     rendered += (target - rendered) * easing;
     if (Math.abs(target - rendered) < 0.5) {
       rendered = target;
       window.scrollTo(0, rendered);
       root.classList.remove('portfolio-wheel-animating');
+      lastFrameTime = 0;
       return;
     }
     window.scrollTo(0, rendered);
@@ -49,6 +57,14 @@
   }
 
   function onWheel(event) {
+    const activeWork = document.querySelector('#work.compact-stepper-active');
+    const landingWork = document.querySelector('#work');
+    const landingHandoff = landingWork && window.scrollY <= 24 && event.deltaY > 0;
+    if (activeWork || landingHandoff) {
+      if (frame) cancel();
+      return;
+    }
+
     if (reducedMotion.matches || !finePointer.matches || !event.cancelable ||
         event.defaultPrevented || event.ctrlKey || event.metaKey ||
         Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
@@ -64,6 +80,7 @@
     event.preventDefault();
     if (!frame) {
       rendered = target = window.scrollY;
+      lastFrameTime = 0;
       root.classList.add('portfolio-wheel-animating');
     }
     target = clamp(target + delta, 0, bottom());
@@ -75,6 +92,10 @@
   window.addEventListener('hashchange', cancel);
   window.addEventListener('popstate', cancel);
   window.addEventListener('resize', cancel);
+  window.addEventListener('blur', cancel);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancel();
+  });
   document.addEventListener('click', event => {
     if (event.target instanceof Element && event.target.closest('a[href^="#"]')) cancel();
   }, true);
