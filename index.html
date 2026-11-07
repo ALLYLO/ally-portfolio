@@ -1271,7 +1271,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(stageActive||!compact.matches)return;
     const items=records();
     if(!items.length)return;
-    window.__allyPortfolioCancelWheelScroll?.();
     stageTop=layoutTop(work);
     currentIndex=Math.max(0,Math.min(items.length-1,index));
     stageItems=items;
@@ -1283,7 +1282,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const leaveStage=()=>{
     if(!stageActive)return;
-    window.__allyPortfolioCancelWheelScroll?.();
     stageActive=false;
     clearTimeout(transitionTimer);
     transitioning=false;
@@ -1303,7 +1301,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     lastScrollY=window.scrollY;
   };
   const leaveToSkills=()=>{
-    window.__allyPortfolioCancelWheelScroll?.();
     leaveStage();
     exitSide='below';
     const target=skillsTop();
