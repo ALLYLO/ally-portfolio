@@ -1,0 +1,1935 @@
+/* Homepage hero redesign: collage layout follows the owner-provided visual reference. */
+
+/* Hide the legacy straight-segment trail only once the smooth replacement is ready.
+   Keep the original visible if the replacement script cannot initialize. */
+.portfolio-smooth-trail-ready .pointer-trail:not(.pointer-trail-smooth) {
+  display: none !important;
+}
+
+/* White canvas ink in difference mode automatically inverts underlying art. */
+html.portfolio-smooth-trail-ready canvas.pointer-trail.pointer-trail-smooth {
+  mix-blend-mode: difference !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
+
+
+/* Composite the complete header against the hero, not the nav inside its own stacking context. */
+@media (min-width: 600px) {
+  .editorial-header {
+    z-index: 20;
+    isolation: auto !important;
+    mix-blend-mode: difference;
+  }
+  .editorial-header nav {
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: normal !important;
+    background: transparent;
+  }
+  .editorial-header,
+  .editorial-header nav,
+  .editorial-header a,
+  .editorial-header a:visited,
+  .editorial-header a *,
+  .editorial-header nav *,
+  .editorial-header .header-contact {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+}
+
+/* Keep the page scrollable while hiding only the root scrollbar. */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* Avoid compounding native CSS easing with the desktop wheel animation. */
+html.portfolio-wheel-animating {
+  scroll-behavior: auto !important;
+}
+
+.home-hero-redesign {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100svh;
+  box-sizing: border-box;
+  padding: 16px 3.5% 44px;
+  overflow: hidden;
+  background: transparent;
+}
+.home-hero-layout {
+  --portrait-inset: clamp(390px, 46%, 699px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+  gap: clamp(16px, 2.2vw, 38px);
+  position: relative;
+  max-width: 1620px;
+  min-height: 620px;
+  margin: 0 auto;
+}
+.home-hero-copy { position: relative; z-index: 2; align-self: center; padding: 10px 0 64px; }
+.home-hero-copy h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .01em;
+  margin: 0 0 clamp(32px, 4vw, 58px);
+  color: #24231f;
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  font-size: clamp(39px, calc(9vw - 24px), 118px);
+  font-weight: 700;
+  letter-spacing: -.078em;
+  line-height: .99;
+  white-space: nowrap;
+}
+.home-hero-copy h1 span:last-child { letter-spacing: -.087em; }
+.home-hero-thesis { margin: 0; font-size: clamp(25px, 2.65vw, 43px); font-weight: 450; letter-spacing: -.055em; line-height: 1.14; }
+.home-hero-thesis em { display: block; margin-top: 2px; font-family: Georgia, 'Times New Roman', serif; font-size: 1.05em; font-weight: 400; letter-spacing: -.065em; }
+.home-hero-actions { display: flex; align-items: center; gap: clamp(24px, 3vw, 48px); margin-top: 42px; }
+.home-hero-actions .work-cta { min-width: 178px; padding: 17px 27px; border: 1.5px solid #34312b; border-radius: 999px; text-align: center; font-size: 13px; letter-spacing: .18em; }
+.home-hero-actions .work-cta:hover { background: #34312b; color: #f7f1e7; }
+/* Resume is a lightweight underlined link at every viewport width. */
+.home-hero-actions .resume-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(7px, .8vw, 12px);
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 12px 0 11px;
+  border: 0;
+  border-bottom: 1px solid #34312b;
+  border-radius: 0;
+  background: transparent;
+  color: #302e29;
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 450;
+  line-height: 1.15;
+  letter-spacing: .16em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.home-hero-actions .resume-link:not([aria-disabled="true"]):hover { opacity: .62; }
+.home-hero-actions .resume-link[aria-disabled="true"] { opacity: 1; cursor: default; }
+.home-hero-collage { position: relative; align-self: stretch; min-width: 0; min-height: 610px; }
+.home-hero-paper { position: absolute; filter: drop-shadow(0 8px 9px #54493622); }
+.home-hero-torn { clip-path: polygon(3% 1%,14% 2%,20% 0,33% 2%,46% 1%,59% 3%,74% 1%,88% 3%,98% 1%,97% 15%,100% 25%,98% 39%,100% 51%,97% 64%,99% 78%,97% 98%,83% 97%,69% 100%,55% 97%,41% 100%,28% 97%,14% 99%,2% 96%,3% 82%,0 68%,2% 53%,0 39%,3% 24%); }
+.home-hero-blue-paper { position: absolute; top: 14%; left: 23%; width: 75%; height: 65%; background: #92adbd; opacity: .78; clip-path: polygon(5% 3%,35% 0,48% 4%,100% 2%,96% 30%,100% 55%,95% 100%,58% 96%,29% 100%,0 92%,4% 62%,0 35%); transform: rotate(-2.5deg); }
+.home-hero-person { position: absolute; top: -42px; left: var(--portrait-inset, 46%); right: auto; z-index: 3; width: min(650px, calc(100% - var(--portrait-inset, 46%))); aspect-ratio: 1360 / 1157; height: auto; overflow: visible; }
+.home-hero-person img { display: block; width: 100%; height: auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 9px 8px #54493620); }
+.home-hero-person::before { display: none; }
+.home-hero-person::after { display: none; }
+
+.home-hero-rays { position: absolute; top: 4%; right: 0; z-index: 2; width: 70px; height: 56px; }
+.home-hero-rays i { position: absolute; width: 3px; height: 30px; border-radius: 4px; background: #292821; transform: rotate(27deg); }
+.home-hero-rays i:nth-child(2) { top: 16px; left: 27px; transform: rotate(47deg); }
+.home-hero-rays i:nth-child(3) { top: 30px; left: 49px; transform: rotate(67deg); }
+.home-hero-dots { position: absolute; top: 29%; right: -1%; width: 22%; height: 27%; opacity: .8; background-image: radial-gradient(#39362f 1.7px,transparent 2px); background-size: 17px 17px; mask-image: radial-gradient(ellipse,#000 10%,transparent 73%); transform: rotate(11deg); }
+.home-hero-cards { position: absolute; right: 0; bottom: 0; left: 0; z-index: 4; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 11px; align-items: stretch; }
+.home-hero-card { position: relative; min-height: 190px; padding: 19px 16px 16px; background-color: #f6f0e5; background-image: url("hero-paper-texture.svg"); background-size: 180px; }
+.home-hero-card:nth-child(1) { transform: rotate(-2.1deg); }
+.home-hero-card:nth-child(2) { margin-top: 13px; background-color: #f0e8db; transform: rotate(1.3deg); }
+.home-hero-card:nth-child(3) { transform: rotate(-1.4deg); }
+.home-hero-card h2 { display: table; margin: 0 auto 14px; padding: 6px 13px; background: #bfd0d6; color: #282720; font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.home-hero-card:nth-child(2) h2 { background: #e2d1ba; }
+.home-hero-card p { margin: 0; font-size: 12px; line-height: 1.65; text-align: center; }
+.home-hero-skill-venn { position: relative; width: 138px; height: 103px; margin: 3px auto 0; }
+.home-hero-skill-venn span { position: absolute; display: grid; place-items: center; width: 72px; height: 72px; border: 1px solid #514c42; border-radius: 50%; background: #f7f1e77d; font-family: Georgia,serif; font-size: 10px; font-style: italic; text-align: center; }
+.home-hero-skill-venn span:nth-child(1) { top: 0; left: 33px; }
+.home-hero-skill-venn span:nth-child(2) { bottom: 0; left: 1px; }
+.home-hero-skill-venn span:nth-child(3) { right: 1px; bottom: 0; }
+.home-hero-market-list { display: flex; flex-direction: column; justify-content: center; min-height: 111px; padding-left: 8px; font-size: 12px; line-height: 1.8; }
+.home-hero-market-list span::before { display: inline-block; width: 6px; height: 6px; margin: 0 9px 1px 0; border: 1px solid #514c42; border-radius: 50%; content: ""; }
+.home-hero-tool-marks { display: grid; grid-template-columns: repeat(3,1fr); place-items: center; min-height: 111px; color: #37342e; }
+.home-hero-tool-marks span { display: grid; place-items: center; width: 31px; height: 31px; border: 1px solid #524d43; border-radius: 50%; font-size: 17px; }
+.home-hero-tool-marks i { width: 22px; height: 22px; border: 1px solid #524d43; transform: rotate(45deg); }
+.home-hero-tool-marks b { font-family: Georgia,serif; font-weight: 400; font-size: 19px; }
+.home-hero-tool-note { margin: 1px 0 0; color: #5f594f; font-size: 9px !important; letter-spacing: .04em; }
+@media (min-width:1500px) {
+  .home-hero-layout { grid-template-columns: minmax(0,1.02fr) minmax(600px,.98fr); }
+}
+
+
+/* Fallback when the post-load structured hero enhancement cannot run.
+   Its styles are deliberately excluded once .home-hero-structured is applied. */
+@media (min-width: 600px) and (max-width: 1399px) {
+  .home-hero-layout:not(.home-hero-structured) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: clamp(20px, 3vw, 42px);
+  }
+  .home-hero-layout:not(.home-hero-structured) .home-hero-copy {
+    grid-row: 1;
+    min-width: 0;
+    align-self: start;
+    padding: 0;
+  }
+  .home-hero-layout:not(.home-hero-structured) > .home-hero-person {
+    grid-row: 2;
+    position: relative;
+    inset: auto;
+    width: min(60%, 440px);
+    justify-self: center;
+  }
+  .home-hero-layout:not(.home-hero-structured) .home-hero-collage {
+    grid-row: 3;
+    min-height: 0;
+  }
+  .home-hero-layout:not(.home-hero-structured) .home-hero-cards {
+    position: relative;
+    inset: auto;
+  }
+}
+
+/* Shorter viewports should not amplify the growing stacked portrait so much
+   that all primary actions are pushed below the fold. Natural scroll remains. */
+@media (max-width: 599px) and (max-height: 740px) {
+  .home-hero-person {
+    height: min(clamp(210px, 58vw, 365px), 36svh);
+    margin-bottom: clamp(34px, 6svh, 56px);
+  }
+  .home-hero-copy h1 { margin-bottom: clamp(22px, 5vw, 38px); }
+  .home-hero-actions { margin-top: clamp(25px, 5svh, 44px); }
+}
+
+/* Canonical portrait-first layout. One set of mobile rules replaces the old
+   succession of phone overrides; all dimensions follow the available width. */
+@media (max-width: 599px) {
+  body { padding-top: clamp(87px, 9vw, 98px); }
+  .editorial-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: clamp(79px, 8.6vw, 92px) !important;
+    min-height: 79px;
+    grid-template-columns: none !important;
+    width: auto;
+    margin: 0 5% !important;
+    padding: 14px 0 0 !important;
+    gap: 18px;
+    isolation: auto !important;
+    mix-blend-mode: difference !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .editorial-header > :first-child,
+  .editorial-header > :first-child *,
+  .editorial-header .portfolio-mobile-menu-toggle {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  .editorial-header > :first-child svg,
+  .editorial-header > :first-child svg * { fill: #fff !important; }
+  .portfolio-mobile-menu-ready .editorial-header nav,
+  .portfolio-mobile-menu-ready .editorial-header .header-contact { display: none !important; }
+  .editorial-header .portfolio-mobile-menu-toggle {
+    display: flex !important;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    padding: 9px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    cursor: pointer;
+  }
+  .editorial-header .portfolio-mobile-menu-toggle span {
+    width: 30px;
+    height: 3px;
+    border-radius: 9px;
+    background: #fff !important;
+  }
+  .editorial-header .portfolio-mobile-menu-toggle span:last-child {
+    width: 23px;
+    margin-left: 7px;
+  }
+  .editorial-header .portfolio-mobile-menu-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+/* Portrait-first layout only when two content columns cannot fit. */
+@media (max-width: 599px) {
+  .home-hero-redesign {
+    width: auto;
+    max-width: 100%;
+    padding: 4px 5% 42px;
+    overflow: visible;
+  }
+  .home-hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "title"
+      "portrait"
+      "thesis"
+      "actions"
+      "cards";
+    gap: 0;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .home-hero-copy,
+  .home-hero-collage { display: contents; }
+  .home-hero-copy h1 {
+    grid-area: title;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0;
+    margin: clamp(19px, 4vw, 35px) 0 clamp(36px, 6.7vw, 62px);
+    gap: 0;
+    font-size: clamp(38px, 9.5vw, 70px);
+    letter-spacing: -.073em;
+    line-height: 1.055;
+    white-space: nowrap;
+  }
+  .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards) {
+    display: none !important;
+  }
+  .home-hero-person {
+    grid-area: portrait;
+    display: block;
+    position: relative;
+    inset: auto;
+    justify-self: center;
+    width: min(86%, 504px);
+    max-width: 100%;
+    height: clamp(210px, 58vw, 365px);
+    min-height: 0;
+    aspect-ratio: auto;
+    margin: 0 0 clamp(60px, 10vw, 84px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .home-hero-person::before,
+  .home-hero-person::after { display: none !important; }
+  .home-hero-person img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: scale(1.105);
+    transform-origin: center 49%;
+  }
+  .home-hero-thesis {
+    grid-area: thesis;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(22px, 5.3vw, 30px);
+    line-height: 1.2;
+  }
+  .home-hero-thesis em { margin-top: 5px; }
+  .home-hero-actions {
+    grid-area: actions;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(16px, 4.8vw, 43px);
+    min-width: 0;
+    margin: clamp(44px, 8.5vw, 66px) 0 0;
+  }
+  .home-hero-actions .work-cta {
+    box-sizing: border-box;
+    flex: 0 1 clamp(172px, 45vw, 294px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: clamp(56px, 12.3vw, 86px);
+    padding: 14px clamp(15px, 3.5vw, 28px);
+    border: 1px solid #38322c;
+    border-radius: 999px;
+    background: transparent;
+    color: #38322c;
+    font-size: 14px;
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .18em;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .home-hero-actions .resume-link {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto;
+    min-width: 0;
+    min-height: 44px;
+    margin: 0;
+    padding: 11px 0;
+    border: 0;
+    border-bottom: 1px solid #38322c;
+    border-radius: 0;
+    background: transparent;
+    color: #38322c;
+    font-size: 14px;
+    font-weight: 450;
+    line-height: 1.1;
+    letter-spacing: .16em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+  .home-hero-actions .resume-link:not([aria-disabled="true"]):hover { opacity: .62; }
+  .home-hero-actions .work-cta:focus-visible,
+  .home-hero-actions .resume-link:focus-visible {
+    outline: 2px solid #38322c;
+    outline-offset: 5px;
+  }
+  .home-hero-cards {
+    grid-area: cards;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin: clamp(58px, 8vw, 90px) 0 0;
+    padding: 0;
+  }
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    display: grid;
+    grid-template-columns: minmax(84px, 95px) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    min-height: 94px;
+    margin: 0;
+    padding: 10px 13px;
+    transform: none;
+  }
+  .home-hero-card h2,
+  .home-hero-card:nth-child(2) h2 {
+    justify-self: stretch;
+    margin: 0;
+    padding: 7px 5px;
+    font-size: 9px;
+    text-align: center;
+  }
+  .home-hero-skill-venn { width: 120px; height: 70px; margin: 0 auto; }
+  .home-hero-skill-venn span { width: 51px; height: 51px; font-size: 8px; }
+  .home-hero-skill-venn span:nth-child(1) { left: 35px; }
+  .home-hero-skill-venn span:nth-child(2) { left: 8px; }
+  .home-hero-skill-venn span:nth-child(3) { right: 8px; }
+  .home-hero-market-list { min-height: 0; padding-left: 5px; font-size: 10px; line-height: 1.6; }
+  .home-hero-tool-marks {
+    min-height: 0;
+    grid-template-columns: repeat(3, 34px);
+    justify-content: center;
+    gap: 11px;
+  }
+  .home-hero-tool-note { grid-column: 1 / -1; font-size: 8px !important; }
+}
+/* Mobile collage-label paint isolation: the flattened display:contents
+   wrappers should never let the absolutely positioned SKILLS circle captions
+   paint on top of the portrait when the viewport is resized. */
+@media (max-width: 599px) {
+  .home-hero-layout.home-hero-structured .home-hero-card {
+    contain: paint;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    position: relative;
+    isolation: isolate;
+    contain: layout paint;
+    overflow: clip;
+  }
+}
+
+/* The smallest portrait widths need tighter button tracking and card labels. */
+@media (max-width: 390px) {
+  .home-hero-copy h1 { font-size: clamp(38px, 10.1vw, 40px); }
+  .home-hero-card,
+  .home-hero-card:nth-child(2),
+  .home-hero-card:nth-child(3) {
+    grid-template-columns: minmax(0, 84px) minmax(0, 1fr);
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .home-hero-actions { gap: clamp(12px, 4vw, 20px); }
+  .home-hero-actions .work-cta {
+    flex-basis: clamp(148px, 46vw, 180px);
+    padding-inline: 12px;
+    letter-spacing: .13em;
+  }
+  .home-hero-actions .resume-link {
+    font-size: 10px;
+    letter-spacing: .1em;
+    gap: 4px;
+  }
+}
+
+
+/* The content moves into a two-column stage at 600px. */
+
+
+
+/* Narrow-screen editorial navigation: masked staggered lettering over a
+   quiet ivory overlay. The existing real links, keyboard controls and scroll
+   locking are preserved by mobile-hero-nav.js. */
+.portfolio-mobile-menu-toggle,
+.portfolio-mobile-navigation { display: none; }
+@media (max-width: 599px) {
+  html.portfolio-mobile-menu-open,
+  html.portfolio-mobile-menu-open body { overflow: hidden !important; }
+
+  .portfolio-mobile-menu-ready .portfolio-mobile-navigation {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .34s ease, visibility 0s linear .37s;
+  }
+  .portfolio-mobile-menu-ready .portfolio-mobile-navigation.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity .32s ease, visibility 0s;
+  }
+  .portfolio-mobile-navigation-panel {
+    box-sizing: border-box;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding:
+      max(23px, env(safe-area-inset-top))
+      5.8%
+      max(23px, env(safe-area-inset-bottom));
+    background: #ded5c8;
+    color: #342f2a;
+    -webkit-overflow-scrolling: touch;
+    transform: translate3d(0, 10px, 0);
+    transition: transform .42s cubic-bezier(.22, 1, .36, 1);
+  }
+  /* Tie the menu to the Portfolio paper language without overpowering
+     the much cleaner reference-style typography. */
+  .portfolio-mobile-navigation-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: .13;
+    background: url("hero-paper-texture.svg") repeat;
+    background-size: 320px 320px;
+  }
+  .portfolio-mobile-navigation-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-panel {
+    transform: translate3d(0, 0, 0);
+  }
+  .portfolio-mobile-menu-close {
+    align-self: flex-end;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    min-height: 54px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #373029;
+    color: #fbf5ed;
+    cursor: pointer;
+    transition: background-color .25s ease, transform .3s ease;
+  }
+  .portfolio-mobile-menu-close span {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 43px;
+    font-weight: 200;
+    line-height: 1;
+    transform: translateY(-2px);
+  }
+  .portfolio-mobile-menu-close:hover { background: #244b70; transform: rotate(8deg); }
+  .portfolio-mobile-menu-close:focus-visible {
+    outline: 2px solid #244b70;
+    outline-offset: 5px;
+  }
+
+  /* Long vertical space belongs around the list, not between its rows. */
+  .portfolio-mobile-navigation-links {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(10px, 1.7svh, 18px);
+    min-height: 0;
+    margin: 0;
+    padding: clamp(25px, 4svh, 46px) 0;
+  }
+  .portfolio-mobile-navigation-item {
+    display: block;
+    flex: 0 0 auto;
+    width: max-content;
+    max-width: 100%;
+    padding: 0 0 .05em;
+    overflow: hidden;
+  }
+  .portfolio-mobile-navigation-links a {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: clamp(3px, .9vw, 6px);
+    width: max-content;
+    max-width: 100%;
+    color: inherit;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+    font-size: clamp(41px, 10.7vw, 61px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.077em;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: translate3d(0, 112%, 0);
+    transition:
+      transform .61s cubic-bezier(.16, 1, .3, 1),
+      color .22s ease;
+    will-change: transform;
+  }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-links a {
+    transform: translate3d(0, 0, 0);
+  }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-item:nth-child(1) a { transition-delay: .09s; }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-item:nth-child(2) a { transition-delay: .16s; }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-item:nth-child(3) a { transition-delay: .23s; }
+  .portfolio-mobile-navigation-links a:hover,
+  .portfolio-mobile-navigation-links a:focus-visible {
+    color: #244b70;
+  }
+  .portfolio-mobile-navigation-links a:focus-visible {
+    outline: 2px solid #244b70;
+    outline-offset: 4px;
+  }
+  .portfolio-mobile-navigation-links a sup {
+    flex: 0 0 auto;
+    font-family: Georgia, serif;
+    font-size: clamp(12px, 3vw, 19px);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1;
+    transform: translateY(.16em);
+  }
+
+  .portfolio-mobile-navigation-footer {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(12px, 2.1svh, 20px);
+    margin-top: 0;
+    text-align: center;
+  }
+  .portfolio-mobile-navigation-footer > * {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    transition:
+      transform .53s cubic-bezier(.16, 1, .3, 1),
+      opacity .45s ease;
+  }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-footer > * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-delay: .28s;
+  }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-footer > :nth-child(2) { transition-delay: .34s; }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-footer > :nth-child(3) { transition-delay: .4s; }
+  .portfolio-mobile-navigation.is-open .portfolio-mobile-navigation-footer > :nth-child(4) { transition-delay: .44s; }
+  .portfolio-mobile-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(14px, 4vw, 29px);
+  }
+  .portfolio-mobile-socials a {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+    padding: 0;
+    border: 1px solid #625c52;
+    border-radius: 50%;
+    color: inherit;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    text-decoration: none;
+    transition: border-color .22s ease, color .22s ease, background-color .22s ease;
+  }
+  .portfolio-mobile-socials a:hover,
+  .portfolio-mobile-socials a:focus-visible {
+    color: #f8f4ed;
+    background: #244b70;
+    border-color: #244b70;
+  }
+  .portfolio-mobile-socials a[href*="linkedin.com"],
+  .portfolio-mobile-socials a[href*="behance.net"],
+  .portfolio-mobile-socials a[href*="instagram.com"] { font-size: 0; }
+  .portfolio-mobile-socials a[href*="linkedin.com"]::after { content: "in"; font-size: 17px; font-weight: 700; }
+  .portfolio-mobile-socials a[href*="behance.net"]::after { content: "Bē"; font-size: 19px; font-weight: 700; }
+  .portfolio-mobile-socials a[href*="instagram.com"]::after { content: "◎"; font-size: 27px; font-weight: 400; }
+  .portfolio-mobile-contact-eyebrow {
+    margin: 0;
+    color: #5c554b;
+    font-size: 12px;
+    font-weight: 450;
+    letter-spacing: .12em;
+    line-height: 1.5;
+  }
+  .portfolio-mobile-contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 68px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    border-radius: 999px;
+    background: #373029;
+    color: #f9f5ed;
+    font-family: Georgia, serif;
+    font-size: clamp(20px, 5.2vw, 29px);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.025em;
+    line-height: 1.15;
+    text-decoration: none;
+    transition: background-color .22s ease;
+  }
+  .portfolio-mobile-contact-link:hover,
+  .portfolio-mobile-contact-link:focus-visible { background: #244b70; }
+  .portfolio-mobile-email {
+    display: block;
+    margin: -4px 0 0;
+    color: #605b54;
+    font-family: Georgia, serif;
+    font-size: clamp(13px, 3.6vw, 17px);
+    font-style: italic;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+/* Keep the modal usable when a phone is short or a browser is zoomed. */
+@media (max-width: 599px) and (max-height: 650px) {
+  .portfolio-mobile-navigation-panel {
+    padding-top: max(14px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .portfolio-mobile-menu-close { width: 45px; height: 45px; min-height: 45px; }
+  .portfolio-mobile-navigation-links { padding-block: 15px; gap: 8px; }
+  .portfolio-mobile-navigation-links a { font-size: clamp(37px, 9.7vw, 51px); }
+  .portfolio-mobile-navigation-footer { gap: 9px; }
+  .portfolio-mobile-socials a { width: 36px; height: 36px; min-width: 36px; }
+  .portfolio-mobile-contact-link { min-height: 53px; padding-block: 9px; }
+}
+
+@media (max-width: 599px) and (prefers-reduced-motion: reduce) {
+  .portfolio-mobile-navigation,
+  .portfolio-mobile-navigation-panel,
+  .portfolio-mobile-navigation-links a,
+  .portfolio-mobile-navigation-footer > *,
+  .portfolio-mobile-menu-close {
+    transition: none !important;
+    animation: none !important;
+  }
+  .portfolio-mobile-navigation-panel { transform: none !important; }
+  .portfolio-mobile-navigation-links a { transform: none !important; }
+  .portfolio-mobile-navigation-footer > * { opacity: 1 !important; transform: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-mobile-navigation,
+  .portfolio-mobile-navigation-links a { transition: none !important; }
+}
+
+
+/* Reveal the hamburger after the shared desktop default hides it. */
+@media (max-width: 599px) {
+  html.portfolio-mobile-menu-ready .editorial-header .portfolio-mobile-menu-toggle {
+    display: flex !important;
+  }
+}
+
+
+
+/* Canonical structured hero. The DOM groups thesis + CTAs so the title can
+   span both tracks at the first expanded stage without manual offsets.
+   The photo and paper cards always have their own grid cells. */
+@media (max-width: 599px) {
+  .home-hero-info { display: contents; }
+}
+@media (min-width: 600px) {
+  .home-hero-layout.home-hero-structured {
+    display: grid;
+    grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
+    gap: clamp(16px, 2.2vw, 38px);
+    align-items: center;
+    min-height: 0;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-copy {
+    position: relative;
+    display: block;
+    min-width: 0;
+    padding: 0;
+    align-self: center;
+    z-index: 2;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: clamp(12px, 2vw, 28px);
+    min-width: 0;
+    min-height: 0;
+    align-self: center;
+    align-content: start;
+    z-index: 1;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    inset: auto;
+    justify-self: center;
+    width: min(100%, 620px);
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1360 / 1157;
+    min-height: 0;
+    margin: 0;
+    overflow: visible;
+    z-index: 3;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: none;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: clamp(6px, 1vw, 13px);
+    z-index: 4;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card {
+    min-width: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.8vw, 28px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    box-sizing: border-box;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-blue-paper,
+  .home-hero-layout.home-hero-structured .home-hero-rays,
+  .home-hero-layout.home-hero-structured .home-hero-dots {
+    pointer-events: none;
+  }
+}
+
+
+/* Bring back the complete editorial header at the first 600px expansion. */
+@media (min-width: 600px) and (max-width: 959px) {
+  .editorial-header {
+    z-index: 20;
+    display: grid !important;
+    grid-template-columns: minmax(90px, 1fr) minmax(104px, 1fr) minmax(128px, 1fr) !important;
+    align-items: start;
+    justify-content: space-between;
+    column-gap: clamp(12px, 2.6vw, 28px);
+    width: auto;
+    height: auto;
+    min-height: 95px;
+    margin: 0 clamp(22px, 4vw, 50px) !important;
+    padding: clamp(14px, 2vw, 22px) 0 0 !important;
+    isolation: auto !important;
+    mix-blend-mode: difference !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .editorial-header > :first-child {
+    justify-self: start;
+    align-self: start;
+    min-width: 0;
+  }
+  .editorial-header nav {
+    display: flex !important;
+    position: relative;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: clamp(3px, .7vw, 8px);
+    z-index: 1;
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    mix-blend-mode: normal !important;
+  }
+  .editorial-header nav a {
+    display: block;
+    max-width: 100%;
+    font-size: clamp(12px, 1.45vw, 16px);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .editorial-header .header-contact {
+    display: block !important;
+    justify-self: end;
+    align-self: start;
+    font-size: clamp(10px, 1.24vw, 14px);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+}
+
+/* Shared editorial stage | 600–1399px
+   From 600px the headline spans two grid tracks, with the intro and portrait
+   side by side and the paper cards in one row below. Compact dimensions at
+   600–899px preserve legibility; wide desktop (1400px+) remains independent. */
+@media (min-width: 600px) and (max-width: 1399px) {
+  .home-hero-redesign {
+    --hero-stage-gap: clamp(24px, min(3.2vw, 4.7svh), 48px);
+    --hero-cards-gap: clamp(24px, min(3vw, 4.2svh), 45px);
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding:
+      clamp(0px, 1vw, 14px)
+      clamp(22px, 4vw, 62px)
+      clamp(45px, 6svh, 78px);
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured {
+    display: grid;
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    grid-template-rows: auto auto auto;
+    column-gap: clamp(17px, 3.2vw, 52px);
+    row-gap: 0;
+    align-items: start;
+    align-content: start;
+    width: 100%;
+    max-width: 1180px;
+    min-width: 0;
+    min-height: 0;
+    margin-inline: auto;
+  }
+  /* Flatten only the existing structural wrappers. No duplicated nodes. */
+  .home-hero-layout.home-hero-structured > .home-hero-copy,
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    display: contents;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: clamp(10px, 1.65vw, 22px) 0 var(--hero-stage-gap);
+    padding: 0;
+    font-size: clamp(42px, 7.25vw, 96px);
+    line-height: .99;
+    letter-spacing: -.078em;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    max-width: min(100%, 520px);
+    align-self: center;
+    margin: 0;
+    padding: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(22px, 2.85vw, 34px);
+    font-weight: 450;
+    line-height: 1.23;
+    letter-spacing: -.045em;
+    text-wrap: pretty;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    display: inline;
+    margin: 0 0 0 .17em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(11px, 1.7vw, 23px);
+    margin: clamp(22px, 3vw, 39px) 0 0;
+  }
+  /* Only VIEW WORK receives pill chrome; RESUME keeps its underline. */
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: clamp(52px, 5.3vw, 60px);
+    min-height: 0;
+    min-width: 0;
+    padding: 0 clamp(10px, 1.35vw, 18px);
+    margin: 0;
+    border: 1px solid #34312b;
+    border-radius: 999px;
+    background: transparent;
+    color: #302e29;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+    font-size: clamp(11px, 1.15vw, 13px);
+    font-weight: 450;
+    line-height: 1;
+    letter-spacing: .1em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    width: clamp(132px, 15.4vw, 178px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > span,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > svg {
+    flex-shrink: 0;
+    align-self: center;
+    line-height: 1;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link > svg {
+    display: block;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta:focus-visible,
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link:focus-visible {
+    outline: 2px solid #34312b;
+    outline-offset: 4px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    grid-column: 2;
+    grid-row: 2;
+    position: relative;
+    inset: auto;
+    z-index: 3;
+    justify-self: center;
+    align-self: center;
+    width: min(93%, 475px, 53svh);
+    max-width: 100%;
+    max-height: 46svh;
+    min-height: 0;
+    aspect-ratio: 1360 / 1157;
+    margin: 0;
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+  /* Three supporting cards share a low-contrast horizontal band. */
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    position: relative;
+    inset: auto;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: clamp(8px, 1.7vw, 20px);
+    width: min(100%, 920px);
+    min-width: 0;
+    margin: var(--hero-cards-gap) 0 0;
+    z-index: 4;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    grid-column: auto;
+    min-width: 0;
+    min-height: clamp(113px, 11vw, 152px);
+    margin-top: 0;
+    padding: clamp(8px, 1.05vw, 13px) clamp(8px, 1.1vw, 15px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2) {
+    margin-top: clamp(3px, .45vw, 6px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card h2 {
+    margin-bottom: clamp(5px, .65vw, 9px);
+    padding: 5px clamp(6px, .75vw, 11px);
+    font-size: clamp(8px, .82vw, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: clamp(94px, 10.8vw, 126px);
+    height: clamp(71px, 8.1vw, 93px);
+    margin: 0 auto;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    width: clamp(48px, 5.8vw, 65px);
+    height: clamp(48px, 5.8vw, 65px);
+    font-size: clamp(7px, .77vw, 9px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 25%; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list {
+    min-height: clamp(67px, 7.4vw, 91px);
+    padding-left: 0;
+    font-size: clamp(9px, .88vw, 11px);
+    line-height: 1.6;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
+    min-height: clamp(67px, 7.4vw, 91px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note {
+    font-size: 8px !important;
+  }
+  /* The photo PNG already contains torn-paper and doodle decoration. */
+  .home-hero-layout.home-hero-structured > .home-hero-collage > :not(.home-hero-person):not(.home-hero-cards),
+  .home-hero-layout.home-hero-structured .home-hero-blue-paper,
+  .home-hero-layout.home-hero-structured .home-hero-rays,
+  .home-hero-layout.home-hero-structured .home-hero-dots {
+    display: none !important;
+  }
+}
+
+/* Fully expanded first viewport: 135px are reserved for the fixed header
+   by the canonical page. Keep every part of the Hero in the remainder.
+   The portrait and three paper cards occupy distinct right-column Grid rows. */
+@media (min-width: 1400px) {
+  .home-hero-redesign {
+    box-sizing: border-box;
+    height: calc(100svh - 135px);
+    min-height: calc(100svh - 135px);
+    padding: clamp(8px, 1.3svh, 17px) 3.5% clamp(44px, 5.4svh, 68px);
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured {
+    --hero-wide-card-height: clamp(146px, 18.7svh, 184px);
+    --hero-wide-card-gap: clamp(7px, 1.2svh, 16px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .96fr);
+    gap: clamp(20px, 1.6vw, 28px);
+    align-items: stretch;
+    width: 100%;
+    max-width: 1380px;
+    height: 100%;
+    min-height: 0;
+    margin-inline: auto;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+    min-height: 0;
+    /* Keep the three-line slogan high and left; reserve the lower row height
+       so its buttons finish level with the bottom of the portrait. */
+    padding: clamp(24px, 4svh, 48px) 0 calc(var(--hero-wide-card-height) + var(--hero-wide-card-gap));
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    margin: 0;
+    font-size: clamp(68px, min(6.3vw, 10svh), 112px);
+    line-height: .98;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info {
+    display: block;
+    flex: 0 0 auto;
+    width: calc(100% - clamp(112px, 14vw, 220px));
+    max-width: 100%;
+    margin-inline-start: clamp(112px, 14vw, 220px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    margin: 0;
+    font-size: clamp(22px, min(2.55vw, 3.85svh), 40px);
+    line-height: 1.16;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(24px, 2.2vw, 36px);
+    width: 100%;
+    margin-top: clamp(18px, 2.8svh, 31px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 0;
+    height: clamp(44px, 5.7svh, 56px);
+    padding: 0 clamp(15px, 1.45vw, 25px);
+    margin: 0;
+    border: 1.5px solid #34312b;
+    border-radius: 999px;
+    font-size: clamp(11px, .85vw, 13px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    row-gap: clamp(7px, 1.2svh, 16px);
+    align-items: center;
+    justify-items: center;
+    align-content: stretch;
+    align-self: stretch;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    inset: auto;
+    /* Anchor the art slightly toward the editorial column; the source image
+       already includes a generous transparent margin around the subject. */
+    justify-self: start;
+    align-self: end;
+    width: min(96%, 550px, 55svh);
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1360 / 1157;
+    margin: 0 0 0 clamp(20px, 2.6vw, 44px);
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    position: relative;
+    grid-column: 1;
+    grid-row: 2;
+    inset: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: clamp(7px, .9vw, 13px);
+    margin: 0;
+    padding: 0 2px 3px;
+    z-index: 4;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    min-width: 0;
+    min-height: var(--hero-wide-card-height);
+    margin: 0;
+    padding: clamp(10px, 1.55svh, 17px) clamp(9px, .9vw, 16px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2) {
+    margin-top: clamp(2px, .4svh, 5px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card h2 {
+    padding: 5px clamp(6px, .65vw, 11px);
+    margin-bottom: clamp(7px, .95svh, 12px);
+    font-size: clamp(9px, .68vw, 11px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: clamp(116px, 9.6vw, 148px);
+    height: clamp(82px, 10.5svh, 108px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span {
+    width: clamp(58px, 5.1vw, 74px);
+    height: clamp(58px, 5.1vw, 74px);
+    font-size: clamp(9px, .65vw, 11px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 25%; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list,
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks {
+    min-height: clamp(72px, 9svh, 105px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-market-list {
+    padding-left: 0;
+    font-size: clamp(10px, .79vw, 12.5px);
+    line-height: 1.58;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note {
+    font-size: 9px !important;
+  }
+}
+/* On physically short desktop windows, allow normal scroll rather than
+   clipping the content or shrinking labels to unreadable sizes. */
+@media (min-width: 1400px) and (max-height: 630px) {
+  .home-hero-redesign {
+    height: auto;
+    min-height: calc(100svh - 135px);
+  }
+  .home-hero-layout.home-hero-structured {
+    height: auto;
+    min-height: 465px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(100%, 410px, 52svh);
+  }
+}
+
+/* Fall back to normal flow for the collage's non-grid decorative elements at
+   mid widths; they are hidden above so they cannot overlap the headline. */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-actions .work-cta,
+  .home-hero-actions .resume-link { transition: none !important; }
+}
+
+/* Responsive Hero layout: protect the core content at every orientation.
+   Keep two columns only when each can retain a comfortable reading width. */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .home-hero-layout.home-hero-structured .home-hero-info {
+    width: min(calc(100% - clamp(72px, 8vw, 112px)), 520px);
+    margin-inline-start: clamp(72px, 8vw, 112px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: clamp(16px, 1.8vw, 24px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta { width: clamp(126px, 13vw, 148px); }
+}
+
+/* First expanded stage | 600–899px
+   Keep the same two-column grid as wider editorial screens. Tighten type,
+   picture and paper cards instead of stacking the portrait above the CTAs. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .home-hero-redesign {
+    --hero-stage-gap: clamp(13px, 2.3vw, 24px);
+    --hero-cards-gap: clamp(16px, 2.7vw, 26px);
+    padding: clamp(8px, 1.4vw, 14px) clamp(18px, 3.7vw, 34px) clamp(45px, 6svh, 72px);
+  }
+  .home-hero-layout.home-hero-structured {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+    column-gap: clamp(14px, 2.4vw, 24px);
+    max-width: 860px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    font-size: clamp(40px, 6.65vw, 62px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-thesis {
+    font-size: clamp(18px, 2.7vw, 25px);
+    line-height: 1.2;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    display: block;
+    margin: .12em 0 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info .home-hero-actions {
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.4vw, 16px);
+    margin-top: clamp(14px, 2.2vw, 22px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    width: clamp(110px, 17vw, 150px);
+    height: clamp(43px, 5.4vw, 52px);
+    font-size: clamp(10px, 1.15vw, 12px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    padding-block: 9px 8px;
+    font-size: clamp(10px, 1.15vw, 12px);
+    letter-spacing: .1em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(93%, 370px, 42svh);
+    max-height: none;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-cards {
+    width: 100%;
+    justify-self: stretch;
+    gap: clamp(7px, 1.5vw, 12px);
+    margin: var(--hero-cards-gap) 0 0;
+    padding: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2),
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(3) {
+    display: block;
+    min-width: 0;
+    min-height: clamp(116px, 15vw, 142px);
+    margin: 0;
+    padding: 11px 8px;
+    transform: none;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-card h2,
+  .home-hero-layout.home-hero-structured .home-hero-card:nth-child(2) h2 {
+    margin: 0 auto 8px;
+    padding: 6px 5px;
+    font-size: 8px;
+    text-align: center;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn {
+    width: 110px;
+    height: 76px;
+    margin: 0 auto;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span { width: 51px; height: 51px; font-size: 7px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(1) { left: 28px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(2) { left: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-skill-venn span:nth-child(3) { right: 1px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list,
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks { min-height: 74px; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list { padding-left: 0; font-size: 9px; line-height: 1.5; }
+  .home-hero-layout.home-hero-structured .home-hero-market-list span::before { margin-right: 4px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks { grid-template-columns: repeat(3, 1fr); }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks span { width: 23px; height: 23px; font-size: 13px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-marks i { width: 16px; height: 16px; }
+  .home-hero-layout.home-hero-structured .home-hero-tool-note { font-size: 7px !important; }
+}
+
+/* Short 900–1199px windows: fit a true two-column composition without
+   forcing the portrait to occupy a whole additional grid row. Long pages
+   retain natural scrolling when there is genuinely insufficient height. */
+@media (min-width: 900px) and (max-width: 1199px) and (max-height: 820px) {
+  .home-hero-redesign {
+    --hero-stage-gap: clamp(15px, 2.5svh, 24px);
+    --hero-cards-gap: clamp(13px, 2.3svh, 23px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    font-size: clamp(46px, min(6.6vw, 8svh), 72px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(93%, 370px, 42svh);
+  }
+}
+
+/* Short 600–899px windows still use two columns; scale vertically instead
+   of moving the portrait into a dedicated row. Keep natural scrolling. */
+@media (min-width: 600px) and (max-width: 899px) and (max-height: 700px) {
+  .home-hero-redesign {
+    --hero-stage-gap: clamp(11px, 2svh, 17px);
+    --hero-cards-gap: clamp(12px, 2.3svh, 18px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy > h1 {
+    font-size: clamp(38px, min(6.1vw, 8svh), 56px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width: min(93%, 320px, 38svh);
+  }
+}
+
+/* Four lightweight orbiting capability tags replace the former three large
+   paper cards. Anchoring to the real photo keeps the layout responsive. */
+.home-hero-layout.home-hero-structured .home-hero-person {overflow:visible}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame {
+  position:relative;z-index:1;width:100%;height:auto;
+}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-capability-ring {
+  position:absolute;z-index:0;inset:11% -5% 9%;border:1px solid #675c4c55;
+  border-radius:50%;transform:rotate(-11deg);pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-person > .home-hero-capability-orbit {
+  position:absolute;z-index:3;inset:0;display:block;width:100%;height:100%;
+  padding:0;margin:0;pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability {
+  --r:0deg;--paper:#e8d6be;position:absolute;box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:38px;padding:7px 10px;border:1px solid #5c514b29;
+  clip-path:polygon(1% 6%,18% 3%,37% 5%,54% 1%,73% 3%,98% 0,100% 22%,98% 45%,100% 66%,98% 95%,81% 97%,65% 100%,44% 97%,23% 100%,1% 96%,3% 74%,0 50%);
+  background-color:var(--paper);background-image:url("hero-paper-texture.svg");
+  background-size:152px;color:#2d2b26;transform:rotate(var(--r));
+  filter:drop-shadow(0 4px 4px #40352924);white-space:nowrap;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon {
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;width:17px;height:17px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon svg {
+  display:block;width:100%;height:100%;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-family:"Space Grotesk","DM Sans","PingFang SC",sans-serif;
+  font-size:clamp(10px,.85vw,12px);font-weight:700;line-height:1.15;
+  letter-spacing:.01em;text-align:center;
+}
+html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-family:"Space Grotesk",var(--portfolio-han-sans);letter-spacing:-.025em;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight {--r:-4deg;--paper:#e8d6be}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure {--r:3deg;--paper:#cbdde1}
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment {--r:-3deg;--paper:#eee4d4}
+.home-hero-layout.home-hero-structured .home-hero-capability--execution {--r:4deg;--paper:#f0d5b9}
+
+@media(min-width:1400px) {
+  .home-hero-layout.home-hero-structured > .home-hero-copy {padding-bottom:clamp(16px,2.5svh,32px)}
+  .home-hero-layout.home-hero-structured > .home-hero-collage {
+    grid-template-rows:minmax(0,1fr);row-gap:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    justify-self:center;align-self:center;width:min(91%,575px,63svh);margin:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:13%;left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:22%;right:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:21%;left:-11%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:15%;right:-10%}
+}
+@media(min-width:600px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured {grid-template-rows:auto auto}
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:32px;gap:5px;padding:6px 8px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:clamp(12px,1.35vw,16px);height:clamp(12px,1.35vw,16px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(9px,1.03vw,12px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:11%;left:-6%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:18%;right:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:23%;left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:17%;right:-6%}
+}
+@media(min-width:600px) and (max-width:899px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:28px;gap:3px;padding:5px 6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {font-size:9px;letter-spacing:-.02em}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure .home-hero-capability-title {
+    max-width:63px;white-space:normal;
+  }
+}
+@media(max-width:599px) {
+  .home-hero-layout.home-hero-structured {
+    grid-template-areas:"title" "portrait" "thesis" "actions";
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(81%,480px);overflow:visible;isolation:isolate;
+    margin-bottom:clamp(56px,12vw,85px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame {
+    height:100%;overflow:hidden;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:30px;max-width:130px;gap:4px;padding:5px 7px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {width:14px;height:14px}
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(9px,2.6vw,11px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {top:9%;left:-14%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {top:20%;right:-14%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {bottom:24%;left:-15%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {bottom:14%;right:-15%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure .home-hero-capability-title {
+    max-width:64px;white-space:normal;
+  }
+}
+@media(max-width:360px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:27px;padding:4px 6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {font-size:9px}
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {width:12px;height:12px}
+}
+@media(min-width:1400px) and (max-height:630px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {width:min(91%,410px,52svh)}
+}
+
+/* Visual QA correction for the four portrait stickers, following owner
+   screenshots at narrow mobile and the 600-1399px expanded stage.
+   The old texture SVG has an opaque ivory background: multiply it into
+   the sticker's actual paper tint instead of letting it bleach every tag. */
+.home-hero-layout.home-hero-structured .home-hero-capability {
+  border-color:#5c514b33;
+  background-blend-mode:multiply;
+  filter:drop-shadow(0 5px 5px #3f35282b);
+  gap:7px;
+  min-height:42px;
+  padding:9px 14px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  width:clamp(24px,2.8vw,37px);
+  height:7px;
+  background:#a9bbc394;
+  transform:translateX(-50%) rotate(3deg);
+  pointer-events:none;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight {
+  --paper:#e7d1b5;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure {
+  --paper:#bed5de;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+  --paper:#e8dac3;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--execution {
+  --paper:#ebcfaf;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--insight::before,
+.home-hero-layout.home-hero-structured .home-hero-capability--execution::before {
+  background:#a3b8c394;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability--structure::before,
+.home-hero-layout.home-hero-structured .home-hero-capability--alignment::before {
+  background:#bda88d94;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-title {
+  font-size:clamp(11px,.96vw,13px);
+  line-height:1.2;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-icon {
+  width:19px;
+  height:19px;
+}
+.home-hero-layout.home-hero-structured .home-hero-capability-ring {
+  inset:14% 3% 12%;
+  border-color:#675c4c45;
+  opacity:.68;
+}
+
+/* The previous large bottom card row was removed, but the intermediate
+   grid still collapsed to content height. Spread title + intro/photo
+   through the remaining hero viewport instead of leaving a giant blank
+   slab under a miniature portrait. */
+@media (min-width:600px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:calc(100svh - 205px);
+    grid-template-rows:auto minmax(0,1fr);
+    align-content:stretch;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-info,
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    align-self:center;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:36px;
+    padding:7px 10px;
+    gap:6px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:clamp(10px,1.18vw,12px);
+    letter-spacing:0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:clamp(14px,1.5vw,18px);
+    height:clamp(14px,1.5vw,18px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    top:8%;
+    left:-4%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    top:17%;
+    right:-4%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    bottom:22%;
+    left:-6%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    bottom:14%;
+    right:-5%;
+  }
+  html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    display:block;
+    margin:.16em 0 0;
+  }
+}
+@media (min-width:900px) and (max-width:1399px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(100%,555px,62svh);
+    max-height:none;
+  }
+}
+@media (min-width:600px) and (max-width:899px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:calc(100svh - 185px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:31px;
+    padding:5px 7px;
+    gap:4px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:10px;
+    line-height:1.22;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {left:-2%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {right:-2%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {left:-4%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {right:-4%}
+}
+@media (max-width:599px) {
+  .home-hero-layout.home-hero-structured {
+    min-height:min(840px,calc(100svh - 110px));
+    grid-template-rows:auto minmax(0,1fr) auto auto;
+    align-content:stretch;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    align-self:center;
+    width:min(86%,510px);
+    margin-bottom:clamp(34px,7vw,60px);
+  }
+  /* Compact vertical distance only when the two existing actions wrap. */
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    row-gap:clamp(12px,3.2vw,16px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:34px;
+    padding:6px 9px;
+    gap:5px;
+    max-width:138px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability::before {
+    width:24px;
+    height:5px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:13px;
+    white-space:normal;
+    overflow-wrap:break-word;
+    letter-spacing:-.012em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:15px;
+    height:15px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    top:8%;
+    left:-9%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    top:18%;
+    right:-9%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    bottom:22%;
+    left:-11%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    bottom:12%;
+    right:-10%;
+  }
+}
+@media (max-width:360px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    min-height:30px;
+    padding:5px 6px;
+    gap:3px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-title {
+    font-size:13px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability-icon {
+    width:13px;
+    height:13px;
+  }
+}
+@media (min-width:1400px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(98%,620px,71svh);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {left:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {right:-5%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {left:-8%}
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {right:-7%}
+}
+@media (min-width:1400px) and (max-height:630px) {
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    width:min(91%,410px,52svh);
+  }
+}
+
+/* Narrow-phone edge protection for orbiting paper tags. Reuses the site's
+   existing <=420px breakpoint without changing the portrait or hero grid. */
+@media (max-width: 420px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    max-width:min(138px,38vw);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    left:-5%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    right:-5%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    left:-6%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    right:-6%;
+  }
+}
+
+/* Compact mobile first screen. Header remains fixed outside the hero, so
+   remove its duplicate body spacer and reserve its area within the hero.
+   Flex retains title -> portrait -> thesis -> actions from display:contents. */
+@media (max-width: 599px) {
+  body {
+    padding-top: 0;
+  }
+  .home-hero-redesign {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    min-height: 100svh;
+    padding: clamp(92px, 11.2svh, 112px) 5% max(14px, env(safe-area-inset-bottom, 0px));
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "thesis" "portrait" "actions";
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    align-content: stretch;
+    min-height: 0;
+    gap: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    grid-area: title;
+    flex: 0 0 auto;
+    margin: 0 0 clamp(5px, 1svh, 12px);
+    font-size: clamp(35px, min(9.2vw, 6.3svh), 58px);
+    line-height: 1.02;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    grid-area: portrait;
+    flex: 1 1 auto;
+    align-self: center;
+    width: min(90%, 46svh, 480px);
+    min-height: 0;
+    max-height: min(38svh, 350px);
+    height: auto;
+    aspect-ratio: 1360 / 1157;
+    margin: 0 auto clamp(5px, .8svh, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame,
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    height: 100%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis {
+    grid-area: thesis;
+    flex: 0 0 auto;
+    margin-top: auto;
+    font-size: clamp(19px, min(5.1vw, 3.8svh), 27px);
+    line-height: 1.15;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    margin-top: 2px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    grid-area: actions;
+    flex: 0 0 auto;
+    justify-content: center;
+    margin: clamp(7px, 1.3svh, 12px) 0 0;
+    column-gap: clamp(10px, 2.8vw, 16px);
+    row-gap: 12px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    flex: 0 1 clamp(135px, 43vw, 215px);
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    min-height: 44px;
+    font-size: 13px;
+    letter-spacing: .08em;
+  }
+}
