@@ -669,14 +669,14 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
 
 /* Use the Japanese creator card structure for every project on wide screens */
 @media(min-width:761px){
-  .work #koc .project-head,.work #nikke .project-head,.work #automation .project-head,.work #reporting .project-head,
-  .work #koc .project-caption,.work #nikke .project-caption,.work #automation .project-caption,.work #reporting .project-caption{display:none}
+  .work .project .project-head,.work .project .project-caption{display:none!important}
   .work #automation .visual.workflow-visual,.work #reporting .visual.reporting-visual{position:relative;height:auto;min-height:0;aspect-ratio:2.6}
   .work .project-mobile-title{position:absolute;left:20px;right:20px;bottom:17px;z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:3px;max-width:calc(100% - 40px);pointer-events:none;color:#f5f0e8;text-shadow:0 1px 14px #17181580}
   .work .project-mobile-index{font:500 10px/1.2 'Space Grotesk',Arial,sans-serif;letter-spacing:.09em;color:#e8ddcb}
   .work .project-mobile-name{font-size:clamp(21px,2.5vw,34px);font-weight:500;line-height:.98;letter-spacing:-.045em;color:#f5f0e8}
   .work .project-mobile-role{font:500 8px/1.35 'Space Grotesk',Arial,sans-serif;letter-spacing:.08em;color:#e8ddcb}
-  .work .project-mobile-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-width:0;min-height:76px;height:auto;padding:10px 18px;background:#e8ddcb;color:#3b3228;text-align:left}
+  .work .koc-media-label,.work .nikke-media-label{display:none}
+  .work .project-mobile-panel{display:grid;order:2;position:static;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-width:0;min-height:76px;height:auto;padding:10px 18px;background:#e8ddcb;color:#3b3228;text-align:left}
   .work .project-mobile-summary{grid-column:1;align-self:center;min-width:0;font-family:inherit;font-size:clamp(13px,1.3vw,16px);font-weight:500;line-height:1.45;letter-spacing:0;color:#3b3228}
   .work .project-mobile-cta{grid-column:2;justify-self:end;align-self:center;display:flex;align-items:center;justify-content:center;min-width:120px;min-height:46px;padding:8px 16px;border:0;border-radius:4px;background:#3b3228;color:#f5f0e8;font:500 11px/1.1 'Space Grotesk',Arial,sans-serif;letter-spacing:.04em;text-align:center;white-space:nowrap}
   .work #automation .workflow-visual::after,.work #reporting .reporting-visual::after{content:"";position:absolute;inset:54% 0 0;z-index:1;background:linear-gradient(180deg,rgba(23,24,21,0),rgba(23,24,21,.9));pointer-events:none}
