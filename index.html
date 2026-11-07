@@ -1488,7 +1488,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
     if(exitSide==='below'){
       if(y<top-40)exitSide=null;
-      else if(y<lastScrollY&&y<=top+48){
+      else if(y<lastScrollY&&y<skillsTop()-8){
         exitSide=null;
         enterStage(records().length-1);
       }
