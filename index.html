@@ -941,6 +941,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     touchStartY=null;
     touchStartedAtTop=false;
   },{passive:true});
+  document.addEventListener('touchcancel',()=>{
+    touchStartY=null;
+    touchStartedAtTop=false;
+  },{passive:true});
   window.addEventListener('keydown',event=>{
     if(!atTop()||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
     const target=event.target;
