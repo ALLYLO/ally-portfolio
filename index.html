@@ -942,4 +942,38 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   addEventListener('resize',fit,{passive:true});fit();
 })();
 </script><script src="assets/portfolio-i18n-dictionary.js"></script><script src="assets/portfolio-i18n.js"></script>
+<script>
+/* Let the first touch gesture settle on the Works chapter; all later scrolling stays native. */
+(() => {
+  const hero = document.getElementById('home');
+  const work = document.getElementById('work');
+  if (!hero || !work) return;
+  const narrow = window.matchMedia('(max-width: 1200px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let gesture = null;
+
+  hero.addEventListener('touchstart', event => {
+    gesture = null;
+    if (!narrow.matches || event.touches.length !== 1) return;
+    if (event.target instanceof Element && event.target.closest('a, button, input, textarea, select, [role="button"]')) return;
+    const touch = event.touches[0];
+    gesture = { x: touch.clientX, y: touch.clientY };
+  }, { passive: true });
+
+  hero.addEventListener('touchend', event => {
+    const start = gesture;
+    gesture = null;
+    if (!start || !narrow.matches || event.changedTouches.length !== 1) return;
+    const touch = event.changedTouches[0];
+    const travel = start.y - touch.clientY;
+    if (travel < 48 || travel < Math.abs(start.x - touch.clientX) * 1.2) return;
+    requestAnimationFrame(() => {
+      const top = work.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+    });
+  }, { passive: true });
+
+  hero.addEventListener('touchcancel', () => { gesture = null; }, { passive: true });
+})();
+</script>
 </body></html>
