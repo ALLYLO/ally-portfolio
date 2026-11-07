@@ -859,7 +859,12 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     opacity:1!important;
     transition:none!important;
     pointer-events:none!important;
-    background:#f5f0e8!important;
+    background-color:#faf6ef!important;
+    background-image:linear-gradient(rgba(250,246,239,.34),rgba(250,246,239,.34)),url('assets/media/paper-texture.png')!important;
+    background-size:auto,760px 760px!important;
+    background-repeat:repeat!important;
+    background-position:0 0,0 var(--compact-paper-shift,0px)!important;
+    background-blend-mode:normal,multiply!important;
   }
   #work.compact-stepper-active #more-work .work-pair--single{
     display:block!important;
@@ -1306,6 +1311,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     leaveStage(true);
     exitSide='below';
     const target=skillsTop();
+    if(overlay)overlay.style.setProperty('--compact-paper-shift',`${-target}px`);
     instantScroll(target);
     lastScrollY=target;
     if(overlay){
