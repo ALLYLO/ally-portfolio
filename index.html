@@ -1059,7 +1059,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   });
 })();
 </script><script>
-/* Compact Works: one gesture advances one project */
+/* Compact Works: reveal the next card in proportion to the gesture */
 (()=>{
   const compact=window.matchMedia('(max-width:1200px)');
   const work=document.querySelector('#work');
@@ -1097,7 +1097,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const indexAtPoint=(target,x,y)=>{
     const cards=scenes();
-    let card=target instanceof Element?target.closest('.work-pair--single'):null;
+    const node=target instanceof Element?target:target?.parentElement;
+    let card=node?.closest('.work-pair--single')||null;
     if(!card&&Number.isFinite(x)&&Number.isFinite(y)){
       card=document.elementFromPoint(x,y)?.closest('.work-pair--single')||null;
     }
@@ -1105,18 +1106,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     return pointed>=0?pointed:activeIndex();
   };
 
-  let transitioning=false,transitionTimer=0;
-  const finishTransition=()=>{
-    clearTimeout(transitionTimer);
-    transitioning=false;
-  };
-  const instantScroll=top=>{
-    const root=document.documentElement;
-    const previous=root.style.scrollBehavior;
-    root.style.scrollBehavior='auto';
-    window.scrollTo({top,left:0,behavior:'auto'});
-    requestAnimationFrame(()=>{root.style.scrollBehavior=previous});
-  };
   const heading=work.querySelector('.works-marquee');
   const syncHeading=()=>{
     if(!heading)return;
@@ -1133,80 +1122,178 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   syncHeading();
   if(compact.addEventListener)compact.addEventListener('change',syncHeading);
   else compact.addListener(syncHeading);
+
   const setStackOrder=(cards,active)=>{
     cards.forEach((card,index)=>{
       card.style.zIndex=String(10+cards.length-Math.abs(index-active));
     });
   };
-  const playCardStep=(from,to,direction)=>{
-    const cards=scenes();
-    const outgoing=cards[from],incoming=to===null?null:cards[to];
-    const duration=reduceMotion.matches?0:360;
-    transitioning=true;
-    setStackOrder(cards,to===null?from:to);
-    if(incoming)instantScroll(sceneTop(incoming));
+  const clearTransform=element=>{
+    if(!element)return;
+    element.getAnimations().forEach(animation=>animation.cancel());
+    element.style.removeProperty('transform');
+  };
+  const instantScroll=top=>{
+    const root=document.documentElement;
+    const previous=root.style.scrollBehavior;
+    root.style.scrollBehavior='auto';
+    window.scrollTo({top,left:0,behavior:'auto'});
+    requestAnimationFrame(()=>{root.style.scrollBehavior=previous});
+  };
 
-    const animations=[];
-    if(duration&&outgoing){
-      animations.push(outgoing.animate(
-        [{transform:'translateY(0)'},{transform:direction>0?'translateY(-100%)':'translateY(100%)'}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
-      ));
+  let transitioning=false,transitionTimer=0;
+  const finishTransition=()=>{
+    clearTimeout(transitionTimer);
+    transitioning=false;
+  };
+  const cancelPreview=gesture=>{
+    clearTransform(gesture.previewElement);
+    setStackOrder(scenes(),gesture.index);
+    gesture.previewElement=null;
+    gesture.direction=0;
+    gesture.progress=0;
+    gesture.previewY=0;
+    gesture.kind=null;
+    gesture.targetIndex=null;
+  };
+  const snapBack=gesture=>{
+    if(!gesture?.previewElement||gesture.committed)return;
+    const element=gesture.previewElement;
+    const from=gesture.previewY||0;
+    const cards=scenes();
+    setStackOrder(cards,gesture.index);
+    gesture.previewElement=null;
+    const duration=reduceMotion.matches?0:180;
+    if(!duration){
+      clearTransform(element);
+      return;
     }
-    if(duration&&incoming){
-      animations.push(incoming.animate(
-        [{transform:direction>0?'translateY(100%)':'translateY(-100%)'},{transform:'translateY(0)'}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
-      ));
-    }
-    const complete=()=>{
-      animations.forEach(animation=>animation.cancel());
+    transitioning=true;
+    const animation=element.animate(
+      [{transform:`translate3d(0,${from}px,0)`},{transform:'translate3d(0,0,0)'}],
+      {duration,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'}
+    );
+    transitionTimer=setTimeout(()=>{
+      animation.cancel();
+      element.style.removeProperty('transform');
+      finishTransition();
+    },duration+30);
+  };
+
+  const completeGesture=gesture=>{
+    if(gesture.committed||!gesture.previewElement)return;
+    const cards=scenes();
+    const element=gesture.previewElement;
+    const index=gesture.index;
+    const targetIndex=gesture.targetIndex;
+    const finalY=gesture.kind==='previous'?gesture.travel:-gesture.travel;
+    const duration=reduceMotion.matches?0:300;
+    gesture.committed=true;
+    transitioning=true;
+    setStackOrder(cards,targetIndex===null?index:targetIndex);
+
+    const finish=()=>{
+      if(targetIndex===null)instantScroll(skillsTop());
+      else instantScroll(sceneTop(cards[targetIndex]));
+      clearTransform(element);
+      setStackOrder(cards,targetIndex===null?index:targetIndex);
       finishTransition();
     };
-    transitionTimer=setTimeout(()=>{
-      if(to===null){
-        animations.forEach(animation=>animation.cancel());
-        instantScroll(skillsTop());
-        finishTransition();
-      }else complete();
-    },duration+(to===null?0:60));
-  };
-  const step=(direction,indexHint)=>{
-    if(transitioning||!compact.matches)return;
-    const cards=scenes();
-    const index=Number.isInteger(indexHint)?indexHint:activeIndex();
-    if(index<0||index>=cards.length)return;
-    if(direction>0){
-      if(index===cards.length-1)playCardStep(index,null,1);
-      else playCardStep(index,index+1,1);
-    }else if(index>0){
-      playCardStep(index,index-1,-1);
+    if(!duration){
+      finish();
+      return;
     }
+    const animation=element.animate(
+      [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:`translate3d(0,${finalY}px,0)`}],
+      {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+    );
+    transitionTimer=setTimeout(()=>{
+      animation.cancel();
+      finish();
+    },duration+40);
   };
 
-  let wheelStarted=false,wheelCaptured=false,wheelDirection=0,wheelDistance=0,wheelDone=false,wheelIndex=-1,wheelTimer=0;
+  const updatePreview=(gesture,direction,amount)=>{
+    if(gesture.committed)return;
+    const cards=scenes();
+    const index=gesture.index;
+    if(!cards[index]||(direction<0&&index===0))return;
+    if(gesture.direction!==direction){
+      cancelPreview(gesture);
+      gesture.direction=direction;
+      if(direction>0&&index<cards.length-1){
+        gesture.kind='next';
+        gesture.targetIndex=index+1;
+        gesture.previewElement=cards[index+1];
+        gesture.travel=Math.max(1,sceneTop(cards[index+1])-sceneTop(cards[index]));
+      }else if(direction<0){
+        gesture.kind='previous';
+        gesture.targetIndex=index-1;
+        gesture.previewElement=cards[index];
+        gesture.travel=Math.max(1,sceneTop(cards[index])-sceneTop(cards[index-1]));
+      }else{
+        gesture.kind='last';
+        gesture.targetIndex=null;
+        gesture.previewElement=cards[index];
+        const stickyTop=parseFloat(getComputedStyle(cards[index]).top)||0;
+        gesture.travel=Math.max(1,window.innerHeight-stickyTop);
+      }
+      gesture.threshold=Math.max(96,Math.min(220,gesture.travel*.3));
+      setStackOrder(cards,direction<0?index:(gesture.targetIndex??index));
+    }
+    gesture.progress=Math.min(Math.max(0,amount),gesture.threshold);
+    if(gesture.kind==='next')gesture.previewY=-gesture.progress;
+    else if(gesture.kind==='previous')gesture.previewY=gesture.progress;
+    else gesture.previewY=-gesture.progress;
+    gesture.previewElement.style.transform=`translate3d(0,${gesture.previewY}px,0)`;
+    if(gesture.progress>=gesture.threshold)completeGesture(gesture);
+  };
+
+  const step=(direction,index)=>{
+    const gesture={index,direction:0,progress:0,previewY:0,previewElement:null,committed:false};
+    const cards=scenes();
+    if(index<0||index>=cards.length||(direction<0&&index===0))return;
+    updatePreview(gesture,direction,Number.POSITIVE_INFINITY);
+  };
+
+  let wheelGesture=null,wheelTimer=0;
   const resetWheel=()=>{
-    wheelStarted=false;wheelCaptured=false;wheelDirection=0;wheelDistance=0;wheelDone=false;wheelIndex=-1;
+    const gesture=wheelGesture;
+    wheelGesture=null;
+    if(gesture&&!gesture.committed)snapBack(gesture);
   };
   document.addEventListener('wheel',event=>{
     if(!compact.matches||event.ctrlKey||Math.abs(event.deltaY)<1)return;
-    if(!wheelStarted){
-      wheelIndex=indexAtPoint(event.target,event.clientX,event.clientY);
-      wheelStarted=true;
-      wheelDirection=Math.sign(event.deltaY);
-      wheelCaptured=wheelIndex>=0&&!(wheelDirection<0&&wheelIndex===0);
+    if(transitioning){
+      if(activeIndex()>=0)event.preventDefault();
+      return;
     }
-    clearTimeout(wheelTimer);
-    wheelTimer=setTimeout(resetWheel,900);
-    if(!wheelCaptured)return;
+    if(!wheelGesture){
+      const index=indexAtPoint(event.target,event.clientX,event.clientY);
+      const direction=Math.sign(event.deltaY);
+      if(index<0||(direction<0&&index===0))return;
+      wheelGesture={index,direction:0,progress:0,previewY:0,previewElement:null,committed:false};
+    }
+    if(wheelGesture.committed){
+      event.preventDefault();
+      clearTimeout(wheelTimer);
+      wheelTimer=setTimeout(resetWheel,700);
+      return;
+    }
+    const direction=Math.sign(event.deltaY);
+    if(direction<0&&wheelGesture.index===0){
+      cancelPreview(wheelGesture);
+      wheelGesture=null;
+      clearTimeout(wheelTimer);
+      return;
+    }
     event.preventDefault();
-    if(wheelDone||Math.sign(event.deltaY)!==wheelDirection)return;
     const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
-    wheelDistance+=Math.abs(event.deltaY*unit);
-    if(wheelDistance>=44){
-      wheelDone=true;
-      step(wheelDirection>0?1:-1,wheelIndex);
-    }
+    const distance=Math.abs(event.deltaY*unit);
+    const amount=wheelGesture.direction===direction?wheelGesture.progress+distance:distance;
+    updatePreview(wheelGesture,direction,amount);
+    clearTimeout(wheelTimer);
+    wheelTimer=setTimeout(resetWheel,700);
   },{passive:false,capture:true});
 
   let touch=null;
@@ -1216,31 +1303,32 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const point=event.touches[0];
     const index=indexAtPoint(event.target,point.clientX,point.clientY);
     if(index<0)return;
-    touch={x:point.clientX,y:point.clientY,index,locked:transitioning};
+    touch={index,startX:point.clientX,startY:point.clientY,direction:0,progress:0,previewY:0,previewElement:null,committed:false,locked:transitioning};
   },{passive:true});
   document.addEventListener('touchmove',event=>{
     if(!touch||event.touches.length!==1)return;
-    const dx=event.touches[0].clientX-touch.x;
-    const dy=event.touches[0].clientY-touch.y;
-    const vertical=Math.abs(dy)>10&&Math.abs(dy)>Math.abs(dx)*1.1;
-    const forward=dy<0;
-    if(vertical&&(touch.locked||forward||touch.index>0))event.preventDefault();
+    const point=event.touches[0];
+    const dx=point.clientX-touch.startX;
+    const dy=touch.startY-point.clientY;
+    if(Math.abs(dy)<10||Math.abs(dy)<Math.abs(dx)*1.1)return;
+    if(touch.locked||touch.committed||transitioning){event.preventDefault();return;}
+    const direction=Math.sign(dy);
+    if(direction<0&&touch.index===0)return;
+    event.preventDefault();
+    updatePreview(touch,direction,Math.abs(dy));
   },{passive:false});
-  document.addEventListener('touchend',event=>{
+  document.addEventListener('touchend',()=>{
     if(!touch)return;
-    const end=event.changedTouches[0];
-    const dx=(end?.clientX??touch.x)-touch.x;
-    const dy=(end?.clientY??touch.y)-touch.y;
-    const {index,locked}=touch;
+    if(!touch.committed&&!touch.locked)snapBack(touch);
     touch=null;
-    if(locked||Math.abs(dy)<52||Math.abs(dy)<Math.abs(dx)*1.1)return;
-    if(dy<0)step(1,index);
-    else if(index>0)step(-1,index);
   },{passive:true});
-  document.addEventListener('touchcancel',()=>{touch=null},{passive:true});
+  document.addEventListener('touchcancel',()=>{
+    if(touch&&!touch.committed&&!touch.locked)snapBack(touch);
+    touch=null;
+  },{passive:true});
 
   document.addEventListener('keydown',event=>{
-    if(!compact.matches||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
+    if(!compact.matches||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||transitioning)return;
     const index=activeIndex();
     if(index<0)return;
     const target=event.target;
