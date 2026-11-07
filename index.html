@@ -831,6 +831,11 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     overflow:hidden!important;
     contain:layout paint;
   }
+  #work.compact-stepper-active #more-work .koc-carousel-track,
+  #work.compact-stepper-active #more-work .nikke-carousel-track{
+    animation-play-state:paused!important;
+    will-change:auto!important;
+  }
   #work.compact-stepper-active #more-work .work-pair--single{
     display:block!important;
     position:absolute!important;
@@ -1324,7 +1329,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     transitionTimer=setTimeout(complete,duration+35);
   };
   const createGesture=index=>({
-    index,direction:0,progress:0,previewY:0,baseY:0,height:stageHeight(),
+    index,direction:0,progress:0,previewY:0,baseY:0,wheelOffset:0,height:stageHeight(),
     element:null,kind:null,targetIndex:null,threshold:0,committed:false
   });
   const resetPreview=gesture=>{
@@ -1416,25 +1421,34 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
   },true);
 
+  const advanceWheel=delta=>{
+    const gesture=wheelGesture;
+    if(!gesture||gesture.committed||transitioning||!delta)return;
+    gesture.wheelOffset+=delta;
+    const offset=gesture.wheelOffset;
+    if(offset<0&&gesture.index===0){
+      wheelGesture=null;
+      clearTimeout(wheelTimer);
+      leaveBack();
+      return;
+    }
+    if(offset===0){
+      resetPreview(gesture);
+      return;
+    }
+    updatePreview(gesture,Math.sign(offset),Math.abs(offset));
+  };
   const applyWheelDelta=()=>{
     wheelRaf=0;
-    const gesture=wheelGesture,delta=wheelDelta;
+    const delta=wheelDelta;
     wheelDelta=0;
-    if(!gesture||gesture.committed||transitioning||!delta)return;
-    const direction=Math.sign(delta);
-    const distance=Math.abs(delta);
-    const amount=gesture.direction===direction?gesture.progress+distance:distance;
-    updatePreview(gesture,direction,amount);
+    advanceWheel(delta);
   };
   const resetWheel=()=>{
     if(wheelRaf){cancelAnimationFrame(wheelRaf);wheelRaf=0}
     const pending=wheelDelta;
     wheelDelta=0;
-    if(pending&&wheelGesture&&!wheelGesture.committed&&!transitioning){
-      const direction=Math.sign(pending),distance=Math.abs(pending);
-      const amount=wheelGesture.direction===direction?wheelGesture.progress+distance:distance;
-      updatePreview(wheelGesture,direction,amount);
-    }
+    if(pending)advanceWheel(pending);
     const gesture=wheelGesture;
     wheelGesture=null;
     if(gesture&&!gesture.committed)snapBack(gesture);
@@ -1452,15 +1466,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
         return;
       }
       wheelGesture=createGesture(currentIndex);
-    }
-    if(direction<0&&wheelGesture.index===0){
-      if(wheelRaf){cancelAnimationFrame(wheelRaf);wheelRaf=0}
-      wheelDelta=0;
-      resetPreview(wheelGesture);
-      wheelGesture=null;
-      clearTimeout(wheelTimer);
-      leaveBack();
-      return;
     }
     event.preventDefault();
     const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
