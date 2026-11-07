@@ -1387,7 +1387,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       return;
     }
     const nearWork=y>=top-2&&y<=top+48;
-    if(nearWork&&y<skillsTop())enterStage();
+    const crossedIntoWork=y>=top&&lastScrollY<top;
+    if((nearWork||crossedIntoWork)&&y<skillsTop())enterStage();
     lastScrollY=y;
   };
   window.addEventListener('scroll',handleScroll,{passive:true});
