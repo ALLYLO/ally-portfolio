@@ -1179,6 +1179,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   })).filter(item=>item.project);
   let stageItems=[];
   const activeRecords=()=>stageItems.length?stageItems:records();
+  const stageValid=()=>stageItems.length>0&&stageItems.every(({scene,project})=>
+    scene.isConnected&&project.isConnected&&scene.contains(project));
   const layoutTop=element=>{
     let top=0,node=element;
     while(node&&node!==document.body){
@@ -1203,7 +1205,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
 
   const wheelQuietMs=420;
 
-  let stageActive=false,stageTop=0,currentIndex=0,ignoreUntilAbove=false,lastScrollY=window.scrollY;
+  let stageActive=false,stageTop=0,currentIndex=0,exitSide=null,lastScrollY=window.scrollY;
   let transitioning=false,transitionTimer=0,wheelGesture=null,wheelTimer=0,wheelRaf=0,wheelDelta=0,touch=null,touchRaf=0;
   const stageHeight=()=>Math.max(1,host.clientHeight||window.innerHeight);
   const setStackOrder=(items,active)=>{
@@ -1265,13 +1267,15 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     });
     stageItems=[];
   };
-  const enterStage=()=>{
+  const enterStage=(index=0)=>{
     if(stageActive||!compact.matches)return;
+    const items=records();
+    if(!items.length)return;
     window.__allyPortfolioCancelWheelScroll?.();
     stageTop=layoutTop(work);
-    currentIndex=0;
+    currentIndex=Math.max(0,Math.min(items.length-1,index));
+    stageItems=items;
     stageActive=true;
-    stageItems=records();
     work.classList.add('compact-stepper-active');
     positionCards(currentIndex);
     instantScroll(stageTop);
@@ -1295,13 +1299,13 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const leaveBack=()=>{
     leaveStage();
-    ignoreUntilAbove=true;
+    exitSide='above';
     lastScrollY=window.scrollY;
   };
   const leaveToSkills=()=>{
     window.__allyPortfolioCancelWheelScroll?.();
     leaveStage();
-    ignoreUntilAbove=true;
+    exitSide='below';
     const target=skillsTop();
     instantScroll(target);
     lastScrollY=target;
@@ -1343,6 +1347,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const animations=[];
     gesture.committed=true;
     transitioning=true;
+    if(gesture.input==='wheel'){
+      clearTimeout(wheelTimer);
+      wheelTimer=0;
+    }
     setStackOrder(items,target===null?index:target);
     const current=items[index]?.project;
     if(gesture.kind==='next'){
@@ -1380,6 +1388,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       }else{
         currentIndex=target;
         positionCards(currentIndex);
+        wheelGesture=null;
+        wheelDelta=0;
         transitioning=false;
       }
     };
@@ -1436,7 +1446,9 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
         gesture.skillPreviewY=gesture.skillBaseY;
         setStackOrder(items,index);
       }
-      gesture.threshold=Math.max(96,Math.min(180,gesture.height*.27));
+      gesture.threshold=gesture.input==='wheel'
+        ?Math.max(40,Math.min(64,gesture.height*.08))
+        :Math.max(56,Math.min(90,gesture.height*.12));
     }
     gesture.progress=Math.min(Math.max(0,amount),gesture.threshold);
     if(gesture.kind==='next')gesture.previewY=gesture.height-gesture.progress;
@@ -1458,18 +1470,27 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   const handleScroll=()=>{
     const y=window.scrollY;
     if(stageActive){
+      if(!stageValid()){leaveStage();lastScrollY=y;return}
       if(Math.abs(y-stageTop)>2)instantScroll(stageTop);
       lastScrollY=y;
       return;
     }
     if(!compact.matches){lastScrollY=y;return;}
     const top=layoutTop(work);
-    if(ignoreUntilAbove){
-      const movingUp=y<lastScrollY;
-      if(y<top-40)ignoreUntilAbove=false;
-      else if(movingUp&&y<=top+48){
-        ignoreUntilAbove=false;
+    if(exitSide==='above'){
+      if(y<top-40)exitSide=null;
+      else if(y>=top&&y>lastScrollY){
+        exitSide=null;
         enterStage();
+      }
+      lastScrollY=y;
+      return;
+    }
+    if(exitSide==='below'){
+      if(y<top-40)exitSide=null;
+      else if(y<lastScrollY&&y<=top+48){
+        exitSide=null;
+        enterStage(records().length-1);
       }
       lastScrollY=y;
       return;
@@ -1488,7 +1509,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const link=node?.closest('a[href^="#"]');
     if(link&&link.getAttribute('href')!=='#work'){
       leaveStage();
-      ignoreUntilAbove=true;
+      exitSide='below';
     }
   },true);
 
@@ -1525,20 +1546,25 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(gesture&&!gesture.committed)snapBack(gesture);
   };
   document.addEventListener('wheel',event=>{
-    if(!compact.matches||!stageActive||event.ctrlKey||Math.abs(event.deltaY)<1)return;
+    if(!compact.matches||!stageActive||event.ctrlKey||Math.abs(event.deltaY)<1||
+       Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
+    const node=event.target instanceof Element?event.target:null;
+    if(node?.closest('dialog[open], [role="dialog"], .cm-stage, .cm-modal, .modal, [data-scroll-native]'))return;
+    if(!stageValid()){leaveStage();return}
     const direction=Math.sign(event.deltaY);
     if(direction<0&&currentIndex===0&&!transitioning){
       leaveBack();
       return;
     }
     if(event.cancelable)event.preventDefault();
+    if(transitioning)return;
+    if(!wheelGesture||wheelGesture.committed)wheelGesture=createGesture(currentIndex,'wheel');
+    const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
+    const delta=event.deltaY*unit;
+    wheelDelta+=event.deltaMode?Math.sign(delta)*Math.max(64,Math.abs(delta)):delta;
+    if(!wheelRaf)wheelRaf=requestAnimationFrame(applyWheelDelta);
     clearTimeout(wheelTimer);
     wheelTimer=setTimeout(resetWheel,wheelQuietMs);
-    if(transitioning)return;
-    if(!wheelGesture)wheelGesture=createGesture(currentIndex,'wheel');
-    const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
-    wheelDelta+=event.deltaY*unit;
-    if(!wheelRaf)wheelRaf=requestAnimationFrame(applyWheelDelta);
   },{passive:false,capture:true});
 
   const flushTouch=()=>{
@@ -1551,11 +1577,15 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   document.addEventListener('touchstart',event=>{
     touch=null;
     if(!compact.matches||!stageActive||event.touches.length!==1)return;
+    const node=event.target instanceof Element?event.target:null;
+    if(node?.closest('dialog[open], [role="dialog"], .cm-stage, .cm-modal, .modal, [data-scroll-native]'))return;
+    if(!stageValid()){leaveStage();return}
     const point=event.touches[0];
     touch={index:currentIndex,startX:point.clientX,startY:point.clientY,...createGesture(currentIndex,'touch'),locked:transitioning,pending:null};
   },{passive:true});
   document.addEventListener('touchmove',event=>{
     if(!touch||!stageActive||event.touches.length!==1)return;
+    if(!stageValid()){leaveStage();return}
     const point=event.touches[0];
     const dx=point.clientX-touch.startX;
     const dy=touch.startY-point.clientY;
@@ -1588,6 +1618,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   document.addEventListener('keydown',event=>{
     if(!stageActive||transitioning||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
     const node=event.target instanceof Element?event.target:event.target?.parentElement;
+    if(node?.closest('dialog[open], [role="dialog"], .cm-stage, .cm-modal, .modal, [data-scroll-native]'))return;
+    if(!stageValid()){leaveStage();return}
     if(node?.closest('a,button,input,textarea,select,[contenteditable="true"]'))return;
     if(event.key==='ArrowDown'||event.key==='PageDown'||event.key===' '&&!event.shiftKey){
       event.preventDefault();step(1);
@@ -1600,9 +1632,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   const handleResize=()=>{
     if(!compact.matches){
       if(stageActive)leaveStage();
-      ignoreUntilAbove=false;
+      exitSide=null;
     }else if(stageActive){
-      positionCards(currentIndex);
+      if(!stageValid())leaveStage();
+      else positionCards(currentIndex);
     }else{
       handleScroll();
     }
