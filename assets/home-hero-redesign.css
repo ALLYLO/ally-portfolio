@@ -1765,6 +1765,10 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
     width:min(86%,510px);
     margin-bottom:clamp(34px,7vw,60px);
   }
+  /* Compact vertical distance only when the two existing actions wrap. */
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    row-gap:clamp(12px,3.2vw,16px);
+  }
   .home-hero-layout.home-hero-structured .home-hero-capability {
     min-height:34px;
     padding:6px 9px;
@@ -1828,5 +1832,25 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
 @media (min-width:1400px) and (max-height:630px) {
   .home-hero-layout.home-hero-structured .home-hero-person {
     width:min(91%,410px,52svh);
+  }
+}
+
+/* Narrow-phone edge protection for orbiting paper tags. Reuses the site's
+   existing <=420px breakpoint without changing the portrait or hero grid. */
+@media (max-width: 420px) {
+  .home-hero-layout.home-hero-structured .home-hero-capability {
+    max-width:min(138px,38vw);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--insight {
+    left:-5%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--structure {
+    right:-5%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--alignment {
+    left:-6%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-capability--execution {
+    right:-6%;
   }
 }
