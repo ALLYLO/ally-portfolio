@@ -6,8 +6,8 @@ This is the canonical list of active candidates and Needs confirmation items. A 
 
 | Page wording | Status | Evidence needed before marking confirmed |
 |---|---|---|
-| 3,000+ Creators Reached; 400+ Qualified Pool; 20+ High-performing Posts; 50K+ views · multiple 100K+ | Owner approved the supplied definitions and public display for the project-detail copy on 2026-09-30; now also shown on the Works card. Claim gate remains incomplete. | Record source, time window, counting rules, and personal versus team attribution. |
-| 715 Submissions Tracked; WEEKLY Content Review; platform split (YT 177 · TikTok 49 · X 489) | Owner approved the supplied definitions and public display for the project-detail copy on 2026-09-30. The Works card shows the first two headline outcomes; the platform split stays in the detail view. Claim gate remains incomplete. | Record source, campaign period, platform counting rules, and personal versus team attribution. |
+| 3,000+ Creators Reached; 400+ Qualified Pool; 20+ High-performing Posts; 50K+ views · multiple 100K+ | Owner approved the supplied definitions and public display for the project-detail copy on 2026-09-30. Figures remain on the wider-screen Works card and detail view; the narrow-screen card omits them. Claim gate remains incomplete. | Record source, time window, counting rules, and personal versus team attribution. |
+| 715 Submissions Tracked; WEEKLY Content Review; platform split (YT 177 · TikTok 49 · X 489) | Owner approved the supplied definitions and public display for the project-detail copy on 2026-09-30. The 715 submissions and weekly review remain on the wider-screen card and detail view; the platform split stays in the detail view. The narrow-screen card omits outcome figures. Claim gate remains incomplete. | Record source, campaign period, platform counting rules, and personal versus team attribution. |
 
 The owner-approved figures are displayed on the page, but the four-part claim gate is not yet fully documented.
 
