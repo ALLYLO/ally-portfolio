@@ -97,7 +97,7 @@
   .koc-outcome + .koc-outcome{margin:7px 0 0;padding:7px 0 0;border-left:0;border-top:1px solid #3b32284a}
   .koc-outcome-heading{flex-wrap:nowrap;gap:8px;margin-bottom:6px;font-size:11px}
   .koc-outcome-grid{align-items:start}
-  .koc-outcome-metric{padding:0 5px}
+  .koc-outcome-metric{padding:0 5px;border-left:0}
   .koc-outcome-metric strong{font-size:clamp(20px,5.5vw,27px);line-height:.9}
   .koc-outcome-metric > span{margin-top:3px;font-size:10px;line-height:1.15;overflow-wrap:normal}
   /* This secondary proof point adds two extra lines in the narrow third column. */
