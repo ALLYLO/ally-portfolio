@@ -5,6 +5,34 @@
    Japanese kana + lang=ja Kanji = Yu Mincho.
    The subset contains all CJK characters used in the site source. */
 @font-face {
+  font-family:"Portfolio Times";
+  src:local("Times New Roman");
+  font-weight:400;
+  font-style:normal;
+  unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122,U+2191,U+2193;
+}
+@font-face {
+  font-family:"Portfolio Times";
+  src:local("Times New Roman Bold");
+  font-weight:700;
+  font-style:normal;
+  unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122,U+2191,U+2193;
+}
+@font-face {
+  font-family:"Portfolio Times";
+  src:local("Times New Roman Italic");
+  font-weight:400;
+  font-style:italic;
+  unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122,U+2191,U+2193;
+}
+@font-face {
+  font-family:"Portfolio Times";
+  src:local("Times New Roman Bold Italic");
+  font-weight:700;
+  font-style:italic;
+  unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122,U+2191,U+2193;
+}
+@font-face {
   font-family:"Portfolio Song";
   src:url("fonts/portfolio-noto-serif-sc.woff2") format("woff2"),
       local("Songti SC"),local("Songti SC Regular"),local("Songti TC"),
@@ -17,7 +45,10 @@
 }
 @font-face {
   font-family:"Portfolio Yu Kana";
-  src:local("Yu Mincho"),local("YuMincho"),local("YuMincho Regular"),
+  src:local("YuMincho +36p Kana Medium"),
+      local("YuMincho +36p Kana Demibold"),local("YuMincho +36p Kana"),
+      local("YuMincho Medium"),local("YuMincho Demibold"),
+      local("Yu Mincho"),local("YuMincho"),local("YuMincho Regular"),
       local("Hiragino Mincho ProN"),local("Noto Serif CJK JP");
   font-weight:100 900;
   font-style:normal;
@@ -25,7 +56,9 @@
 }
 @font-face {
   font-family:"Portfolio Yu Japanese";
-  src:local("Yu Mincho"),local("YuMincho"),local("YuMincho Regular"),
+  src:local("YuMincho Medium"),local("YuMincho Demibold"),
+      local("YuMincho Extrabold"),local("Yu Mincho"),local("YuMincho"),
+      local("YuMincho Regular"),
       local("Hiragino Mincho ProN"),local("Noto Serif CJK JP");
   font-weight:100 900;
   font-style:normal;
@@ -35,10 +68,12 @@
 }
 :root {
   --portfolio-script-serif:"Portfolio Yu Kana","Portfolio Song",
-      "Songti SC","Songti TC","Noto Serif CJK SC","Noto Serif SC",
-      STSong,SimSun,"Noto Serif",serif;
+      "Portfolio Times","Times New Roman",Georgia,"Songti SC","Songti TC",
+      "Noto Serif CJK SC","Noto Serif SC",STSong,SimSun,"Noto Serif",serif;
   --portfolio-japanese-serif:"Portfolio Yu Japanese",
-      "Times New Roman",Georgia,"Yu Mincho",YuMincho,
+      "Portfolio Times","Times New Roman",Georgia,
+      "YuMincho Medium","YuMincho Demibold","YuMincho +36p Kana Medium",
+      "Yu Mincho",YuMincho,
       "Hiragino Mincho ProN",serif;
 }
 /* Override legacy geometric sans-serif declarations across UI and projects.
