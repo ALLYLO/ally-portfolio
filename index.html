@@ -1205,18 +1205,23 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     requestAnimationFrame(()=>{root.style.scrollBehavior=previous});
   };
 
-  const wheelQuietMs=420;
-  let wheelExitLock=false,wheelExitTimer=0;
-  const armWheelExitLock=()=>{
+  const wheelQuietMs=420,wheelExitMs=320;
+  let wheelExitLock=false,wheelExitTimer=0,wheelExitDirection=1;
+  const releaseWheelExitLock=()=>{
+    clearTimeout(wheelExitTimer);
+    wheelExitTimer=0;
+    wheelExitLock=false;
+    document.documentElement.classList.remove('compact-wheel-exit-lock');
+  };
+  const armWheelExitLock=direction=>{
     wheelExitLock=true;
+    wheelExitDirection=Math.sign(direction)||1;
     document.documentElement.classList.add('compact-wheel-exit-lock');
     clearTimeout(wheelExitTimer);
-    wheelExitTimer=window.setTimeout(()=>{
-      wheelExitLock=false;
-      wheelExitTimer=0;
-      document.documentElement.classList.remove('compact-wheel-exit-lock');
-    },wheelQuietMs);
+    wheelExitTimer=window.setTimeout(releaseWheelExitLock,wheelExitMs);
   };
+  document.addEventListener('pointerdown',releaseWheelExitLock,{capture:true,passive:true});
+  window.addEventListener('keydown',releaseWheelExitLock,true);
 
   let stageActive=false,stageTop=0,currentIndex=0,ignoreUntilAbove=false,lastScrollY=window.scrollY;
   let transitioning=false,transitionTimer=0,wheelGesture=null,wheelTimer=0,wheelRaf=0,wheelDelta=0,touch=null,touchRaf=0;
@@ -1313,8 +1318,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     ignoreUntilAbove=true;
     lastScrollY=window.scrollY;
   };
-  const leaveToSkills=input=>{
-    if(input==='wheel')armWheelExitLock();
+  const leaveToSkills=gesture=>{
+    if(gesture?.input==='wheel')armWheelExitLock(gesture.direction);
     window.__allyPortfolioCancelWheelScroll?.();
     leaveStage();
     ignoreUntilAbove=true;
@@ -1392,7 +1397,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const complete=()=>{
       animations.forEach(animation=>animation.cancel());
       if(gesture.kind==='last'){
-        leaveToSkills(gesture.input);
+        leaveToSkills(gesture);
       }else{
         currentIndex=target;
         positionCards(currentIndex);
@@ -1542,8 +1547,12 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   document.addEventListener('wheel',event=>{
     if(wheelExitLock){
+      if(event.ctrlKey||Math.abs(event.deltaY)<1||Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
+      if(Math.sign(event.deltaY)!==wheelExitDirection){
+        releaseWheelExitLock();
+        return;
+      }
       if(event.cancelable)event.preventDefault();
-      armWheelExitLock();
       return;
     }
     if(!compact.matches||!stageActive||event.ctrlKey||Math.abs(event.deltaY)<1)return;
