@@ -1854,3 +1854,75 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
     right:-6%;
   }
 }
+
+/* Compact mobile first screen. Header remains fixed outside the hero, so
+   remove its duplicate body spacer and reserve its area within the hero.
+   Flex retains title -> portrait -> thesis -> actions from display:contents. */
+@media (max-width: 599px) {
+  body {
+    padding-top: 0;
+  }
+  .home-hero-redesign {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    min-height: 100svh;
+    padding: clamp(92px, 11.2svh, 112px) 5% max(14px, env(safe-area-inset-bottom, 0px));
+    overflow: visible;
+  }
+  .home-hero-layout.home-hero-structured {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    gap: 0;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    flex: 0 0 auto;
+    margin: 0 0 clamp(5px, 1svh, 12px);
+    font-size: clamp(35px, min(9.2vw, 6.3svh), 58px);
+    line-height: 1.02;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person {
+    flex: 1 1 auto;
+    align-self: center;
+    width: min(90%, 46svh, 480px);
+    min-height: 0;
+    max-height: min(38svh, 350px);
+    height: auto;
+    aspect-ratio: 1360 / 1157;
+    margin: 0 auto clamp(5px, .8svh, 10px);
+  }
+  .home-hero-layout.home-hero-structured .home-hero-person > .home-hero-photo-frame,
+  .home-hero-layout.home-hero-structured .home-hero-person img {
+    height: 100%;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis {
+    flex: 0 0 auto;
+    margin-top: auto;
+    font-size: clamp(19px, min(5.1vw, 3.8svh), 27px);
+    line-height: 1.15;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-thesis em {
+    margin-top: 2px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions {
+    flex: 0 0 auto;
+    margin: clamp(7px, 1.3svh, 12px) 0 0;
+    column-gap: clamp(10px, 2.8vw, 16px);
+    row-gap: 12px;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .work-cta {
+    flex: 0 1 clamp(135px, 43vw, 215px);
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+  .home-hero-layout.home-hero-structured .home-hero-actions .resume-link {
+    min-height: 44px;
+    font-size: 13px;
+    letter-spacing: .08em;
+  }
+}

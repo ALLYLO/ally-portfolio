@@ -202,3 +202,12 @@ html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw
     text-align: left;
   }
 }
+
+/* Tablet WORKS: variable-height archives make the old top:395px caption
+   overlap the KOC results panel. Anchor it to the card footer instead. */
+@media (min-width: 761px) and (max-width: 1200px) {
+  .work #koc .project-caption {
+    top: auto;
+    bottom: 30px;
+  }
+}
