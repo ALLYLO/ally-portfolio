@@ -699,6 +699,96 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
 #koc.project{cursor:auto}
 /* Remove the superseded numeric results block from the wide KOC card */
 @media(min-width:761px){#work #koc .koc-performance{display:none!important}}
+
+
+/* Compact Works scenes: keep the Works chapter in place while cards advance. */
+@media(max-width:1200px){
+  #work{
+    --work-scene-top:132px;
+    display:block;
+    position:relative;
+    padding:0 4% 1px;
+  }
+  #work .works-marquee{
+    position:sticky;
+    top:0;
+    z-index:30;
+    margin-bottom:18px;
+  }
+  #work>#more-work{
+    display:block;
+    margin:0;
+    padding-bottom:calc(100vh - var(--work-scene-top));
+    padding-bottom:calc(100svh - var(--work-scene-top));
+  }
+  #work #more-work .work-pair{
+    position:sticky;
+    top:var(--work-scene-top);
+    z-index:2;
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    align-content:center;
+    min-height:calc(100vh - var(--work-scene-top));
+    min-height:calc(100svh - var(--work-scene-top));
+    margin:0;
+    padding:clamp(14px,3vw,24px) 0;
+    background:#3b3228;
+    box-shadow:0 -1px 0 #f5f0e824;
+  }
+  #work #more-work .work-pair>.project{
+    position:relative;
+    top:auto;
+    width:100%;
+    max-width:1380px;
+    min-width:0;
+    min-height:calc(100vh - var(--work-scene-top));
+    min-height:calc(100svh - var(--work-scene-top));
+    margin:0 auto;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:#3b3228;
+    box-shadow:none;
+    transform:none;
+  }
+  #work #more-work .work-pair .visual{
+    width:100%;
+    height:auto;
+    min-height:0;
+  }
+}
+@media(max-width:760px){
+  #work{--work-scene-top:118px}
+  #work .works-marquee{
+    min-height:118px;
+    margin-bottom:16px;
+    padding-block:22px;
+  }
+  #work #more-work .work-pair{padding:12px 0}
+  #work #more-work .work-pair>.project{padding:0}
+  #work #more-work .work-pair .koc-media,
+  #work #more-work .work-pair .nikke-media{
+    max-height:min(37svh,260px);
+  }
+}
+@media(max-width:760px) and (max-height:600px){
+  #work{--work-scene-top:96px}
+  #work .works-marquee{min-height:96px;padding-block:16px}
+  #work #more-work .work-pair{padding-block:8px}
+  #work #more-work .work-pair .koc-media,
+  #work #more-work .work-pair .nikke-media{max-height:min(32svh,150px)}
+  #work #more-work .work-pair .project-mobile-panel{
+    min-height:60px;
+    padding:6px 10px;
+    gap:8px;
+  }
+  #work #more-work .work-pair .project-mobile-cta{
+    min-width:100px;
+    min-height:38px;
+    padding:6px 10px;
+  }
+}
 </style><link rel="stylesheet" href="assets/home-hero-redesign.css"><link rel="stylesheet" href="assets/project-card-outcomes.css"><link rel="stylesheet" href="assets/outreach-personalized.css"><link rel="stylesheet" href="assets/connect-pages.css"><link rel="stylesheet" href="assets/content-showcase.css"><link rel="stylesheet" href="assets/conclusion-page.css?v=20260924-10"><link rel="stylesheet" href="assets/conclusion-v2.css?v=20260924-4"><link rel="stylesheet" href="assets/creator-marketing-details.css"><link rel="stylesheet" href="assets/nikke-case.css"><link rel="stylesheet" href="assets/portfolio-script-typography.css?v=20261107-times-yumincho"><link rel="stylesheet" href="assets/portfolio-i18n.css"></head><body>
 <a class="skip" href="#work">Skip to work</a><header class="editorial-header"><a class="logo" href="#home" aria-label="Ally Lo home">ALLY<br>LO<span></span></a><nav aria-label="Main navigation"><a href="#home">① Home</a><a href="#work">② Work</a><a href="#skills">③ Skills</a></nav><a class="header-contact" href="#contact">LET’S CONNECT </a></header>
 <main><section class="hero portrait-hero home-hero-redesign" id="home"><div class="home-hero-layout"><div class="home-hero-copy"><h1><span>DATA.</span><span>MARKETING.</span><span>AUTOMATION.</span></h1><p class="home-hero-thesis">Understand what matters.<em>Clarify what comes next.</em></p><div class="home-hero-actions"><a class="work-cta" href="#work">VIEW WORK</a><a class="resume-link" data-resume-file="" aria-disabled="true" title="Public résumé PDF has not been provided">DOWNLOAD RÉSUMÉ <span aria-hidden="true">↗</span></a></div></div><div class="home-hero-collage" aria-label="Portfolio collage overview"><div class="home-hero-blue-paper"></div><div class="home-hero-rays" aria-hidden="true"><i></i><i></i><i></i></div><div class="home-hero-dots" aria-hidden="true"></div><div class="home-hero-cards"><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Skills</h2><div class="home-hero-skill-venn"><span>Data<br>Analysis</span><span>Creator<br>Marketing</span><span>Workflow<br>Design</span></div></article><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Markets</h2><div class="home-hero-market-list"><span>Japan</span><span>North America</span><span>Business Reporting</span></div></article><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Tools</h2><div class="home-hero-tool-marks" aria-hidden="true"><span>↗</span><i></i><b>◎</b><span>⌁</span><b>＋</b><i></i></div><p class="home-hero-tool-note">Workflow &amp; review concepts</p></article></div></div><div class="home-hero-person"><img src="assets/hero-portrait-collage.png" alt="Ally in a vintage paper collage portrait sticker" width="1360" height="1157" fetchpriority="high"></div></div></section><script>
@@ -797,19 +887,32 @@ document.querySelector('#more-work').innerHTML=`
 <article class="project reveal" id="automation"><div class="project-head"><span class="index">03 /</span><h3>AI Creator<br>Outreach Workflow</h3><div class="project-meta">SYSTEMS & AUTOMATION<br><span>CONCEPT · IN PROGRESS</span></div></div><div class="visual workflow-visual"><div class="visual-top"><span>DESIGNED TO CONNECT THE DOTS</span><span>CONCEPT / NOT DEPLOYED</span></div><div class="workflow-title">Good systems leave<br>room for <em>human judgment.</em></div><div class="workflow"><div><span class="node-symbol">↳</span><small>01 / INPUT</small><strong>Creator<br>database</strong></div><i>→</i><div><span class="node-symbol">≋</span><small>02 / FILTER</small><strong>Qualify<br>& segment</strong></div><i>→</i><div><span class="node-symbol">✳</span><small>03 / ASSIST</small><strong>AI-assisted<br>draft</strong></div><i>→</i><div class="human-node"><span class="node-symbol">✓</span><small>04 / REVIEW</small><strong>Human<br>approval</strong></div><i>→</i><div><span class="node-symbol"></span><small>05 / FOLLOW UP</small><strong>Send<br>& track</strong></div></div><div class="visual-bottom"><span>STRUCTURED INPUTS. THOUGHTFUL OUTPUTS.</span></div><div class="project-mobile-title"><span class="project-mobile-index">03 /</span><span class="project-mobile-name"><span>AI Creator</span><br><span>Outreach Workflow</span></span><span class="project-mobile-role">SYSTEMS &amp; AUTOMATION</span></div></div><div class="project-mobile-panel"><span class="project-mobile-summary">A proposed path from creator research to personalized outreach.</span><button type="button" class="project-mobile-cta" data-case="automation">VIEW DETAILS</button></div><div class="project-caption"><p>A proposed path from creator research to personalized outreach.<br>AI assists the draft. A person makes the decision.</p><span>WORKFLOW DESIGN / AI ASSISTANCE</span><button type="button" class="project-desktop-cta" data-case="automation">VIEW DETAILS</button></div></article>
 <article class="project reveal" id="reporting"><div class="project-head"><span class="index">04 /</span><h3>Management Reporting<br>& Business Analysis</h3><div class="project-meta">CONSOLIDATED REPORTING<br><span>PANASONIC · 2024–2025</span></div></div><div class="visual reporting-visual"><div class="visual-top"><span>CONSISTENCY CREATES CLARITY</span><span>THE REPORTING RHYTHM</span></div><div class="report-stats"><div><strong>27</strong><span>MONTHLY REPORTS</span><div class="ticks">${'<i></i>'.repeat(27)}</div></div><div><strong>12</strong><span>SALES FLASHES</span><div class="ticks">${'<i></i>'.repeat(12)}</div></div><div><strong>04</strong><span>QUARTERLY REPORTING CYCLES</span><div class="ticks">${'<i></i>'.repeat(4)}</div></div></div><div class="visual-bottom"><span>CONSOLIDATE → ANALYZE → COMMUNICATE</span></div><div class="project-mobile-title"><span class="project-mobile-index">04 /</span><span class="project-mobile-name"><span>Management Reporting</span><br><span>&amp; Business Analysis</span></span><span class="project-mobile-role">CONSOLIDATED REPORTING</span></div></div><div class="project-mobile-panel"><span class="project-mobile-summary">A consistent rhythm of reporting.</span><button type="button" class="project-mobile-cta" data-case="reporting">VIEW DETAILS</button></div><div class="project-caption"><p>A consistent rhythm of reporting.<br>Turning recurring information into a clearer business picture.</p><span>REPORTING / CONSOLIDATION / ANALYSIS</span><button type="button" class="project-desktop-cta" data-case="reporting">VIEW DETAILS</button></div></article>`;
 
-// Keep the original two-card composition while each row becomes one sticky scene.
+// Keep paired sticky scenes on wide screens; pin each project as its own scene on compact screens.
 (()=>{
   const work=document.querySelector('#work'),host=document.querySelector('#more-work');
   const first=work?.querySelector(':scope > .project');
   if(!work||!host||!first)return;
   const projects=[first,...host.querySelectorAll(':scope > .project')];
-  host.replaceChildren();
-  for(let i=0;i<projects.length;i+=2){
-    const pair=document.createElement('div');
-    pair.className='work-pair';
-    pair.append(...projects.slice(i,i+2));
-    host.append(pair);
-  }
+  const compact=window.matchMedia('(max-width: 1200px)');
+  const arrangeScenes=()=>{
+    const projectsPerScene=compact.matches?1:2;
+    host.replaceChildren();
+    let sceneIndex=0;
+    for(let i=0;i<projects.length;i+=projectsPerScene){
+      const pair=document.createElement('div');
+      pair.className='work-pair';
+      if(projectsPerScene===1){
+        pair.classList.add('work-pair--single');
+        pair.style.zIndex=String(2+sceneIndex);
+      }
+      pair.append(...projects.slice(i,i+projectsPerScene));
+      host.append(pair);
+      sceneIndex++;
+    }
+  };
+  arrangeScenes();
+  if(compact.addEventListener)compact.addEventListener('change',arrangeScenes);
+  else compact.addListener(arrangeScenes);
 })();
 document.querySelector('#profile').innerHTML=`<footer id="contact"><div class="footer-top"><span class="label">HAVE SOMETHING IN MIND?</span><span class="label">LET’S TURN IT INTO SOMETHING CLEAR.</span></div><div class="contact-links"><span>CONTACT ME</span><div><a class="email-link" href="mailto:allylo02111@gmail.com" aria-label="Email Ally Lo"><span class="email-icon" aria-hidden="true"></span><span>Email</span></a><span aria-label="LinkedIn link coming soon">LinkedIn <small>SOON</small></span><span aria-label="GitHub link coming soon">GitHub <small>SOON</small></span></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ALLY LO</span><span>DATA · MARKETING · AUTOMATION</span><a href="#home">Back to top ↑</a></div></footer>`;
 const scenarios=[{r:'128',e:'4.8',m:'3',unit:' channels',d:'M0 165L90 142L180 157L270 90L360 108L450 61L540 76L640 20'},{r:'112',e:'3.6',m:'1',unit:' channel',d:'M0 174L90 155L180 130L270 143L360 105L450 99L540 64L640 55'},{r:'146',e:'6.2',m:'1',unit:' channel',d:'M0 175L90 164L180 120L270 133L360 70L450 85L540 35L640 12'}];
