@@ -789,7 +789,82 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     padding:6px 10px;
   }
 }
-</style><link rel="stylesheet" href="assets/home-hero-redesign.css"><link rel="stylesheet" href="assets/project-card-outcomes.css"><link rel="stylesheet" href="assets/outreach-personalized.css"><link rel="stylesheet" href="assets/connect-pages.css"><link rel="stylesheet" href="assets/content-showcase.css"><link rel="stylesheet" href="assets/conclusion-page.css?v=20260924-10"><link rel="stylesheet" href="assets/conclusion-v2.css?v=20260924-4"><link rel="stylesheet" href="assets/creator-marketing-details.css"><link rel="stylesheet" href="assets/nikke-case.css"><link rel="stylesheet" href="assets/portfolio-script-typography.css?v=20261107-times-yumincho"><link rel="stylesheet" href="assets/portfolio-i18n.css"></head><body>
+</style><link rel="stylesheet" href="assets/home-hero-redesign.css"><link rel="stylesheet" href="assets/project-card-outcomes.css"><link rel="stylesheet" href="assets/outreach-personalized.css"><link rel="stylesheet" href="assets/connect-pages.css"><link rel="stylesheet" href="assets/content-showcase.css"><link rel="stylesheet" href="assets/conclusion-page.css?v=20260924-10"><link rel="stylesheet" href="assets/conclusion-v2.css?v=20260924-4"><link rel="stylesheet" href="assets/creator-marketing-details.css"><link rel="stylesheet" href="assets/nikke-case.css"><link rel="stylesheet" href="assets/portfolio-script-typography.css?v=20261107-times-yumincho"><link rel="stylesheet" href="assets/portfolio-i18n.css"><style id="compact-works-content-stepper">
+@media(max-width:1200px){
+  #work.compact-stepper-active{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:flex-start!important;
+    position:sticky!important;
+    top:0!important;
+    z-index:60!important;
+    width:100%!important;
+    height:100vh!important;
+    height:100svh!important;
+    min-height:100vh!important;
+    min-height:100svh!important;
+    margin:0!important;
+    padding:0 4%!important;
+    overflow:hidden!important;
+    background:#3b3228!important;
+  }
+  #work.compact-stepper-active .works-marquee{
+    position:relative!important;
+    top:auto!important;
+    z-index:1200!important;
+    flex:0 0 var(--work-scene-top)!important;
+    width:100%!important;
+    height:var(--work-scene-top)!important;
+    min-height:var(--work-scene-top)!important;
+    margin:0 0 14px!important;
+    padding:20px 0!important;
+    background:#3b3228!important;
+  }
+  #work.compact-stepper-active>#more-work{
+    display:block!important;
+    position:relative!important;
+    flex:1 1 auto!important;
+    width:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+  }
+  #work.compact-stepper-active #more-work .work-pair--single{
+    display:block!important;
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  #work.compact-stepper-active #more-work .work-pair--single>.project{
+    display:flex!important;
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    max-width:1380px!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0 auto!important;
+    padding:0!important;
+    flex-direction:column!important;
+    justify-content:flex-start!important;
+    align-self:flex-start!important;
+    overflow:visible!important;
+    opacity:1!important;
+    transition:none!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+}
+</style></head><body>
 <a class="skip" href="#work">Skip to work</a><header class="editorial-header"><a class="logo" href="#home" aria-label="Ally Lo home">ALLY<br>LO<span></span></a><nav aria-label="Main navigation"><a href="#home">① Home</a><a href="#work">② Work</a><a href="#skills">③ Skills</a></nav><a class="header-contact" href="#contact">LET’S CONNECT </a></header>
 <main><section class="hero portrait-hero home-hero-redesign" id="home"><div class="home-hero-layout"><div class="home-hero-copy"><h1><span>DATA.</span><span>MARKETING.</span><span>AUTOMATION.</span></h1><p class="home-hero-thesis">Understand what matters.<em>Clarify what comes next.</em></p><div class="home-hero-actions"><a class="work-cta" href="#work">VIEW WORK</a><a class="resume-link" data-resume-file="" aria-disabled="true" title="Public résumé PDF has not been provided">DOWNLOAD RÉSUMÉ <span aria-hidden="true">↗</span></a></div></div><div class="home-hero-collage" aria-label="Portfolio collage overview"><div class="home-hero-blue-paper"></div><div class="home-hero-rays" aria-hidden="true"><i></i><i></i><i></i></div><div class="home-hero-dots" aria-hidden="true"></div><div class="home-hero-cards"><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Skills</h2><div class="home-hero-skill-venn"><span>Data<br>Analysis</span><span>Creator<br>Marketing</span><span>Workflow<br>Design</span></div></article><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Markets</h2><div class="home-hero-market-list"><span>Japan</span><span>North America</span><span>Business Reporting</span></div></article><article class="home-hero-paper home-hero-card home-hero-torn"><h2>Tools</h2><div class="home-hero-tool-marks" aria-hidden="true"><span>↗</span><i></i><b>◎</b><span>⌁</span><b>＋</b><i></i></div><p class="home-hero-tool-note">Workflow &amp; review concepts</p></article></div></div><div class="home-hero-person"><img src="assets/hero-portrait-collage.png" alt="Ally in a vintage paper collage portrait sticker" width="1360" height="1157" fetchpriority="high"></div></div></section><script>
 const resumeLink=document.querySelector('.resume-link');
@@ -1059,7 +1134,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   });
 })();
 </script><script>
-/* Compact Works: reveal the next card in proportion to the gesture */
+/* Compact Works: pin the chapter and move only project content */
 (()=>{
   const compact=window.matchMedia('(max-width:1200px)');
   const work=document.querySelector('#work');
@@ -1068,7 +1143,9 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   if(!work||!host||!skills)return;
 
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const scenes=()=>Array.from(host.querySelectorAll('.work-pair--single'));
+  const records=()=>Array.from(host.querySelectorAll('.work-pair--single')).map(scene=>({
+    scene,project:scene.querySelector(':scope > .project')
+  })).filter(item=>item.project);
   const layoutTop=element=>{
     let top=0,node=element;
     while(node&&node!==document.body){
@@ -1077,61 +1154,11 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
     return top;
   };
-  const sceneTop=scene=>Math.max(0,layoutTop(scene)-(parseFloat(getComputedStyle(scene).top)||0));
   const skillsTop=()=>{
     const root=getComputedStyle(document.documentElement);
     const pad=parseFloat(root.scrollPaddingTop)||0;
     const margin=parseFloat(getComputedStyle(skills).scrollMarginTop)||0;
     return Math.max(0,layoutTop(skills)-pad-margin);
-  };
-  const activeIndex=()=>{
-    if(!compact.matches)return -1;
-    const cards=scenes();
-    if(!cards.length||window.scrollY>=skillsTop()-2)return -1;
-    let active=-1;
-    for(let i=0;i<cards.length;i++){
-      if(window.scrollY>=sceneTop(cards[i])-2)active=i;
-      else break;
-    }
-    return active;
-  };
-  const indexAtPoint=(target,x,y)=>{
-    const cards=scenes();
-    const node=target instanceof Element?target:target?.parentElement;
-    let card=node?.closest('.work-pair--single')||null;
-    if(!card&&Number.isFinite(x)&&Number.isFinite(y)){
-      card=document.elementFromPoint(x,y)?.closest('.work-pair--single')||null;
-    }
-    const pointed=card?cards.indexOf(card):-1;
-    return pointed>=0?pointed:activeIndex();
-  };
-
-  const heading=work.querySelector('.works-marquee');
-  const syncHeading=()=>{
-    if(!heading)return;
-    if(compact.matches){
-      heading.style.position='sticky';
-      heading.style.top='0px';
-      heading.style.zIndex='1200';
-      heading.style.backgroundColor='#3b3228';
-      heading.style.isolation='isolate';
-    }else{
-      ['position','top','z-index','background-color','isolation'].forEach(property=>heading.style.removeProperty(property));
-    }
-  };
-  syncHeading();
-  if(compact.addEventListener)compact.addEventListener('change',syncHeading);
-  else compact.addListener(syncHeading);
-
-  const setStackOrder=(cards,active)=>{
-    cards.forEach((card,index)=>{
-      card.style.zIndex=String(10+cards.length-Math.abs(index-active));
-    });
-  };
-  const clearTransform=element=>{
-    if(!element)return;
-    element.getAnimations().forEach(animation=>animation.cancel());
-    element.style.removeProperty('transform');
   };
   const instantScroll=top=>{
     const root=document.documentElement;
@@ -1141,150 +1168,265 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     requestAnimationFrame(()=>{root.style.scrollBehavior=previous});
   };
 
-  let transitioning=false,transitionTimer=0;
-  const finishTransition=()=>{
+  let stageActive=false,stageTop=0,currentIndex=0,ignoreUntilAbove=false,lastScrollY=window.scrollY;
+  let transitioning=false,transitionTimer=0,wheelGesture=null,wheelTimer=0,touch=null;
+  const stageHeight=()=>Math.max(1,host.clientHeight||window.innerHeight);
+  const setStackOrder=(items,active)=>{
+    items.forEach((item,index)=>{
+      item.scene.style.zIndex=String(10+items.length-Math.abs(index-active));
+    });
+  };
+  const positionCards=active=>{
+    const items=records(),height=stageHeight();
+    setStackOrder(items,active);
+    items.forEach((item,index)=>{
+      const project=item.project;
+      project.classList.remove('pending');
+      project.inert=index!==active;
+      if(index===active)project.removeAttribute('aria-hidden');
+      else project.setAttribute('aria-hidden','true');
+      project.style.opacity='1';
+      project.style.transition='none';
+      project.style.transform=`translate3d(0,${(index-active)*height}px,0)`;
+    });
+  };
+  const clearCardStyles=()=>{
+    records().forEach((item,index)=>{
+      const project=item.project;
+      item.scene.style.zIndex=String(2+index);
+      project.getAnimations().forEach(animation=>animation.cancel());
+      project.style.removeProperty('transform');
+      project.style.removeProperty('transition');
+      project.style.removeProperty('opacity');
+      project.inert=false;
+      project.removeAttribute('aria-hidden');
+      project.classList.remove('pending');
+    });
+  };
+  const enterStage=()=>{
+    if(stageActive||!compact.matches)return;
+    stageTop=layoutTop(work);
+    currentIndex=0;
+    stageActive=true;
+    work.classList.add('compact-stepper-active');
+    positionCards(currentIndex);
+    instantScroll(stageTop);
+    lastScrollY=stageTop;
+  };
+  const leaveStage=()=>{
+    if(!stageActive)return;
+    stageActive=false;
     clearTimeout(transitionTimer);
     transitioning=false;
+    work.classList.remove('compact-stepper-active');
+    clearCardStyles();
+    wheelGesture=null;
+    clearTimeout(wheelTimer);
+    touch=null;
   };
-  const cancelPreview=gesture=>{
-    clearTransform(gesture.previewElement);
-    setStackOrder(scenes(),gesture.index);
-    gesture.previewElement=null;
+  const leaveBack=()=>{
+    leaveStage();
+    ignoreUntilAbove=true;
+    lastScrollY=window.scrollY;
+  };
+  const leaveToSkills=()=>{
+    leaveStage();
+    ignoreUntilAbove=true;
+    const target=skillsTop();
+    instantScroll(target);
+    lastScrollY=target;
+  };
+  const snapBack=gesture=>{
+    if(!gesture?.element||gesture.committed||!stageActive)return;
+    const element=gesture.element;
+    const from=gesture.previewY;
+    const base=gesture.baseY;
+    const duration=reduceMotion.matches?0:170;
+    if(!duration){
+      positionCards(currentIndex);
+      transitioning=false;
+      return;
+    }
+    transitioning=true;
+    const animation=element.animate(
+      [{transform:`translate3d(0,${from}px,0)`},{transform:`translate3d(0,${base}px,0)`}],
+      {duration,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'}
+    );
+    clearTimeout(transitionTimer);
+    transitionTimer=setTimeout(()=>{
+      animation.cancel();
+      positionCards(currentIndex);
+      transitioning=false;
+    },duration+25);
+  };
+  const finishGesture=gesture=>{
+    if(!stageActive)return;
+    const items=records(),element=gesture.element;
+    const index=gesture.index,target=gesture.targetIndex;
+    const height=gesture.height;
+    const duration=reduceMotion.matches?0:250;
+    const animations=[];
+    gesture.committed=true;
+    transitioning=true;
+    setStackOrder(items,target===null?index:target);
+    const current=items[index]?.project;
+    if(gesture.kind==='next'){
+      animations.push(element.animate(
+        [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:'translate3d(0,0,0)'}],
+        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+      ));
+      animations.push(current.animate(
+        [{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,${-height}px,0)`}],
+        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+      ));
+    }else if(gesture.kind==='previous'){
+      animations.push(element.animate(
+        [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:'translate3d(0,0,0)'}],
+        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+      ));
+      animations.push(current.animate(
+        [{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,${height}px,0)`}],
+        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+      ));
+    }else{
+      animations.push(current.animate(
+        [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:`translate3d(0,${-height}px,0)`}],
+        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+      ));
+    }
+    const complete=()=>{
+      animations.forEach(animation=>animation.cancel());
+      if(gesture.kind==='last'){
+        leaveToSkills();
+      }else{
+        currentIndex=target;
+        positionCards(currentIndex);
+        transitioning=false;
+      }
+    };
+    clearTimeout(transitionTimer);
+    if(!duration){
+      complete();
+      return;
+    }
+    transitionTimer=setTimeout(complete,duration+35);
+  };
+  const createGesture=index=>({
+    index,direction:0,progress:0,previewY:0,baseY:0,height:stageHeight(),
+    element:null,kind:null,targetIndex:null,threshold:0,committed:false
+  });
+  const resetPreview=gesture=>{
+    positionCards(currentIndex);
     gesture.direction=0;
     gesture.progress=0;
     gesture.previewY=0;
+    gesture.baseY=0;
+    gesture.element=null;
     gesture.kind=null;
     gesture.targetIndex=null;
   };
-  const snapBack=gesture=>{
-    if(!gesture?.previewElement||gesture.committed)return;
-    const element=gesture.previewElement;
-    const from=gesture.previewY||0;
-    const cards=scenes();
-    setStackOrder(cards,gesture.index);
-    gesture.previewElement=null;
-    const duration=reduceMotion.matches?0:180;
-    if(!duration){
-      clearTransform(element);
-      return;
-    }
-    transitioning=true;
-    const animation=element.animate(
-      [{transform:`translate3d(0,${from}px,0)`},{transform:'translate3d(0,0,0)'}],
-      {duration,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'}
-    );
-    transitionTimer=setTimeout(()=>{
-      animation.cancel();
-      element.style.removeProperty('transform');
-      finishTransition();
-    },duration+30);
-  };
-
-  const completeGesture=gesture=>{
-    if(gesture.committed||!gesture.previewElement)return;
-    const cards=scenes();
-    const element=gesture.previewElement;
-    const index=gesture.index;
-    const targetIndex=gesture.targetIndex;
-    const finalY=gesture.kind==='previous'?gesture.travel:-gesture.travel;
-    const duration=reduceMotion.matches?0:300;
-    gesture.committed=true;
-    transitioning=true;
-    setStackOrder(cards,targetIndex===null?index:targetIndex);
-
-    const finish=()=>{
-      if(targetIndex===null)instantScroll(skillsTop());
-      else instantScroll(sceneTop(cards[targetIndex]));
-      clearTransform(element);
-      setStackOrder(cards,targetIndex===null?index:targetIndex);
-      finishTransition();
-    };
-    if(!duration){
-      finish();
-      return;
-    }
-    const animation=element.animate(
-      [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:`translate3d(0,${finalY}px,0)`}],
-      {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
-    );
-    transitionTimer=setTimeout(()=>{
-      animation.cancel();
-      finish();
-    },duration+40);
-  };
-
   const updatePreview=(gesture,direction,amount)=>{
-    if(gesture.committed)return;
-    const cards=scenes();
-    const index=gesture.index;
-    if(!cards[index]||(direction<0&&index===0))return;
+    if(!stageActive||gesture.committed||transitioning)return;
+    const items=records(),index=gesture.index;
+    if(index<0||index>=items.length||(direction<0&&index===0))return;
     if(gesture.direction!==direction){
-      cancelPreview(gesture);
+      resetPreview(gesture);
       gesture.direction=direction;
-      if(direction>0&&index<cards.length-1){
+      gesture.height=stageHeight();
+      if(direction>0&&index<items.length-1){
         gesture.kind='next';
         gesture.targetIndex=index+1;
-        gesture.previewElement=cards[index+1];
-        gesture.travel=Math.max(1,sceneTop(cards[index+1])-sceneTop(cards[index]));
+        gesture.element=items[index+1].project;
+        gesture.baseY=gesture.height;
+        setStackOrder(items,index+1);
       }else if(direction<0){
         gesture.kind='previous';
         gesture.targetIndex=index-1;
-        gesture.previewElement=cards[index];
-        gesture.travel=Math.max(1,sceneTop(cards[index])-sceneTop(cards[index-1]));
+        gesture.element=items[index-1].project;
+        gesture.baseY=-gesture.height;
+        setStackOrder(items,index-1);
       }else{
         gesture.kind='last';
         gesture.targetIndex=null;
-        gesture.previewElement=cards[index];
-        const stickyTop=parseFloat(getComputedStyle(cards[index]).top)||0;
-        gesture.travel=Math.max(1,window.innerHeight-stickyTop);
+        gesture.element=items[index].project;
+        gesture.baseY=0;
+        setStackOrder(items,index);
       }
-      gesture.threshold=Math.max(96,Math.min(220,gesture.travel*.3));
-      setStackOrder(cards,direction<0?index:(gesture.targetIndex??index));
+      gesture.threshold=Math.max(96,Math.min(180,gesture.height*.27));
     }
     gesture.progress=Math.min(Math.max(0,amount),gesture.threshold);
-    if(gesture.kind==='next')gesture.previewY=-gesture.progress;
-    else if(gesture.kind==='previous')gesture.previewY=gesture.progress;
+    if(gesture.kind==='next')gesture.previewY=gesture.height-gesture.progress;
+    else if(gesture.kind==='previous')gesture.previewY=-gesture.height+gesture.progress;
     else gesture.previewY=-gesture.progress;
-    gesture.previewElement.style.transform=`translate3d(0,${gesture.previewY}px,0)`;
-    if(gesture.progress>=gesture.threshold)completeGesture(gesture);
+    gesture.element.style.transform=`translate3d(0,${gesture.previewY}px,0)`;
+    if(gesture.progress>=gesture.threshold)finishGesture(gesture);
   };
-
-  const step=(direction,index)=>{
-    const gesture={index,direction:0,progress:0,previewY:0,previewElement:null,committed:false};
-    const cards=scenes();
-    if(index<0||index>=cards.length||(direction<0&&index===0))return;
+  const step=(direction,index=currentIndex)=>{
+    if(!stageActive||transitioning)return;
+    if(direction<0&&index===0){leaveBack();return;}
+    const gesture=createGesture(index);
     updatePreview(gesture,direction,Number.POSITIVE_INFINITY);
   };
+  const handleScroll=()=>{
+    const y=window.scrollY;
+    if(stageActive){
+      if(Math.abs(y-stageTop)>2)instantScroll(stageTop);
+      lastScrollY=y;
+      return;
+    }
+    if(!compact.matches){lastScrollY=y;return;}
+    const top=layoutTop(work);
+    if(ignoreUntilAbove){
+      const movingUp=y<lastScrollY;
+      if(y<top-40)ignoreUntilAbove=false;
+      else if(movingUp&&y<=top+48){
+        ignoreUntilAbove=false;
+        enterStage();
+      }
+      lastScrollY=y;
+      return;
+    }
+    const nearWork=y>=top-2&&y<=top+48;
+    if(nearWork&&y<skillsTop())enterStage();
+    lastScrollY=y;
+  };
+  window.addEventListener('scroll',handleScroll,{passive:true});
+  if(Math.abs(window.scrollY-layoutTop(work))<4)enterStage();
 
-  let wheelGesture=null,wheelTimer=0;
+  document.addEventListener('click',event=>{
+    if(!stageActive)return;
+    const node=event.target instanceof Element?event.target:event.target?.parentElement;
+    const link=node?.closest('a[href^="#"]');
+    if(link&&link.getAttribute('href')!=='#work'){
+      leaveStage();
+      ignoreUntilAbove=true;
+    }
+  },true);
+
   const resetWheel=()=>{
     const gesture=wheelGesture;
     wheelGesture=null;
     if(gesture&&!gesture.committed)snapBack(gesture);
   };
   document.addEventListener('wheel',event=>{
-    if(!compact.matches||event.ctrlKey||Math.abs(event.deltaY)<1)return;
+    if(!compact.matches||!stageActive||event.ctrlKey||Math.abs(event.deltaY)<1)return;
+    const direction=Math.sign(event.deltaY);
     if(transitioning){
-      if(activeIndex()>=0)event.preventDefault();
+      event.preventDefault();
       return;
     }
     if(!wheelGesture){
-      const index=indexAtPoint(event.target,event.clientX,event.clientY);
-      const direction=Math.sign(event.deltaY);
-      if(index<0||(direction<0&&index===0))return;
-      wheelGesture={index,direction:0,progress:0,previewY:0,previewElement:null,committed:false};
+      if(direction<0&&currentIndex===0){
+        leaveBack();
+        return;
+      }
+      wheelGesture=createGesture(currentIndex);
     }
-    if(wheelGesture.committed){
-      event.preventDefault();
-      clearTimeout(wheelTimer);
-      wheelTimer=setTimeout(resetWheel,700);
-      return;
-    }
-    const direction=Math.sign(event.deltaY);
     if(direction<0&&wheelGesture.index===0){
-      cancelPreview(wheelGesture);
+      resetPreview(wheelGesture);
       wheelGesture=null;
       clearTimeout(wheelTimer);
+      leaveBack();
       return;
     }
     event.preventDefault();
@@ -1293,27 +1435,27 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const amount=wheelGesture.direction===direction?wheelGesture.progress+distance:distance;
     updatePreview(wheelGesture,direction,amount);
     clearTimeout(wheelTimer);
-    wheelTimer=setTimeout(resetWheel,700);
+    wheelTimer=setTimeout(resetWheel,800);
   },{passive:false,capture:true});
 
-  let touch=null;
   document.addEventListener('touchstart',event=>{
     touch=null;
-    if(!compact.matches||event.touches.length!==1)return;
+    if(!compact.matches||!stageActive||event.touches.length!==1)return;
     const point=event.touches[0];
-    const index=indexAtPoint(event.target,point.clientX,point.clientY);
-    if(index<0)return;
-    touch={index,startX:point.clientX,startY:point.clientY,direction:0,progress:0,previewY:0,previewElement:null,committed:false,locked:transitioning};
+    touch={index:currentIndex,startX:point.clientX,startY:point.clientY,...createGesture(currentIndex),locked:transitioning};
   },{passive:true});
   document.addEventListener('touchmove',event=>{
-    if(!touch||event.touches.length!==1)return;
+    if(!touch||!stageActive||event.touches.length!==1)return;
     const point=event.touches[0];
     const dx=point.clientX-touch.startX;
     const dy=touch.startY-point.clientY;
     if(Math.abs(dy)<10||Math.abs(dy)<Math.abs(dx)*1.1)return;
     if(touch.locked||touch.committed||transitioning){event.preventDefault();return;}
     const direction=Math.sign(dy);
-    if(direction<0&&touch.index===0)return;
+    if(direction<0&&touch.index===0){
+      leaveBack();
+      return;
+    }
     event.preventDefault();
     updatePreview(touch,direction,Math.abs(dy));
   },{passive:false});
@@ -1328,17 +1470,30 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   },{passive:true});
 
   document.addEventListener('keydown',event=>{
-    if(!compact.matches||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||transitioning)return;
-    const index=activeIndex();
-    if(index<0)return;
-    const target=event.target;
-    if(target instanceof Element&&target.closest('a,button,input,textarea,select,[contenteditable="true"]'))return;
+    if(!stageActive||transitioning||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
+    const node=event.target instanceof Element?event.target:event.target?.parentElement;
+    if(node?.closest('a,button,input,textarea,select,[contenteditable="true"]'))return;
     if(event.key==='ArrowDown'||event.key==='PageDown'||event.key===' '&&!event.shiftKey){
-      event.preventDefault();step(1,index);
+      event.preventDefault();step(1);
     }else if(event.key==='ArrowUp'||event.key==='PageUp'||event.key===' '&&event.shiftKey){
-      if(index>0){event.preventDefault();step(-1,index)}
+      if(currentIndex>0){event.preventDefault();step(-1)}
+      else leaveBack();
     }
   });
+
+  const handleResize=()=>{
+    if(!compact.matches){
+      if(stageActive)leaveStage();
+      ignoreUntilAbove=false;
+    }else if(stageActive){
+      positionCards(currentIndex);
+    }else{
+      handleScroll();
+    }
+  };
+  window.addEventListener('resize',handleResize,{passive:true});
+  if(compact.addEventListener)compact.addEventListener('change',handleResize);
+  else compact.addListener(handleResize);
 })();
 </script>
 </body></html>
