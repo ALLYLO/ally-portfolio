@@ -829,6 +829,7 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     margin:0!important;
     padding:0!important;
     overflow:hidden!important;
+    contain:layout paint;
   }
   #work.compact-stepper-active #more-work .work-pair--single{
     display:block!important;
@@ -1146,6 +1147,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   const records=()=>Array.from(host.querySelectorAll('.work-pair--single')).map(scene=>({
     scene,project:scene.querySelector(':scope > .project')
   })).filter(item=>item.project);
+  let stageItems=[];
+  const activeRecords=()=>stageItems.length?stageItems:records();
   const layoutTop=element=>{
     let top=0,node=element;
     while(node&&node!==document.body){
@@ -1169,7 +1172,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
 
   let stageActive=false,stageTop=0,currentIndex=0,ignoreUntilAbove=false,lastScrollY=window.scrollY;
-  let transitioning=false,transitionTimer=0,wheelGesture=null,wheelTimer=0,touch=null;
+  let transitioning=false,transitionTimer=0,wheelGesture=null,wheelTimer=0,wheelRaf=0,wheelDelta=0,touch=null,touchRaf=0;
   const stageHeight=()=>Math.max(1,host.clientHeight||window.innerHeight);
   const setStackOrder=(items,active)=>{
     items.forEach((item,index)=>{
@@ -1177,7 +1180,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     });
   };
   const positionCards=active=>{
-    const items=records(),height=stageHeight();
+    const items=activeRecords(),height=stageHeight();
     setStackOrder(items,active);
     items.forEach((item,index)=>{
       const project=item.project;
@@ -1188,26 +1191,32 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       project.style.opacity='1';
       project.style.transition='none';
       project.style.transform=`translate3d(0,${(index-active)*height}px,0)`;
+      project.style.willChange=Math.abs(index-active)<=1?'transform':'auto';
+      project.style.backfaceVisibility='hidden';
     });
   };
   const clearCardStyles=()=>{
-    records().forEach((item,index)=>{
+    activeRecords().forEach((item,index)=>{
       const project=item.project;
       item.scene.style.zIndex=String(2+index);
       project.getAnimations().forEach(animation=>animation.cancel());
       project.style.removeProperty('transform');
       project.style.removeProperty('transition');
       project.style.removeProperty('opacity');
+      project.style.removeProperty('will-change');
+      project.style.removeProperty('backface-visibility');
       project.inert=false;
       project.removeAttribute('aria-hidden');
       project.classList.remove('pending');
     });
+    stageItems=[];
   };
   const enterStage=()=>{
     if(stageActive||!compact.matches)return;
     stageTop=layoutTop(work);
     currentIndex=0;
     stageActive=true;
+    stageItems=records();
     work.classList.add('compact-stepper-active');
     positionCards(currentIndex);
     instantScroll(stageTop);
@@ -1218,6 +1227,9 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     stageActive=false;
     clearTimeout(transitionTimer);
     transitioning=false;
+    if(wheelRaf){cancelAnimationFrame(wheelRaf);wheelRaf=0}
+    wheelDelta=0;
+    if(touchRaf){cancelAnimationFrame(touchRaf);touchRaf=0}
     work.classList.remove('compact-stepper-active');
     clearCardStyles();
     wheelGesture=null;
@@ -1241,7 +1253,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const element=gesture.element;
     const from=gesture.previewY;
     const base=gesture.baseY;
-    const duration=reduceMotion.matches?0:170;
+    const duration=reduceMotion.matches?0:230;
     if(!duration){
       positionCards(currentIndex);
       transitioning=false;
@@ -1261,10 +1273,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const finishGesture=gesture=>{
     if(!stageActive)return;
-    const items=records(),element=gesture.element;
+    const items=activeRecords(),element=gesture.element;
     const index=gesture.index,target=gesture.targetIndex;
     const height=gesture.height;
-    const duration=reduceMotion.matches?0:250;
+    const duration=reduceMotion.matches?0:390;
     const animations=[];
     gesture.committed=true;
     transitioning=true;
@@ -1273,25 +1285,25 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(gesture.kind==='next'){
       animations.push(element.animate(
         [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:'translate3d(0,0,0)'}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
       animations.push(current.animate(
         [{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,${-height}px,0)`}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
     }else if(gesture.kind==='previous'){
       animations.push(element.animate(
         [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:'translate3d(0,0,0)'}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
       animations.push(current.animate(
         [{transform:'translate3d(0,0,0)'},{transform:`translate3d(0,${height}px,0)`}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
     }else{
       animations.push(current.animate(
         [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:`translate3d(0,${-height}px,0)`}],
-        {duration,easing:'cubic-bezier(.22,.72,.22,1)',fill:'both'}
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
     }
     const complete=()=>{
@@ -1327,7 +1339,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const updatePreview=(gesture,direction,amount)=>{
     if(!stageActive||gesture.committed||transitioning)return;
-    const items=records(),index=gesture.index;
+    const items=activeRecords(),index=gesture.index;
     if(index<0||index>=items.length||(direction<0&&index===0))return;
     if(gesture.direction!==direction){
       resetPreview(gesture);
@@ -1404,7 +1416,25 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
   },true);
 
+  const applyWheelDelta=()=>{
+    wheelRaf=0;
+    const gesture=wheelGesture,delta=wheelDelta;
+    wheelDelta=0;
+    if(!gesture||gesture.committed||transitioning||!delta)return;
+    const direction=Math.sign(delta);
+    const distance=Math.abs(delta);
+    const amount=gesture.direction===direction?gesture.progress+distance:distance;
+    updatePreview(gesture,direction,amount);
+  };
   const resetWheel=()=>{
+    if(wheelRaf){cancelAnimationFrame(wheelRaf);wheelRaf=0}
+    const pending=wheelDelta;
+    wheelDelta=0;
+    if(pending&&wheelGesture&&!wheelGesture.committed&&!transitioning){
+      const direction=Math.sign(pending),distance=Math.abs(pending);
+      const amount=wheelGesture.direction===direction?wheelGesture.progress+distance:distance;
+      updatePreview(wheelGesture,direction,amount);
+    }
     const gesture=wheelGesture;
     wheelGesture=null;
     if(gesture&&!gesture.committed)snapBack(gesture);
@@ -1424,6 +1454,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       wheelGesture=createGesture(currentIndex);
     }
     if(direction<0&&wheelGesture.index===0){
+      if(wheelRaf){cancelAnimationFrame(wheelRaf);wheelRaf=0}
+      wheelDelta=0;
       resetPreview(wheelGesture);
       wheelGesture=null;
       clearTimeout(wheelTimer);
@@ -1432,18 +1464,24 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
     event.preventDefault();
     const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
-    const distance=Math.abs(event.deltaY*unit);
-    const amount=wheelGesture.direction===direction?wheelGesture.progress+distance:distance;
-    updatePreview(wheelGesture,direction,amount);
+    wheelDelta+=event.deltaY*unit;
+    if(!wheelRaf)wheelRaf=requestAnimationFrame(applyWheelDelta);
     clearTimeout(wheelTimer);
     wheelTimer=setTimeout(resetWheel,800);
   },{passive:false,capture:true});
 
+  const flushTouch=()=>{
+    if(touchRaf){cancelAnimationFrame(touchRaf);touchRaf=0}
+    if(!touch?.pending||!stageActive)return;
+    const pending=touch.pending;
+    touch.pending=null;
+    updatePreview(touch,pending.direction,pending.amount);
+  };
   document.addEventListener('touchstart',event=>{
     touch=null;
     if(!compact.matches||!stageActive||event.touches.length!==1)return;
     const point=event.touches[0];
-    touch={index:currentIndex,startX:point.clientX,startY:point.clientY,...createGesture(currentIndex),locked:transitioning};
+    touch={index:currentIndex,startX:point.clientX,startY:point.clientY,...createGesture(currentIndex),locked:transitioning,pending:null};
   },{passive:true});
   document.addEventListener('touchmove',event=>{
     if(!touch||!stageActive||event.touches.length!==1)return;
@@ -1454,18 +1492,24 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(touch.locked||touch.committed||transitioning){event.preventDefault();return;}
     const direction=Math.sign(dy);
     if(direction<0&&touch.index===0){
+      if(touchRaf){cancelAnimationFrame(touchRaf);touchRaf=0}
+      touch=null;
       leaveBack();
       return;
     }
     event.preventDefault();
-    updatePreview(touch,direction,Math.abs(dy));
+    touch.pending={direction,amount:Math.abs(dy)};
+    if(!touchRaf)touchRaf=requestAnimationFrame(flushTouch);
   },{passive:false});
   document.addEventListener('touchend',()=>{
     if(!touch)return;
-    if(!touch.committed&&!touch.locked)snapBack(touch);
+    flushTouch();
+    if(touch&&!touch.committed&&!touch.locked)snapBack(touch);
     touch=null;
   },{passive:true});
   document.addEventListener('touchcancel',()=>{
+    if(!touch)return;
+    flushTouch();
     if(touch&&!touch.committed&&!touch.locked)snapBack(touch);
     touch=null;
   },{passive:true});
