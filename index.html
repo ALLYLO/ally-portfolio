@@ -1058,4 +1058,142 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
   });
 })();
-</script></body></html>
+</script><script>
+/* Compact Works: one gesture advances one project */
+(()=>{
+  const compact=window.matchMedia('(max-width:1200px)');
+  const work=document.querySelector('#work');
+  const host=work?.querySelector('#more-work');
+  const skills=document.querySelector('#skills');
+  if(!work||!host||!skills)return;
+
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const scenes=()=>Array.from(host.querySelectorAll('.work-pair--single'));
+  const layoutTop=element=>{
+    let top=0,node=element;
+    while(node&&node!==document.body){
+      top+=node.offsetTop||0;
+      node=node.offsetParent;
+    }
+    return top;
+  };
+  const sceneTop=(scene)=>{
+    const stickyTop=parseFloat(getComputedStyle(scene).top)||0;
+    return Math.max(0,layoutTop(scene)-stickyTop);
+  };
+  const skillsTop=()=>{
+    const root=getComputedStyle(document.documentElement);
+    const pad=parseFloat(root.scrollPaddingTop)||0;
+    const margin=parseFloat(getComputedStyle(skills).scrollMarginTop)||0;
+    return Math.max(0,layoutTop(skills)-pad-margin);
+  };
+  const activeIndex=()=>{
+    if(!compact.matches)return -1;
+    const cards=scenes();
+    if(!cards.length||window.scrollY>=skillsTop()-2)return -1;
+    let active=-1;
+    for(let i=0;i<cards.length;i++){
+      if(window.scrollY>=sceneTop(cards[i])-2)active=i;
+      else break;
+    }
+    return active;
+  };
+
+  let transitioning=false,transitionTimer=0;
+  const goTo=top=>{
+    if(transitioning)return;
+    transitioning=true;
+    clearTimeout(transitionTimer);
+    const finish=()=>{transitioning=false;clearTimeout(transitionTimer)};
+    window.addEventListener('scrollend',finish,{once:true});
+    if(reduceMotion.matches){
+      const previous=document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior='auto';
+      window.scrollTo(0,top);
+      requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior=previous});
+    }else{
+      window.scrollTo({top,behavior:'smooth'});
+    }
+    transitionTimer=setTimeout(finish,1000);
+  };
+  const step=direction=>{
+    if(transitioning||!compact.matches)return;
+    const cards=scenes();
+    const index=activeIndex();
+    if(index<0||!cards.length)return;
+    if(direction>0){
+      if(index===cards.length-1)goTo(skillsTop());
+      else goTo(sceneTop(cards[index+1]));
+    }else if(index>0){
+      goTo(sceneTop(cards[index-1]));
+    }
+  };
+
+  let wheelStarted=false,wheelCaptured=false,wheelDirection=0,wheelDistance=0,wheelDone=false,wheelTimer=0;
+  const resetWheel=()=>{
+    wheelStarted=false;wheelCaptured=false;wheelDirection=0;wheelDistance=0;wheelDone=false;
+  };
+  document.addEventListener('wheel',event=>{
+    if(!compact.matches||event.ctrlKey||Math.abs(event.deltaY)<1)return;
+    if(!wheelStarted){
+      const index=activeIndex();
+      wheelStarted=true;
+      wheelDirection=Math.sign(event.deltaY);
+      wheelCaptured=index>=0&&!(wheelDirection<0&&index===0);
+    }
+    clearTimeout(wheelTimer);
+    wheelTimer=setTimeout(resetWheel,600);
+    if(!wheelCaptured)return;
+    event.preventDefault();
+    if(wheelDone||Math.sign(event.deltaY)!==wheelDirection)return;
+    const unit=event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1;
+    wheelDistance+=Math.abs(event.deltaY*unit);
+    if(wheelDistance>=44){
+      wheelDone=true;
+      step(wheelDirection>0?1:-1);
+    }
+  },{passive:false,capture:true});
+
+  let touch=null;
+  document.addEventListener('touchstart',event=>{
+    touch=null;
+    if(!compact.matches||transitioning||event.touches.length!==1)return;
+    const index=activeIndex();
+    if(index<0)return;
+    touch={x:event.touches[0].clientX,y:event.touches[0].clientY,index};
+  },{passive:true});
+  document.addEventListener('touchmove',event=>{
+    if(!touch||event.touches.length!==1)return;
+    const dx=event.touches[0].clientX-touch.x;
+    const dy=event.touches[0].clientY-touch.y;
+    const forward=dy<0;
+    if(Math.abs(dy)>10&&Math.abs(dy)>Math.abs(dx)*1.1&&(forward||touch.index>0))event.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',event=>{
+    if(!touch)return;
+    const end=event.changedTouches[0];
+    const dx=(end?.clientX??touch.x)-touch.x;
+    const dy=(end?.clientY??touch.y)-touch.y;
+    const index=touch.index;
+    touch=null;
+    if(Math.abs(dy)<52||Math.abs(dy)<Math.abs(dx)*1.1)return;
+    if(dy<0)step(1);
+    else if(index>0)step(-1);
+  },{passive:true});
+  document.addEventListener('touchcancel',()=>{touch=null},{passive:true});
+
+  document.addEventListener('keydown',event=>{
+    if(!compact.matches||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey)return;
+    const index=activeIndex();
+    if(index<0)return;
+    const target=event.target;
+    if(target instanceof Element&&target.closest('a,button,input,textarea,select,[contenteditable="true"]'))return;
+    if(event.key==='ArrowDown'||event.key==='PageDown'||event.key===' '&&!event.shiftKey){
+      event.preventDefault();step(1);
+    }else if(event.key==='ArrowUp'||event.key==='PageUp'||event.key===' '&&event.shiftKey){
+      if(index>0){event.preventDefault();step(-1)}
+    }
+  });
+})();
+</script>
+</body></html>
