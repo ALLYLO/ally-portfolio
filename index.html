@@ -1310,6 +1310,9 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     const overlay=skillPreview;
     leaveStage(true);
     exitSide='below';
+    const previousTransition=skills.style.transition;
+    skills.style.transition='none';
+    skills.classList.remove('pending');
     const target=skillsTop();
     if(overlay)overlay.style.setProperty('--compact-paper-shift',`${-target}px`);
     instantScroll(target);
@@ -1318,8 +1321,9 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       overlay.style.setProperty('--compact-skill-offset','0px');
       requestAnimationFrame(()=>requestAnimationFrame(()=>{
         if(skillPreview===overlay)clearSkillPreview();
+        skills.style.transition=previousTransition;
       }));
-    }
+    }else skills.style.transition=previousTransition;
   };
   const snapBack=gesture=>{
     if(!gesture?.element||gesture.committed||!stageActive)return;
