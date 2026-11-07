@@ -180,7 +180,7 @@
     ["CREATOR MARKETING / JAPAN", "创作者营销 / 日本"],
     ["CLOSE", "关闭"],
     ["CREATOR SCREENING · CONTENT PLANNING · COMMUNITY MANAGEMENT · DATA REVIEW", "创作者筛选 · 内容规划 · 社群维护 · 数据复盘"],
-    ["BROWSE PROJECT", "浏览项目"],
+    ["VIEW DETAILS", "浏览项目"],
     ["Browse case studies", "浏览项目案例"],
     ["THE PROJECT", "项目概览"],
     ["THE IDEA", "项目构想"],
