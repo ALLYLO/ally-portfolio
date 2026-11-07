@@ -1,12 +1,14 @@
 /* Sitewide serif type with per-script local Unicode routing.
    Latin & digits = Times New Roman / Georgia.
-   Chinese = Songti SC / SimSun.
+   Chinese = Songti SC using the system family names exposed by Apple and
+   Android browsers, then platform serif fallbacks.
    Japanese kana + lang=ja Kanji = Yu Mincho.
    No proprietary font assets or large remote CJK downloads. */
 @font-face {
   font-family:"Portfolio Song";
-  src:local("Songti SC"),local("Songti SC Regular"),local("STSong"),
-      local("SimSun"),local("Noto Serif CJK SC"),local("Noto Serif SC");
+  src:local("Songti SC"),local("Songti SC Regular"),local("Songti TC"),
+      local("Noto Serif CJK SC"),local("Noto Serif SC"),local("STSong"),
+      local("SimSun");
   font-weight:100 900;
   font-style:normal;
   unicode-range:U+2E80-2EFF,U+2F00-2FDF,U+3000-303F,
@@ -32,7 +34,8 @@
 }
 :root {
   --portfolio-script-serif:"Portfolio Yu Kana","Portfolio Song",
-      "Times New Roman",Georgia,"Songti SC",STSong,SimSun,serif;
+      "Songti SC","Songti TC","Noto Serif CJK SC","Noto Serif SC",
+      STSong,SimSun,"Noto Serif",serif;
   --portfolio-japanese-serif:"Portfolio Yu Japanese",
       "Times New Roman",Georgia,"Yu Mincho",YuMincho,
       "Hiragino Mincho ProN",serif;
