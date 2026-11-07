@@ -929,6 +929,11 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       touchStartedAtTop=true;
     }
   },{passive:true});
+  document.addEventListener('touchmove',event=>{
+    if(touchStartedAtTop&&touchStartY!==null&&event.touches.length===1&&touchStartY-event.touches[0].clientY>12){
+      event.preventDefault();
+    }
+  },{passive:false});
   document.addEventListener('touchend',event=>{
     if(touchStartY===null)return;
     const endY=event.changedTouches[0]?.clientY??touchStartY;
