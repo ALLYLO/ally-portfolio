@@ -836,6 +836,28 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     animation-play-state:paused!important;
     will-change:auto!important;
   }
+  #skills.compact-stepper-skill-preview{
+    display:grid!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:80!important;
+    width:100%!important;
+    max-width:none!important;
+    height:100vh!important;
+    height:100svh!important;
+    min-height:100vh!important;
+    min-height:100svh!important;
+    margin:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain;
+    transform:translate3d(0,var(--compact-skill-offset,calc(100% - 20svh)),0)!important;
+    will-change:transform!important;
+    opacity:1!important;
+    transition:none!important;
+    pointer-events:none!important;
+    background:#f5f0e8!important;
+  }
   #work.compact-stepper-active #more-work .work-pair--single{
     display:block!important;
     position:absolute!important;
@@ -1184,6 +1206,25 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       item.scene.style.zIndex=String(10+items.length-Math.abs(index-active));
     });
   };
+  const skillPeekHeight=height=>Math.min(220,Math.max(120,height*.2));
+  const clearSkillPreview=()=>{
+    skills.classList.remove('compact-stepper-skill-preview');
+    skills.style.removeProperty('--compact-skill-offset');
+    skills.inert=false;
+    skills.removeAttribute('aria-hidden');
+  };
+  const positionSkillPreview=active=>{
+    if(active!==stageItems.length-1){
+      clearSkillPreview();
+      return;
+    }
+    skills.classList.remove('pending');
+    skills.classList.add('compact-stepper-skill-preview');
+    const height=stageHeight();
+    skills.style.setProperty('--compact-skill-offset',`${Math.max(0,height-skillPeekHeight(height))}px`);
+    skills.inert=true;
+    skills.setAttribute('aria-hidden','true');
+  };
   const positionCards=active=>{
     const items=activeRecords(),height=stageHeight();
     setStackOrder(items,active);
@@ -1199,6 +1240,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       project.style.willChange=Math.abs(index-active)<=1?'transform':'auto';
       project.style.backfaceVisibility='hidden';
     });
+    positionSkillPreview(active);
   };
   const clearCardStyles=()=>{
     activeRecords().forEach((item,index)=>{
@@ -1236,6 +1278,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     wheelDelta=0;
     if(touchRaf){cancelAnimationFrame(touchRaf);touchRaf=0}
     work.classList.remove('compact-stepper-active');
+    clearSkillPreview();
     clearCardStyles();
     wheelGesture=null;
     clearTimeout(wheelTimer);
@@ -1269,9 +1312,14 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       [{transform:`translate3d(0,${from}px,0)`},{transform:`translate3d(0,${base}px,0)`}],
       {duration,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'}
     );
+    const skillAnimation=gesture.kind==='last'?skills.animate(
+      [{transform:`translate3d(0,${gesture.skillPreviewY}px,0)`},{transform:`translate3d(0,${gesture.skillBaseY}px,0)`}],
+      {duration,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'}
+    ):null;
     clearTimeout(transitionTimer);
     transitionTimer=setTimeout(()=>{
       animation.cancel();
+      skillAnimation?.cancel();
       positionCards(currentIndex);
       transitioning=false;
     },duration+25);
@@ -1310,6 +1358,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
         [{transform:`translate3d(0,${gesture.previewY}px,0)`},{transform:`translate3d(0,${-height}px,0)`}],
         {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
       ));
+      if(duration)animations.push(skills.animate(
+        [{transform:`translate3d(0,${gesture.skillPreviewY}px,0)`},{transform:'translate3d(0,0,0)'}],
+        {duration,easing:'cubic-bezier(.16,.78,.24,1)',fill:'both'}
+      ));
     }
     const complete=()=>{
       animations.forEach(animation=>animation.cancel());
@@ -1330,7 +1382,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   };
   const createGesture=index=>({
     index,direction:0,progress:0,previewY:0,baseY:0,wheelOffset:0,height:stageHeight(),
-    element:null,kind:null,targetIndex:null,threshold:0,committed:false
+    skillBaseY:0,skillPreviewY:0,element:null,kind:null,targetIndex:null,threshold:0,committed:false
   });
   const resetPreview=gesture=>{
     positionCards(currentIndex);
@@ -1367,6 +1419,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
         gesture.targetIndex=null;
         gesture.element=items[index].project;
         gesture.baseY=0;
+        gesture.skillBaseY=Math.max(0,gesture.height-skillPeekHeight(gesture.height));
+        gesture.skillPreviewY=gesture.skillBaseY;
         setStackOrder(items,index);
       }
       gesture.threshold=Math.max(96,Math.min(180,gesture.height*.27));
@@ -1375,6 +1429,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(gesture.kind==='next')gesture.previewY=gesture.height-gesture.progress;
     else if(gesture.kind==='previous')gesture.previewY=-gesture.height+gesture.progress;
     else gesture.previewY=-gesture.progress;
+    if(gesture.kind==='last'){
+      gesture.skillPreviewY=Math.max(0,gesture.skillBaseY-gesture.progress);
+      skills.style.setProperty('--compact-skill-offset',`${gesture.skillPreviewY}px`);
+    }
     gesture.element.style.transform=`translate3d(0,${gesture.previewY}px,0)`;
     if(gesture.progress>=gesture.threshold)finishGesture(gesture);
   };
