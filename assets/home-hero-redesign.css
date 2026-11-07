@@ -1871,20 +1871,24 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
     overflow: visible;
   }
   .home-hero-layout.home-hero-structured {
-    display: flex;
+    display: grid;
     flex: 1 1 auto;
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "thesis" "portrait" "actions";
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    align-content: stretch;
     min-height: 0;
     gap: 0;
   }
   .home-hero-layout.home-hero-structured .home-hero-copy h1 {
+    grid-area: title;
     flex: 0 0 auto;
     margin: 0 0 clamp(5px, 1svh, 12px);
     font-size: clamp(35px, min(9.2vw, 6.3svh), 58px);
     line-height: 1.02;
   }
   .home-hero-layout.home-hero-structured .home-hero-person {
+    grid-area: portrait;
     flex: 1 1 auto;
     align-self: center;
     width: min(90%, 46svh, 480px);
@@ -1899,6 +1903,7 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
     height: 100%;
   }
   .home-hero-layout.home-hero-structured .home-hero-thesis {
+    grid-area: thesis;
     flex: 0 0 auto;
     margin-top: auto;
     font-size: clamp(19px, min(5.1vw, 3.8svh), 27px);
@@ -1908,7 +1913,9 @@ html[lang="zh-CN"] .home-hero-layout.home-hero-structured .home-hero-capability-
     margin-top: 2px;
   }
   .home-hero-layout.home-hero-structured .home-hero-actions {
+    grid-area: actions;
     flex: 0 0 auto;
+    justify-content: center;
     margin: clamp(7px, 1.3svh, 12px) 0 0;
     column-gap: clamp(10px, 2.8vw, 16px);
     row-gap: 12px;
