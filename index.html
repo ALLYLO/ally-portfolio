@@ -1228,7 +1228,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     if(!skillPreview){
       skillPreview=skills.cloneNode(true);
       skillPreview.removeAttribute('id');
-      skillPreview.classList.remove('pending');
+      skillPreview.classList.remove('pending','reveal');
       skillPreview.classList.add('compact-skill-preview-overlay');
       skillPreview.inert=true;
       skillPreview.setAttribute('aria-hidden','true');
