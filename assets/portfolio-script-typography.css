@@ -1,15 +1,16 @@
 /* Sitewide serif type with per-script local Unicode routing.
    Latin & digits = Times New Roman / Georgia.
-   Chinese = Songti SC using the system family names exposed by Apple and
-   Android browsers, then platform serif fallbacks.
+   Chinese uses a self-hosted, OFL-licensed Noto Serif SC subset so its
+   Song-style glyphs render consistently across devices and browsers.
    Japanese kana + lang=ja Kanji = Yu Mincho.
-   No proprietary font assets or large remote CJK downloads. */
+   The subset contains all CJK characters used in the site source. */
 @font-face {
   font-family:"Portfolio Song";
-  src:local("Songti SC"),local("Songti SC Regular"),local("Songti TC"),
+  src:url("fonts/portfolio-noto-serif-sc.woff2") format("woff2"),
+      local("Songti SC"),local("Songti SC Regular"),local("Songti TC"),
       local("Noto Serif CJK SC"),local("Noto Serif SC"),local("STSong"),
       local("SimSun");
-  font-weight:100 900;
+  font-weight:400;
   font-style:normal;
   unicode-range:U+2E80-2EFF,U+2F00-2FDF,U+3000-303F,
       U+31C0-31EF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FF00-FFEF;
