@@ -839,7 +839,10 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
   #skills.compact-stepper-skill-preview{
     display:grid!important;
     position:fixed!important;
-    inset:0!important;
+    top:0!important;
+    right:0!important;
+    bottom:auto!important;
+    left:0!important;
     z-index:80!important;
     width:100%!important;
     max-width:none!important;
@@ -851,7 +854,7 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
     overflow-x:hidden!important;
     overflow-y:auto!important;
     overscroll-behavior:contain;
-    transform:translate3d(0,var(--compact-skill-offset,calc(100% - 20svh)),0)!important;
+    transform:translate3d(0,var(--compact-skill-offset,calc(100% - 20svh)),0);
     will-change:transform!important;
     opacity:1!important;
     transition:none!important;
@@ -1206,7 +1209,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
       item.scene.style.zIndex=String(10+items.length-Math.abs(index-active));
     });
   };
-  const skillPeekHeight=height=>Math.min(220,Math.max(120,height*.2));
+  const skillPeekHeight=(height,gap=height)=>Math.min(220,Math.max(72,Math.min(height*.2,gap-24)));
   const clearSkillPreview=()=>{
     skills.classList.remove('compact-stepper-skill-preview');
     skills.style.removeProperty('--compact-skill-offset');
@@ -1220,8 +1223,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
     }
     skills.classList.remove('pending');
     skills.classList.add('compact-stepper-skill-preview');
-    const height=stageHeight();
-    skills.style.setProperty('--compact-skill-offset',`${Math.max(0,height-skillPeekHeight(height))}px`);
+    const height=window.innerHeight;
+    const card=activeRecords()[active]?.project;
+    const gap=card?Math.max(0,height-card.getBoundingClientRect().bottom):height;
+    skills.style.setProperty('--compact-skill-offset',`${Math.max(0,height-skillPeekHeight(height,gap))}px`);
     skills.inert=true;
     skills.setAttribute('aria-hidden','true');
   };
@@ -1419,7 +1424,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
         gesture.targetIndex=null;
         gesture.element=items[index].project;
         gesture.baseY=0;
-        gesture.skillBaseY=Math.max(0,gesture.height-skillPeekHeight(gesture.height));
+        const viewportHeight=window.innerHeight;
+        const cardBottom=items[index].project.getBoundingClientRect().bottom;
+        const gap=Math.max(0,viewportHeight-cardBottom);
+        gesture.skillBaseY=Math.max(0,viewportHeight-skillPeekHeight(viewportHeight,gap));
         gesture.skillPreviewY=gesture.skillBaseY;
         setStackOrder(items,index);
       }
