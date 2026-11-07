@@ -791,6 +791,10 @@ html,body,a,button,[role="button"],.interactive-card{cursor:default!important}
 }
 </style><link rel="stylesheet" href="assets/home-hero-redesign.css"><link rel="stylesheet" href="assets/project-card-outcomes.css"><link rel="stylesheet" href="assets/outreach-personalized.css"><link rel="stylesheet" href="assets/connect-pages.css"><link rel="stylesheet" href="assets/content-showcase.css"><link rel="stylesheet" href="assets/conclusion-page.css?v=20260924-10"><link rel="stylesheet" href="assets/conclusion-v2.css?v=20260924-4"><link rel="stylesheet" href="assets/creator-marketing-details.css"><link rel="stylesheet" href="assets/nikke-case.css"><link rel="stylesheet" href="assets/portfolio-script-typography.css?v=20261107-times-yumincho"><link rel="stylesheet" href="assets/portfolio-i18n.css"><style id="compact-works-content-stepper">
 @media(max-width:1200px){
+  html.compact-wheel-exit-lock{
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
   #work.compact-stepper-active{
     display:flex!important;
     flex-direction:column!important;
@@ -1205,10 +1209,12 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new I
   let wheelExitLock=false,wheelExitTimer=0;
   const armWheelExitLock=()=>{
     wheelExitLock=true;
+    document.documentElement.classList.add('compact-wheel-exit-lock');
     clearTimeout(wheelExitTimer);
     wheelExitTimer=window.setTimeout(()=>{
       wheelExitLock=false;
       wheelExitTimer=0;
+      document.documentElement.classList.remove('compact-wheel-exit-lock');
     },wheelQuietMs);
   };
 
