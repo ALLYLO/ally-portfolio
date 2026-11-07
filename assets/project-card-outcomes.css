@@ -93,14 +93,16 @@
   .koc-outcome-metric strong{font-size:clamp(28px,2.4vw,36px)}
 }
 @media(max-width:560px){
-  .work .koc-performance{grid-template-columns:1fr;padding:10px 12px 12px}
-  .koc-outcome + .koc-outcome{margin:9px 0 0;padding:9px 0 0;border-left:0;border-top:1px solid #3b32284a}
-  .koc-outcome-heading{flex-wrap:wrap;gap:3px 9px;font-size:13px}
-  .koc-outcome-metric{padding:0 6px}
-  .koc-outcome-metric strong{font-size:clamp(21px,6vw,29px)}
-  .koc-outcome-metric > span{font-size:13px;overflow-wrap:break-word}
-  .koc-outcome-metric > small{font-size:12px;overflow-wrap:break-word}
-  .koc-outcome--reverse .koc-outcome-metric:last-child strong{font-size:17px}
+  .work .koc-performance{grid-template-columns:1fr;padding:8px 10px 9px}
+  .koc-outcome + .koc-outcome{margin:7px 0 0;padding:7px 0 0;border-left:0;border-top:1px solid #3b32284a}
+  .koc-outcome-heading{flex-wrap:nowrap;gap:8px;margin-bottom:6px;font-size:11px}
+  .koc-outcome-grid{align-items:start}
+  .koc-outcome-metric{padding:0 5px}
+  .koc-outcome-metric strong{font-size:clamp(20px,5.5vw,27px);line-height:.9}
+  .koc-outcome-metric > span{margin-top:3px;font-size:10px;line-height:1.15;overflow-wrap:normal}
+  /* This secondary proof point adds two extra lines in the narrow third column. */
+  .koc-outcome-metric > small{display:none}
+  .koc-outcome--reverse .koc-outcome-metric:last-child strong{font-size:15px}
 }
 
 /* WORKS project titles already contain a single intentional <br>.
@@ -158,10 +160,8 @@ html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw
   }
 }
 
-/* Mobile WORKS: the inline renderer now nests the project cards inside
-   .work-pair. Restore the positioning/flex context that the old direct-child
-   selector no longer matches. Absolute category captions must stay anchored
-   to their own project rather than escaping into the hero viewport. */
+/* Mobile WORKS: keep the KOC role label in the flow below its taller,
+   stacked results card instead of pinning it over the results panel. */
 @media (max-width: 760px) {
   .work #more-work .work-pair > .project {
     position: relative;
@@ -170,9 +170,18 @@ html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw
     flex-direction: column;
     min-width: 0;
   }
-  .work .project-caption > span {
-    font-size: 13px;
-    line-height: 1.45;
+  .work #koc .project-caption {
+    position: static;
+    max-width: 100%;
+    margin: 0;
+    padding: 8px 0 0;
+    text-align: left;
+  }
+  .work #koc .project-caption > span {
+    margin: 0;
+    font-size: clamp(8px, 2.2vw, 9px);
+    line-height: 1.3;
+    white-space: nowrap;
   }
 }
 
@@ -190,16 +199,6 @@ html[lang="zh-CN"] .work #nikke .project-head h3 { font-size: clamp(22px, 2.75vw
     overflow-wrap: break-word;
     font-size: clamp(19px, 5.9vw, 24px);
     line-height: 1.16;
-  }
-  html[lang="zh-CN"] .work :is(#koc, #nikke) .project-caption {
-    position: static;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    max-width: 100%;
-    padding-top: 6px;
-    text-align: left;
   }
 }
 
