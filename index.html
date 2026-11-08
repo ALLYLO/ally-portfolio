@@ -804,7 +804,7 @@ function openCase(key){
 }
 document.addEventListener('click',e=>{
   const explore=e.target.closest('[data-mobile-explore]');
-  if(explore){dialog.classList.add('cm-explore-open');explore.setAttribute('aria-expanded','true');dialog.scrollTop=0;return}
+  if(explore){dialog.classList.add('cm-explore-open');explore.setAttribute('aria-expanded','true');dialog.scrollTop=0;const embed=dialog.querySelector('.creator-universe-embed');if(embed)requestAnimationFrame(()=>{embed.src=embed.src});return}
   const exploreClose=e.target.closest('[data-mobile-explore-close]');
   if(exploreClose){dialog.classList.remove('cm-explore-open');document.querySelector('[data-mobile-explore]')?.setAttribute('aria-expanded','false');dialog.scrollTop=0;return}
   const screening=e.target.closest('[data-screening-step]');
