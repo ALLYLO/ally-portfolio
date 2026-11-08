@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Creator Screening Motion Prototype</title>
-  <link rel="stylesheet" href="prototype-v2.css?v=20261108-mobile-2">
+  <link rel="stylesheet" href="prototype-v2.css?v=20261108-mobile-3">
   <link rel="stylesheet" href="../../assets/portfolio-script-typography.css">
   <script>if(new URLSearchParams(location.search).get('embed')==='portfolio')document.documentElement.classList.add('portfolio-embed')</script>
 </head>
@@ -15,7 +15,7 @@
       <p class="disclosure">ANONYMIZED SAMPLE<br>ILLUSTRATIVE SCREENING FLOW</p>
     </header>
     <section class="viewport" aria-label="Interactive creator screening visualization">
-      <canvas id="universe"></canvas>
+      <canvas id="universe" role="button" tabindex="0" aria-label="Tap a creator dot to open its profile"></canvas>
       <div class="data-grid" aria-hidden="true"></div>
       <aside class="screening-readout" aria-live="polite">
         <span id="readout-kicker">SCREENING STATUS</span>
@@ -24,8 +24,9 @@
         <div class="readout-counts"><div id="metric-pass"><b id="count-pass">—</b><small>CONFIRMED</small></div><div id="metric-unknown"><b id="count-unknown">28</b><small id="count-unknown-label">IN SAMPLE</small></div><div id="metric-fail"><b id="count-fail">0</b><small>FILTERED</small></div></div>
         <em id="readout-sample">28-RECORD ANONYMIZED SAMPLE</em>
       </aside>
-      <aside class="creator-profile" aria-live="polite">
-        <div class="profile-top"><span>CREATOR PROFILE</span><b id="profile-index">01 / 28</b></div>
+      <button class="profile-mask" type="button" aria-label="Close creator profile" hidden></button>
+      <aside class="creator-profile" aria-live="polite" aria-label="Creator profile">
+        <div class="profile-top"><span>CREATOR PROFILE</span><b id="profile-index">01 / 28</b><button class="profile-close" type="button" aria-label="Close creator profile">×</button></div>
         <div class="profile-identity">
           <div class="profile-orb"><i></i></div>
           <div><strong id="profile-id">CREATOR C01</strong><small id="profile-meta">YOUTUBE · JAPAN<br>50.3K FOLLOWERS · 70K AVG. VIEWS</small></div>
