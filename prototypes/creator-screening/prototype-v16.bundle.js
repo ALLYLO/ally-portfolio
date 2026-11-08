@@ -63,7 +63,7 @@ function closeProfileSheet(){profileSheet.classList.remove('is-open');profileShe
 function openProfileSheet(index){selectedCreator=index;renderProfile();profileSheet.inert=false;profileSheet.setAttribute('aria-hidden','false');profileMask.hidden=false;profileSheet.classList.add('is-open');try{window.frameElement?.classList.add('sheet-open')}catch(e){}}
 profileMask.addEventListener('click',closeProfileSheet);
 document.querySelector('.profile-close').addEventListener('click',closeProfileSheet);
-if(mobileSheet())closeProfileSheet();
+if(mobileSheet()){document.body.append(profileMask,profileSheet);closeProfileSheet()}
 canvas.addEventListener('click',e=>{if(!mobileSheet())return;const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const points=dataScreenPositions(performance.now()/1000);let nearest=-1,dist=38;points.forEach((p,i)=>{const d=Math.hypot(x-p.x,y-p.y);if(p.visible&&d<dist){nearest=i;dist=d}});if(nearest>=0)openProfileSheet(nearest)});
 canvas.addEventListener('keydown',e=>{if(!mobileSheet()||!['Enter',' '].includes(e.key))return;e.preventDefault();openProfileSheet(selectedCreator)});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileSheet())closeProfileSheet()});
