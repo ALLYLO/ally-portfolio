@@ -59,8 +59,8 @@ const pointer={x:-999,y:-999};
 const profileSheet=document.querySelector('.creator-profile');
 const profileMask=document.querySelector('.profile-mask');
 const mobileSheet=()=>document.documentElement.classList.contains('portfolio-embed')&&matchMedia('(max-width:720px)').matches;
-function closeProfileSheet(){profileSheet.classList.remove('is-open');profileSheet.setAttribute('aria-hidden','true');profileMask.hidden=true;profileSheet.inert=true}
-function openProfileSheet(index){selectedCreator=index;renderProfile();profileSheet.inert=false;profileSheet.setAttribute('aria-hidden','false');profileMask.hidden=false;profileSheet.classList.add('is-open')}
+function closeProfileSheet(){profileSheet.classList.remove('is-open');profileSheet.setAttribute('aria-hidden','true');profileMask.hidden=true;profileSheet.inert=true;window.frameElement?.classList.remove('sheet-open')}
+function openProfileSheet(index){selectedCreator=index;renderProfile();profileSheet.inert=false;profileSheet.setAttribute('aria-hidden','false');profileMask.hidden=false;window.frameElement?.classList.add('sheet-open');profileSheet.classList.add('is-open')}
 profileMask.addEventListener('click',closeProfileSheet);
 document.querySelector('.profile-close').addEventListener('click',closeProfileSheet);
 if(mobileSheet())closeProfileSheet();
@@ -277,4 +277,4 @@ function render(now){
   window.prototypeReady=true;viewport.dataset.ready='true';requestAnimationFrame(render);
 }
 function format(v){if(v===null||v===undefined)return '—';return v>=1000000?`${(v/1000000).toFixed(2)}M`:v>=1000?`${(v/1000).toFixed(v<10000?1:0)}K`:String(v)}
-requestAnimationFrame(render);
+render(performance.now());
