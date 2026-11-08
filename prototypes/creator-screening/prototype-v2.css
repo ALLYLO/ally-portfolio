@@ -161,16 +161,16 @@ html.portfolio-embed .profile-verdict>i{width:16px;height:16px;flex-basis:16px}
     grid-template-rows:minmax(0,1fr) auto;
   }
   html.portfolio-embed .viewport{
-    display:grid;grid-template-rows:210px minmax(0,1fr);
+    display:grid;grid-template-rows:160px auto minmax(0,1fr);
     gap:7px;min-height:0;overflow:hidden;border:0;
   }
   html.portfolio-embed canvas{
-    top:0;right:0;bottom:auto;left:0;width:100%;height:210px;
+    top:0;right:0;bottom:auto;left:0;width:100%;height:160px;
     border:1px solid var(--line);
   }
   html.portfolio-embed .screening-readout{
-    position:relative;grid-row:1;align-self:end;z-index:3;
-    inset:auto;width:auto;max-height:none;margin:0 7px 7px;
+    position:relative;grid-row:2;align-self:stretch;z-index:3;
+    inset:auto;width:auto;max-height:none;margin:0;
     padding:10px 12px;overflow:visible;
     background:#090b09ec;backdrop-filter:none;
   }
@@ -188,7 +188,7 @@ html.portfolio-embed .profile-verdict>i{width:16px;height:16px;flex-basis:16px}
   html.portfolio-embed .readout-counts b{font-size:25px}
   html.portfolio-embed .readout-counts small{font-size:8px}
   html.portfolio-embed .creator-profile{
-    position:relative;grid-row:2;display:block;
+    position:relative;grid-row:3;display:block;
     inset:auto;width:100%;max-height:none;min-height:0;
     margin:0;padding:13px 14px;overflow:auto;
     box-shadow:none;
