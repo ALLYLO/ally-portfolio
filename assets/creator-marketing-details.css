@@ -257,3 +257,17 @@
   }
   .case-layout--creator .cm-case-details{padding-bottom:calc(95px + env(safe-area-inset-bottom))}
 }
+
+@media (max-width:760px){
+  .case-layout--creator .case-canvas--interactive{
+    height:calc(50dvh + 124px);
+  }
+  .case-layout--creator .cm-view{padding-bottom:0}
+  .case-layout--creator .creator-universe-embed{
+    flex:0 0 100dvh;height:100dvh;
+  }
+  .case-layout--creator .creator-universe-embed.sheet-open{
+    position:fixed;z-index:60;inset:0;width:100vw;height:100dvh;
+    border:0;background:#080a08;
+  }
+}
