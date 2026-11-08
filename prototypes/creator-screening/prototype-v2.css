@@ -228,9 +228,11 @@ html.portfolio-embed .profile-verdict>i{width:16px;height:16px;flex-basis:16px}
     visibility:hidden;transform:translateY(105%);
     transition:transform .3s cubic-bezier(.22,1,.36,1),visibility .3s;
   }
-  html.portfolio-embed .creator-profile.is-open{
-    visibility:visible;transform:translateY(0);
+  html.portfolio-embed .creator-profile{
+    display:none!important;visibility:visible!important;transform:none!important;
+    transition:none!important;
   }
+  html.portfolio-embed .creator-profile.is-open{display:block!important}
   html.portfolio-embed .profile-top{
     position:relative;align-items:center;padding:0 38px 14px 0;
     font-size:11px;
