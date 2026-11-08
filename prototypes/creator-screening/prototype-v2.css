@@ -153,75 +153,103 @@ html.portfolio-embed .profile-verdict>i{width:16px;height:16px;flex-basis:16px}
   html.portfolio-embed .viewport{border-bottom:0}
 }
 
-/* Portfolio iframe at phone widths: keep the universe visible and give its
-   readout and creator card separate, readable space. */
+/* Narrow embedded screening: star map, compact status, swipeable stages, on-demand sheet. */
+.profile-mask,.profile-close{display:none}
 @media (max-width:720px){
+  html.portfolio-embed,
+  html.portfolio-embed body{height:100%;overflow:hidden}
   html.portfolio-embed .prototype-shell{
-    height:100vh;min-height:0;padding:7px;gap:6px;
-    grid-template-rows:minmax(0,1fr) auto;
+    display:grid;grid-template-rows:50dvh auto minmax(0,1fr);
+    height:100dvh;min-height:0;padding:0;gap:0;
   }
   html.portfolio-embed .viewport{
-    display:grid;grid-template-rows:160px auto minmax(0,1fr);
-    gap:7px;min-height:0;overflow:hidden;border:0;
+    display:block;position:relative;width:100%;height:50dvh;min-height:0;
+    overflow:hidden;border:0;background:#080a08;
   }
   html.portfolio-embed canvas{
-    top:0;right:0;bottom:auto;left:0;width:100%;height:160px;
-    border:1px solid var(--line);
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+    touch-action:manipulation;cursor:crosshair;
   }
   html.portfolio-embed .screening-readout{
-    position:relative;grid-row:2;align-self:stretch;z-index:3;
-    inset:auto;width:auto;max-height:none;margin:0;
-    padding:10px 12px;overflow:visible;
-    background:#090b09ec;backdrop-filter:none;
+    position:absolute;z-index:4;top:12px;left:12px;right:auto;bottom:auto;
+    display:flex;align-items:center;gap:7px;width:max-content;max-width:calc(100% - 24px);
+    height:auto;margin:0;padding:8px 11px;border:1px solid #eff1e449;
+    border-radius:999px;background:#080a08b8;backdrop-filter:blur(10px);
+    opacity:1;transform:none;overflow:hidden;pointer-events:none;
   }
-  html.portfolio-embed .screening-readout>span,
-  html.portfolio-embed .screening-readout em{font-size:9px}
+  html.portfolio-embed .screening-readout>span{
+    font-size:8px;line-height:1;color:#c3f85c;white-space:nowrap;
+  }
   html.portfolio-embed .screening-readout h2{
-    font-size:21px;line-height:1;margin:5px 0 6px;
+    margin:0;font-size:10px;line-height:1;letter-spacing:.02em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  html.portfolio-embed .screening-readout>p{
-    display:block;font-size:10px;line-height:1.35;margin:0 0 7px;
+  html.portfolio-embed .screening-readout>p,
+  html.portfolio-embed .screening-readout .readout-counts,
+  html.portfolio-embed .screening-readout em{display:none}
+  html.portfolio-embed .stage-3 .screening-readout,
+  html.portfolio-embed .stage-4 .screening-readout,
+  html.portfolio-embed .stage-5 .screening-readout{transform:none}
+  html.portfolio-embed footer{
+    display:block;min-height:0;padding:0;border-top:1px solid var(--line);
+    background:#0c0f0b;overflow:hidden;
   }
-  html.portfolio-embed .readout-counts{
-    display:flex;gap:10px;margin:0 0 6px;padding:7px 0;
-  }
-  html.portfolio-embed .readout-counts b{font-size:25px}
-  html.portfolio-embed .readout-counts small{font-size:8px}
-  html.portfolio-embed .creator-profile{
-    position:relative;grid-row:3;display:block;
-    inset:auto;width:100%;max-height:none;min-height:0;
-    margin:0;padding:13px 14px;overflow:auto;
-    box-shadow:none;
-  }
-  html.portfolio-embed .profile-top,
-  html.portfolio-embed .profile-heading>span,
-  html.portfolio-embed .profile-heading>b{font-size:10px}
-  html.portfolio-embed .profile-identity{
-    grid-template-columns:42px minmax(0,1fr);
-    gap:10px;padding-right:42px;
-  }
-  html.portfolio-embed .profile-identity strong{font-size:17px}
-  html.portfolio-embed .profile-identity small{font-size:10px}
-  html.portfolio-embed .profile-arrows button{
-    width:22px;height:28px;font-size:20px;
-  }
-  html.portfolio-embed .profile-heading h2{font-size:24px}
-  html.portfolio-embed .criterion{font-size:12px}
-  html.portfolio-embed .criterion small{
-    max-width:100px;font-size:10px;
-  }
-  html.portfolio-embed .legend{display:none}
-  html.portfolio-embed footer{padding:0;min-height:0}
   html.portfolio-embed .stages{
-    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:0;overflow:visible;scroll-snap-type:none;
+    display:flex;flex-wrap:nowrap;gap:0;width:100%;overflow-x:auto;
+    overflow-y:hidden;overscroll-behavior-x:contain;
+    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   }
+  html.portfolio-embed .stages::-webkit-scrollbar{display:none}
   html.portfolio-embed .stages button{
-    min-height:45px;padding:6px 6px 5px;
-    font-size:10px;line-height:1.15;white-space:normal;
+    flex:0 0 86px;min-width:86px;min-height:59px;
+    padding:9px 8px 7px;text-align:left;white-space:nowrap;
+    border-right:1px solid var(--line);scroll-snap-align:start;
+    font-size:10px;line-height:1.2;
   }
-  html.portfolio-embed .stages button:nth-child(n+4){
-    border-top:1px solid var(--line);
+  html.portfolio-embed .stages button:nth-child(n+4){border-top:0}
+  html.portfolio-embed .stages small{display:block;font-size:9px}
+  html.portfolio-embed .stages button::before{top:3px;left:7px}
+  html.portfolio-embed .actions{display:none}
+  html.portfolio-embed .legend{display:none}
+  html.portfolio-embed .tooltip,
+  html.portfolio-embed .selection-line,
+  html.portfolio-embed .selection-target{display:none!important}
+  html.portfolio-embed .profile-mask:not([hidden]){
+    position:fixed;z-index:30;inset:0;display:block;width:100%;height:100%;
+    border:0;background:#0009;backdrop-filter:blur(2px);
   }
-  html.portfolio-embed .stages small{font-size:8px}
+  html.portfolio-embed .creator-profile{
+    position:fixed;z-index:31;left:0;right:0;top:auto;bottom:0;
+    display:block;width:100%;max-height:min(74dvh,660px);min-height:0;
+    margin:0;padding:20px 18px calc(26px + env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;border-radius:18px 18px 0 0;
+    background:#f1eadf;box-shadow:0 -14px 44px #0009;
+    visibility:hidden;transform:translateY(105%);
+    transition:transform .3s cubic-bezier(.22,1,.36,1),visibility .3s;
+  }
+  html.portfolio-embed .creator-profile.is-open{
+    visibility:visible;transform:translateY(0);
+  }
+  html.portfolio-embed .profile-top{
+    position:relative;align-items:center;padding:0 38px 14px 0;
+    font-size:11px;
+  }
+  html.portfolio-embed .profile-close{
+    position:absolute;right:0;top:-6px;display:grid;place-items:center;
+    width:32px;height:32px;padding:0;border:0;background:transparent;
+    color:#171a16;font-size:27px;line-height:1;
+  }
+  html.portfolio-embed .profile-identity{
+    grid-template-columns:46px minmax(0,1fr);padding-right:50px;
+  }
+  html.portfolio-embed .profile-identity strong{font-size:18px}
+  html.portfolio-embed .profile-identity small{font-size:11px}
+  html.portfolio-embed .profile-arrows button{width:25px;height:32px;font-size:22px}
+  html.portfolio-embed .profile-heading h2{font-size:25px}
+  html.portfolio-embed .criterion{font-size:13px}
+  html.portfolio-embed .criterion small{font-size:11px;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html.portfolio-embed .creator-profile{transition:none}
 }
