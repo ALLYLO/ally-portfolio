@@ -253,3 +253,9 @@ html.portfolio-embed .profile-verdict>i{width:16px;height:16px;flex-basis:16px}
 @media (prefers-reduced-motion:reduce){
   html.portfolio-embed .creator-profile{transition:none}
 }
+
+@media (max-width:720px){
+  html.portfolio-embed .stages button{
+    flex-basis:116px;min-width:116px;font-size:9px;
+  }
+}
