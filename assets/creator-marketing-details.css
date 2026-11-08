@@ -271,3 +271,16 @@
     border:0;background:#080a08;
   }
 }
+
+@media (max-width:760px){
+  .case-layout--creator .case-canvas--interactive{
+    height:calc(50vh + 124px)!important;
+    min-height:0!important;
+    max-height:calc(50vh + 124px)!important;
+  }
+  .case-layout--creator .creator-marketing-showcase,
+  .case-layout--creator .cm-stage{max-height:100%;overflow:hidden}
+  .case-layout--creator .creator-universe-embed.sheet-open{
+    max-height:none!important;
+  }
+}
