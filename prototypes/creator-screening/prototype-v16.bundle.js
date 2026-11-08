@@ -56,6 +56,17 @@ const particleCount=innerWidth<720?1400:2300;
 let stage=Math.max(0,Math.min(5,Number(new URLSearchParams(location.search).get('stage')||0)));
 let displayStage=stage,playToken=0,hovered=-1,selectedCreator=0,lastTime=performance.now(),fpsFrames=0,fpsStart=lastTime;
 const pointer={x:-999,y:-999};
+const profileSheet=document.querySelector('.creator-profile');
+const profileMask=document.querySelector('.profile-mask');
+const mobileSheet=()=>document.documentElement.classList.contains('portfolio-embed')&&matchMedia('(max-width:720px)').matches;
+function closeProfileSheet(){profileSheet.classList.remove('is-open');profileSheet.setAttribute('aria-hidden','true');profileMask.hidden=true;profileSheet.inert=true}
+function openProfileSheet(index){selectedCreator=index;renderProfile();profileSheet.inert=false;profileSheet.setAttribute('aria-hidden','false');profileMask.hidden=false;profileSheet.classList.add('is-open')}
+profileMask.addEventListener('click',closeProfileSheet);
+document.querySelector('.profile-close').addEventListener('click',closeProfileSheet);
+if(mobileSheet())closeProfileSheet();
+canvas.addEventListener('click',e=>{if(!mobileSheet())return;const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const points=dataScreenPositions(performance.now()/1000);let nearest=-1,dist=38;points.forEach((p,i)=>{const d=Math.hypot(x-p.x,y-p.y);if(p.visible&&d<dist){nearest=i;dist=d}});if(nearest>=0)openProfileSheet(nearest)});
+canvas.addEventListener('keydown',e=>{if(!mobileSheet()||!['Enter',' '].includes(e.key))return;e.preventDefault();openProfileSheet(selectedCreator)});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileSheet())closeProfileSheet()});
 
 nav.innerHTML=STAGES.map(([n,label],i)=>`<button data-stage="${i}" aria-label="Stage ${n}: ${label}"><small>${n}</small>${label}</button>`).join('');
 nav.addEventListener('click',e=>{const button=e.target.closest('[data-stage]');if(button)setStage(Number(button.dataset.stage));});
@@ -260,7 +271,7 @@ function render(now){
   const points=dataScreenPositions(time);let nearest=-1,bestScore=Infinity;
   points.forEach((p,i)=>{const state=creatorState(creators[i],stage);if(!p.visible||state==='hidden')return;const pending=state==='unknown'||state==='unassessed',radius=48,d=Math.hypot(pointer.x-p.x,pointer.y-p.y);if(d<=radius){const priority=0.0,score=d/radius+priority;if(score<bestScore){bestScore=score;nearest=i}}});
   if(hovered>=0&&nearest<0){const p=points[hovered],state=creatorState(creators[hovered],stage),hold=64;if(Math.hypot(pointer.x-p.x,pointer.y-p.y)<=hold)nearest=hovered}
-  if(nearest!==hovered){hovered=nearest;if(nearest<0){tooltip.className='tooltip';selectionTarget.className='selection-target';selectionLine.className='selection-line'}else{selectedCreator=nearest;renderProfile();const c=creators[nearest],s=creatorState(c,stage),visualState=stage===0?'unassessed':s;tooltip.innerHTML=`<b>CREATOR ${c.id}</b>FOLLOWERS&nbsp;&nbsp;${format(c.followers)}<br>AVG. VIEWS&nbsp;&nbsp;${format(c.avgViews)}<br><span>STATUS&nbsp;&nbsp;${s==='passed'?'CONFIRMED':s==='failed'?'FILTERED':stage===0?'IN SAMPLE':'PENDING REVIEW'}</span>`;tooltip.className=`tooltip visible ${visualState}`;selectionTarget.className=`selection-target visible ${visualState}`;selectionLine.className=`selection-line visible ${visualState}`}}
+  if(nearest!==hovered){hovered=nearest;if(nearest<0){tooltip.className='tooltip';selectionTarget.className='selection-target';selectionLine.className='selection-line'}else{if(!mobileSheet()){selectedCreator=nearest;renderProfile()}const c=creators[nearest],s=creatorState(c,stage),visualState=stage===0?'unassessed':s;tooltip.innerHTML=`<b>CREATOR ${c.id}</b>FOLLOWERS&nbsp;&nbsp;${format(c.followers)}<br>AVG. VIEWS&nbsp;&nbsp;${format(c.avgViews)}<br><span>STATUS&nbsp;&nbsp;${s==='passed'?'CONFIRMED':s==='failed'?'FILTERED':stage===0?'IN SAMPLE':'PENDING REVIEW'}</span>`;tooltip.className=`tooltip visible ${visualState}`;selectionTarget.className=`selection-target visible ${visualState}`;selectionLine.className=`selection-line visible ${visualState}`}}
   if(nearest>=0){const p=points[nearest],cardW=154,cardH=76,gap=58;let left=p.x<rect.width/2?Math.min(rect.width-cardW-12,p.x+gap):Math.max(12,p.x-gap-cardW);let top=Math.max(12,Math.min(rect.height-cardH-12,p.y-cardH/2));tooltip.style.left=`${left}px`;tooltip.style.top=`${top}px`;selectionTarget.style.left=`${p.x}px`;selectionTarget.style.top=`${p.y}px`;const endX=left>p.x?left:left+cardW,endY=top+cardH/2,dx=endX-p.x,dy=endY-p.y;selectionLine.style.left=`${p.x}px`;selectionLine.style.top=`${p.y}px`;selectionLine.style.width=`${Math.max(0,Math.hypot(dx,dy)-23)}px`;selectionLine.style.transform=`rotate(${Math.atan2(dy,dx)}rad)`}
   fpsFrames++;if(now-fpsStart>1000){const fps=Math.round(fpsFrames*1000/(now-fpsStart));window.prototypeFPS=fps;viewport.dataset.fps=String(fps);fpsFrames=0;fpsStart=now}
   window.prototypeReady=true;viewport.dataset.ready='true';requestAnimationFrame(render);
